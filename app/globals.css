@@ -1,26 +1,268 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* تنظیمات اولیه */
+:root {
+  --color-primary: #7FB280;
+  --color-gold: #D4AF37;
+  --color-background: #ffffff;
+  --color-foreground: #1a1a1a;
+}
+
+* {
+  font-family: "Vazir", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html {
+  font-family: "Vazir", -apple-system, BlinkMacSystemFont, sans-serif;
+
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: "Vazir", -apple-system, BlinkMacSystemFont, sans-serif;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  direction: rtl;
+  text-align: right;
+}
+
+/* مخفی کردن اسکرول‌بار */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* فونت وزیر */
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir/Vazir-Thin.woff2") format("woff2"),
+       url("/fonts/Vazir/Vazir-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir/Vazir-Light.woff2") format("woff2"),
+       url("/fonts/Vazir/Vazir-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir/Vazir.woff2") format("woff2"),
+       url("/fonts/Vazir/Vazir.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir/Vazir-Medium.woff2") format("woff2"),
+       url("/fonts/Vazir/Vazir-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir/Vazir-Bold.woff2") format("woff2"),
+       url("/fonts/Vazir/Vazir-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir/Vazir-Black.woff2") format("woff2"),
+       url("/fonts/Vazir/Vazir-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* فونت بریکولاژ برای متون انگلیسی (در صورت نیاز) */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/fonts/bricolage/BricolageGrotesque-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/fonts/bricolage/BricolageGrotesque-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* اعمال فونت فارسی به همه المان‌ها */
+body,
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, button,
+input, textarea, select,
+label, li, td, th {
+  font-family: "Vazir", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  direction: rtl;
+}
+
+.font-fa {
+  font-family: "Vazir", sans-serif !important;
+  direction: rtl;
+}
+
+.font-en {
+  font-family: "Bricolage Grotesque", -apple-system, sans-serif !important;
+  direction: ltr;
+}
+
+.mixed-font {
+  font-family: "Vazir", "Bricolage Grotesque", sans-serif;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.bg-gold {
+  background-color: var(--color-gold);
+}
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.border-gold {
+  border-color: var(--color-gold);
+}
+
+/* گرادیانت‌های سفارشی */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #6a9c6b 100%);
+}
+
+.bg-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%);
+}
+
+.bg-gradient-primary-gold {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-gold) 100%);
+}
+
+/* دکمه‌های سفارشی */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #6a9c6b 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(127, 178, 128, 0.3);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%);
+  color: #1a1a1a;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* بهینه‌سازی برای اعداد فارسی */
+.persian-numbers {
+  font-feature-settings: "ss02" 1;
+}
+
+/* رفع مشکل RTL در Tailwind */
+[dir="rtl"] .translate-x-1 {
+  transform: translateX(-0.25rem);
+}
+
+[dir="rtl"] .-translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+/* تنظیمات انیمیشن */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* تنظیمات ریسپانسیو */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.shadow-primary {
+  box-shadow: 0 10px 30px rgba(127, 178, 128, 0.2);
+}
+
+.shadow-gold {
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+/* هاور افکت‌ها */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
