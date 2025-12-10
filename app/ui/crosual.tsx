@@ -36,23 +36,7 @@ export function CarouselCardSmooth() {
       desc: "شکلات تلخ 85% کاکائو",
       link: "/products/choco" 
     },
-    ,
-    { 
-            img: "/images/raisin.webp", 
-
-      title: "شکلات تلخ", 
-      price: "225,0000",
-      desc: "شکلات تلخ 85% کاکائو",
-      link: "/products/choco" 
-    },
-    { 
-            img: "/images/raisin.webp", 
-
-      title: "شکلات تلخ", 
-      price: "225,000",
-      desc: "شکلات تلخ 85% کاکائو",
-      link: "/products/choco" 
-    },
+    
   ];
 
   const [current, setCurrent] = useState(0);
@@ -134,20 +118,19 @@ export function CarouselCardSmooth() {
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
+    <div className="relative w-full h-full flex mr-32 items-center justify-center ">
       {/* Container with perspective for 3D effect */}
-      <div className="relative h-[340px] w-full flex items-center justify-center" style={{ perspective: '1200px' }}>
+      <div className="relative h-[340px] w-full  flex items-center justify-center" style={{ perspective: '1000px' }}>
         {/* Slides */}
-        <div className="relative w-full max-w-[280px] h-full">
+        <div className="relative w-full max-w-[280px] h-full ">
           {slides.map((slide, index) => (
             <div
               key={index}
               style={getSlideStyle(index)}
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full"
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full "
             >
               <div className="w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
-                {/* Image Area */}
-                  {/* Decorative circles */}
+             
                   
        <OptimizedImage
              fill

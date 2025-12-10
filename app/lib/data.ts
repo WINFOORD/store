@@ -24,12 +24,10 @@ export type Product = {
     description: string;
     price: number;
     originalPrice?: number;
-    rating: number;
-    reviews: number;
     picture: string;
     tag?: string;
-    color: string;
-    category: 'nuts' | 'pistachio' | 'dried' | 'choco';
+    category: string[];
+    
 };
 
 export type CategoryKey = 'nuts' | 'pistachio' | 'dried' | 'choco';

@@ -8,6 +8,7 @@ import { BANNERS, Product, PRODUCTS } from '../lib/data';
 import { MagneticButton } from './MagneticButton';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, ShieldCheck, Sparkles, Truck } from 'lucide-react';
 import {  CarouselCardSmooth } from './crosual';
+import LuxuryShopCards from './ShopCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,11 +26,11 @@ function HeroBanner() {
     };
 
     return (
-        <section className="mt-16 relative overflow-hidden h-[400px] md:h-[500px] lg:h-[600px] rounded-b-[40px] shadow-2xl bg-white">
+        <section className="mt-16 relative overflow-hidden h-[400px] md:h-[500px] lg:h-[600px] rounded-b-[40px] shadow-2xl bg-orange-50">
             <div className="absolute inset-0 overflow-hidden">
                 <div ref={trackRef} className="flex h-full w-[300%] lg:w-[300%] transition-transform duration-700 ease-in-out">
                     {BANNERS.map((b, index) => (
-                        <div key={b.id} className="w-1/3 flex-shrink-0 relative">
+                        <div key={b.id} className="w-1/3 shrink relative">
                             <div className={`absolute inset-0 bg-linear-to-br ${b.linear} opacity-90`}></div>
                             <div className="relative z-10 p-8 md:p-12 lg:p-20 text-white flex flex-col justify-center h-full">
                                 <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold mb-4">{b.title}</h1>
@@ -63,7 +64,46 @@ export function HomeMain(){
     const [quickProduct, setQuickProduct] = useState<Product | null>(null);
     const [cartCount, setCartCount] = useState(2);
     const [cartTotal, setCartTotal] = useState(585000);
-
+        const products = [
+    {
+      image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
+      title: "Premium Cashew Nuts",
+      desc: "Fresh and high-quality cashew nuts",
+      price: "€13.00",
+      offPrice: "€15.00",
+      offer: true,
+      rating: 4.7,
+      reviews: 2338,
+    },
+    {
+      image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?w=800&q=80",
+      title: "Mixed Nuts Deluxe",
+      desc: "A perfect blend of premium nuts",
+      price: "€18.00",
+      offPrice: "€22.00",
+      offer: true,
+      rating: 4.9,
+      reviews: 1856,
+    },
+    {
+      image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
+      title: "Organic Almonds",
+      desc: "Certified organic raw almonds",
+      price: "€16.00",
+      rating: 4.8,
+      reviews: 2104,
+    },
+    {
+      image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?w=800&q=80",
+      title: "شکلات فرانسوی مخصوص",
+      desc: "دارای گواهینامه رسمی",
+      price: "2,100,000 تومان",
+      offPrice: " 2.400,000",
+      offer: true,
+      rating: 3,
+      reviews: 1523,
+    },
+  ];
 
     // Hooks for carousel
     useGsapCarousel(carouselRef, BANNERS.length);
@@ -209,13 +249,15 @@ export function HomeMain(){
                             d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
                         />
                     </svg>
+                    
                 </div>
-
                 
             </section>
+<HeroBanner />
+
+            <LuxuryShopCards/>
 
 
-           
         </div>
     )
 }
