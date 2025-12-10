@@ -10,6 +10,7 @@ import { MagneticButton } from './MagneticButton';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, ShieldCheck, Sparkles, Truck } from 'lucide-react';
 import { Marquee } from '../layout/Marquee';
 import { BackgroundBlobs } from '../layout/BackgroundBlobs';
+import { Carousel, Carousel3D, Carousel3DCard, Crusal } from './crosual';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,7 +34,7 @@ function HeroBanner() {
                 <div ref={trackRef} className="flex h-full w-[300%] lg:w-[300%] transition-transform duration-700 ease-in-out">
                     {BANNERS.map((b, index) => (
                         <div key={b.id} className="w-1/3 flex-shrink-0 relative">
-                            <div className={`absolute inset-0 bg-gradient-to-br ${b.gradient} opacity-90`}></div>
+                            <div className={`absolute inset-0 bg-linear-to-br ${b.linear} opacity-90`}></div>
                             <div className="relative z-10 p-8 md:p-12 lg:p-20 text-white flex flex-col justify-center h-full">
                                 <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold mb-4">{b.title}</h1>
                                 <p className="text-lg md:text-2xl mb-8 max-w-xl">{b.subtitle}</p>
@@ -130,12 +131,20 @@ export function HomeMain(){
     return (
         <div className="overflow-hidden">
             {/* <Header /> */}
-            <Marquee />
+          
             <section
                 ref={heroRef}
-                className="relative min-h-[92vh] bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-hidden pt-24"
+                className="relative min-h-[84vh] bg-linear-to-br from-amber-50 via-orange-50 to-rose-50 overflow-hidden "
             >
-                <BackgroundBlobs />
+                 <div className="absolute -top-10 rotate-180 left-0 right-0">
+                    <svg viewBox="0 0 1440 120" className="w-full h-auto">
+                        <path
+                            fill="#ffffff"
+                            d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+                        />
+                    </svg>
+                </div>
+                
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center py-16">
                     {/* Content */}
                     <div className="space-y-7 z-10">
@@ -145,7 +154,7 @@ export function HomeMain(){
                         </div>
                         <h1 className="space-y-2">
                             <div className="hero-title-1 text-6xl lg:text-7xl font-black text-gray-900 leading-tight">طعم واقعی</div>
-                            <div className="hero-title-2 text-6xl lg:text-7xl font-black bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600 bg-clip-text text-transparent leading-tight">
+                            <div className="hero-title-2 text-6xl lg:text-7xl font-black bg-linear-to-r from-amber-600 via-orange-600 to-rose-600 bg-clip-text text-transparent leading-tight">
                                 لذت خالص
                             </div>
                         </h1>
@@ -154,7 +163,7 @@ export function HomeMain(){
                         </p>
                         <div className="hero-cta flex flex-wrap gap-4">
                             <Link href="/products">
-                                <MagneticButton className="group px-7 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl flex items-center gap-2">
+                                <MagneticButton className="group px-7 py-4 bg-linear-to-r from-amber-600 to-orange-600 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl flex items-center gap-2">
                                     شروع خرید
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </MagneticButton>
@@ -192,49 +201,8 @@ export function HomeMain(){
 
                     {/* Visuals */}
 
-
-                    <div className="relative">
-                        <div className="hero-carousel relative w-full h-[460px] rounded-3xl overflow-hidden shadow-2xl bg-white">
-                            {/* slider tracks */}
-                            <div
-                                className="absolute inset-0 flex transition-transform duration-700"
-
-                            >
-                                {[0, 1, 2, 3].map((i) => (
-                                    <div key={i} className="hero-carousel-item w-full flex-shrink-0 flex items-center justify-center p-8">
-                                        <div className="grid grid-cols-2 gap-6 items-center max-w-4xl w-full">
-                                            <div className="bg-gradient-to-br from-amber-200 to-orange-300 rounded-2xl p-8 shadow-xl">
-                                                <div className="text-7xl">🥜</div>
-                                                <div className="mt-4 text-2xl font-bold">پسته ویژه</div>
-                                                <div className="text-amber-700 mt-2">کیفیت ممتاز، بسته‌بندی هدیه</div>
-                                            </div>
-                                            <div className="relative">
-                                                <div className="bg-white rounded-2xl shadow-inner p-6">
-                                                    <h3 className="font-bold text-lg">پیشنهاد شگفت‌انگیز</h3>
-                                                    <p className="text-sm text-gray-600 mt-2">با تخفیف محدود</p>
-                                                    <div className="mt-4 flex gap-3 items-center">
-                                                        <button className="px-4 py-2 bg-amber-600 text-white rounded-md" >افزودن</button>
-                                                        <button className="px-4 py-2 border rounded-md">مشاهده</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* controls */}
-                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3">
-                                <button className="p-2 bg-white rounded-full shadow"><ChevronLeft className="w-5 h-5" /></button>
-                                {[0, 1, 2, 3].map(i => (
-                                    <button key={i} />
-                                ))}
-                                <button className="p-2 bg-white rounded-full shadow"><ChevronRight className="w-5 h-5" /></button>
-                            </div>
-                        </div>
-
-                     
-                    </div>
+                <Carousel3DCard/>
+           
                 </div>
 
                 {/* Wave */}

@@ -1,159 +1,439 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Lottie from 'lottie-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { gsap } from 'gsap';
 import {
-    ArrowRight, Search, ShoppingCart, Star, Sparkles, Heart, X, ChevronRight,
-    BadgePercent, Truck, ShieldCheck, Leaf, PackageOpen, Flame, HandPlatter, Cookie,
-    Menu, ChevronDown, Home, Gift, ListTree, Settings, User, LogIn, LogOut, Phone, MapPin, Info,
-    ChevronLeft
+  Menu, X, ChevronDown, ShoppingCart, Search, Sparkles, Gift, Boxes,
+  Leaf, Flame, BadgePercent, Truck, Heart, Nut, Candy, PackageOpen,
+  Moon, Sun, Globe, MapPin
 } from 'lucide-react';
-import { BANNERS, CATEGORIES, SPARKLE_LOTTIE } from '../lib/data';
 
-export function Header() {
-    const [open, setOpen] = useState(false);
-    const [hoverTab, setHoverTab] = useState<'categories' | 'gifts' | 'about' | null>(null);
+/**
+ * HeaderNuts — هدر مدرن و لوکس با دراپ‌دان مگامنو برای فروشگاه خشکبار
+ * ویژگی‌ها:
+ * - حالت دارک/لایت
+ * - انتخابگر زبان (فارسی، عربی، انگلیسی)
+ * - انیمیشن‌های GSAP و Framer Motion
+ * - طراحی مینیمال و لوکس
+ * - لوگو و برند حرفه‌ای
+ */
 
-    return (
-        <header className="fixed top-0 left-0 right-0 z-[90] bg-white/80 backdrop-blur-md border-b border-amber-100">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2">
-                    <Lottie animationData={SPARKLE_LOTTIE} loop className="w-6 h-6" />
-                    <span className="font-extrabold text-gray-900">خشکبارستان</span>
-                </Link>
+export  function HeaderNuts() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openMega, setOpenMega] = useState<null | 'products' | 'resources' | 'integrations'>(null);
+  const [darkMode, setDarkMode] = useState(true);
+  const [language, setLanguage] = useState<'fa' | 'ar' | 'en'>('fa');
+  const [showLangMenu, setShowLangMenu] = useState(false);
+  const megaRef = useRef<HTMLDivElement>(null);
 
-                <nav className="hidden lg:flex items-center gap-6 text-gray-800">
-                    {/* ... (Mega Menu logic for Categories and Gifts - using CATEGORIES and BANNERS imports) ... */}
-                    <div
-                        className="relative"
-                        onMouseEnter={() => setHoverTab('categories')}
-                        onMouseLeave={() => setHoverTab(null)}
-                    >
-                        <button className="inline-flex items-center gap-1 font-medium">
-                            دسته‌بندی‌ها <ChevronDown className="w-4 h-4" />
-                        </button>
-                        <AnimatePresence>
-                            {hoverTab === 'categories' && (
-                                <motion.div
-                                    className="absolute left-0 mt-3 w-[720px] rounded-2xl bg-white shadow-2xl border border-gray-100 p-6 grid grid-cols-3 gap-6"
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 8 }}
-                                >
-                                    {CATEGORIES.map((c) => (
-                                        <Link href={`/products?c=${c.key}`} key={c.key} className="group">
-                                            <div className={`rounded-xl bg-gradient-to-br ${c.color} p-6 mb-3`}>
-                                                <div className="text-4xl">{c.emoji}</div>
-                                            </div>
-                                            <div className="font-bold text-gray-900 group-hover:text-amber-800">{c.title}</div>
-                                            <div className="text-xs text-gray-600">مشاهده همه</div>
-                                        </Link>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
 
-                    <div
-                        className="relative"
-                        onMouseEnter={() => setHoverTab('gifts')}
-                        onMouseLeave={() => setHoverTab(null)}
-                    >
-                        <button className="inline-flex items-center gap-1 font-medium">
-                            پک‌های هدیه <ChevronDown className="w-4 h-4" />
-                        </button>
-                        <AnimatePresence>
-                            {hoverTab === 'gifts' && (
-                                <motion.div
-                                    className="absolute left-0 mt-3 w-[560px] rounded-2xl bg-white shadow-2xl border border-gray-100 p-6 grid grid-cols-2 gap-6"
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 8 }}
-                                >
-                                    {BANNERS.map((b) => (
-                                        <Link href={`/gifts?b=${b.id}`} key={b.id} className="group">
-                                            <div className={`rounded-xl bg-gradient-to-br ${b.gradient} p-6 mb-3`}>
-                                                <div className="text-4xl">{b.emoji}</div>
-                                            </div>
-                                            <div className="font-bold text-gray-900 group-hover:text-rose-700">{b.title}</div>
-                                            <div className="text-xs text-gray-600">{b.subtitle}</div>
-                                        </Link>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
+  useEffect(() => {
+    if (openMega && megaRef.current) {
+      gsap.fromTo(
+        megaRef.current.children,
+        { opacity: 0, y: 20, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.05, ease: 'power3.out' }
+      );
+    }
+  }, [openMega]);
 
-                    <Link href="/about" className="font-medium">درباره ما</Link>
-                    <Link href="/contact" className="font-medium">تماس با ما</Link>
-                </nav>
+  const languages = {
+    fa: { name: 'فارسی', flag: '🇮🇷' },
+    ar: { name: 'العربية', flag: '🇸🇦' },
+    en: { name: 'English', flag: '🇬🇧' }
+  };
 
-                <div className="flex items-center gap-3">
-                    <div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-100 text-gray-700">
-                        <Search className="w-4 h-4" />
-                        <input placeholder="جستجوی محصول..." className="bg-transparent outline-none text-sm w-48" />
-                    </div>
-                    <Link href="/cart" className="relative">
-                        <ShoppingCart className="w-6 h-6 text-gray-800" />
-                        <span className="absolute -top-2 -right-2 bg-rose-500 text-white text-xs px-2 py-0.5 rounded-full">2</span>
-                    </Link>
+  const texts = {
+    fa: {
+      search: 'جستجو در محصولات...',
+      products: 'محصولات',
+      resources: 'منابع',
+      integrations: 'ادغام‌ها',
+      pricing: 'قیمت‌گذاری',
+      cart: 'سبد',
+      login: 'ورود',
+      signup: 'ثبت‌نام',
+      brand: 'آجیل بابل'
+    },
+    ar: {
+      search: 'البحث في المنتجات...',
+      products: 'المنتجات',
+      resources: 'الموارد',
+      integrations: 'التكاملات',
+      pricing: 'التسعير',
+      cart: 'السلة',
+      login: 'دخول',
+      signup: 'تسجيل',
+      brand: 'المكسرات بابل'
+    },
+    en: {
+      search: 'Search products...',
+      products: 'Products',
+      resources: 'Resources',
+      integrations: 'Integrations',
+      pricing: 'Pricing',
+      cart: 'Cart',
+      login: 'Login',
+      signup: 'Sign up',
+      brand: 'Babel Nuts'
+    }
+  };
+
+  const t = texts[language];
+
+  const products = [
+    { title: 'آجیل و مغزها', icon: Nut, linear: 'from-amber-100 to-orange-200', href: '/products?c=nuts' },
+    { title: 'خشکبار ارگانیک', icon: Leaf, linear: 'from-emerald-100 to-emerald-300', href: '/products?c=dried' },
+    { title: 'شکلات و تنقلات', icon: Candy, linear: 'from-neutral-100 to-neutral-300', href: '/products?c=choco' },
+    { title: 'پک‌های هدیه', icon: Gift, linear: 'from-rose-100 to-pink-200', href: '/gifts' },
+    { title: 'پیشنهاد ویژه', icon: BadgePercent, linear: 'from-amber-100 to-rose-100', href: '/deals' },
+    { title: 'روست تازه روز', icon: Flame, linear: 'from-orange-100 to-amber-200', href: '/fresh-roast' },
+  ];
+
+  const resources = [
+    { title: 'راهنمای خرید آجیل', desc: 'انتخاب هوشمندانه برای سلیقه شما', href: '/guides/buying-nuts' },
+    { title: 'آموزش نگهداری', desc: 'تازه و خوش‌طعم نگهش دار', href: '/guides/storage' },
+    { title: 'وبلاگ کیفیت و اصالت', desc: 'داستان مزه‌های اصیل', href: '/blog' },
+    { title: 'پرسش‌های متداول', desc: 'سریع به پاسخ برس', href: '/faq' },
+  ];
+
+  const integrations = [
+    { title: 'ارسال سریع', icon: Truck, desc: 'اتصال به سرویس پست پیشرفته', href: '/integrations/shipping' },
+    { title: 'بسته‌بندی لوکس', icon: PackageOpen, desc: 'سفارشی‌سازی پک‌های هدیه', href: '/integrations/packaging' },
+    { title: 'باشگاه مشتریان', icon: Sparkles, desc: 'امتیاز و تخفیف‌های وفاداری', href: '/integrations/loyalty' },
+    { title: 'مدیریت انبار', icon: Boxes, desc: 'همگام‌سازی موجودی و سفارش', href: '/integrations/inventory' },
+  ];
+
+  const megaVariants = {
+    hidden: { opacity: 0, y: 12, scale: 0.96, pointerEvents: 'none' as const },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      pointerEvents: 'auto' as const,
+      transition: {
+        duration: 0.3,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: 8,
+      scale: 0.98,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  return (
+    <header className="bg-white backdrop-blur-xl sticky top-0 z-50 border-b border-amber-100/20 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-6 py-4">
+        
+        {/* Logo & Brand */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="relative">
+            <div className="absolute inset-0 bg-linear-to-br from-amber-400 to-orange-500 rounded-2xl blur-md opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-2xl bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl shadow-lg transform group-hover:scale-105 transition-transform">
+              🥜
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xl font-black bg-linear-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 bg-clip-text text-transparent">
+              {t.brand}
+            </span>
+            <span className="text-[10px] text-gray-500  items-center gap-1">
+              <MapPin className="w-3 h-3" />
+              Premium Quality
+            </span>
+          </div>
+        </Link>
+
+        {/* Search */}
+        <div className="hidden md:block flex-1 max-w-2xl">
+          <div className="relative group">
+            <input
+              placeholder={t.search}
+              className="w-full rounded-2xl py-3.5 px-6 pr-14 bg-gray-50/50  border border-gray-200/50  shadow-sm outline-none focus:ring-2 focus:ring-amber-400/50  focus:bg-white  transition-all duration-300 text-gray-900 :text-gray-400 "
+            />
+            <div className="absolute right-5 top-1/2 -translate-y-1/2">
+              <Search className="w-5 h-5 text-gray-400 group-focus-within:text-amber-500 transition-colors" />
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          
+          {/* Language Switcher */}
+          <div className="relative ">
+            <button
+              onClick={() => setShowLangMenu(!showLangMenu)}
+              className="p-2.5 rounded-xl bg-gray-50/50  border border-gray-200/50 /50 hover:border-amber-300 -600 transition-all duration-300 flex items-center gap-2 group"
+            >
+              <Globe className="w-4 h-4 text-gray-600  group-hover:text-amber-600 -amber-400 transition-colors" />
+              <span className="text-sm hidden lg:block text-gray-700 ">{languages[language].flag}</span>
+              <ChevronDown className="w-3 h-3 text-gray-500 " />
+            </button>
+            
+            <AnimatePresence>
+              {showLangMenu && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute right-0 mt-2 w-48 rounded-2xl bg-white shadow-2xl border border-gray-100 p-2 backdrop-blur-xl"
+                >
+                  {(Object.keys(languages) as Array<keyof typeof languages>).map((lang) => (
                     <button
-                        onClick={() => setOpen(!open)}
-                        className="lg:hidden p-2 rounded-xl bg-white border border-gray-200"
-                        aria-label="Menu"
+                      key={lang}
+                      onClick={() => {
+                        setLanguage(lang);
+                        setShowLangMenu(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                        language === lang
+                          ? 'bg-amber-50 text-amber-600 '
+                          : 'hover:bg-gray-50 700/50 text-gray-700 '
+                      }`}
                     >
-                        <Menu className="w-5 h-5 text-gray-800" />
+                      <span className="text-xl">{languages[lang].flag}</span>
+                      <span className="font-medium">{languages[lang].name}</span>
                     </button>
-                </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2.5 rounded-xl  bg-gray-50/50  border border-gray-200/50  hover:border-amber-300  transition-all duration-300 group"
+          >
+            {darkMode ? (
+              <Sun className="w-4 h-4 text-amber-500 group-hover:rotate-45 transition-transform duration-300" />
+            ) : (
+              <Moon className="w-4 h-4 text-gray-600 group-hover:text-amber-600 transition-colors" />
+            )}
+          </button>
+
+          {/* Wishlist */}
+          <Link 
+            href="/wishlist" 
+            className="hidden md:flex p-2.5 rounded-xl bg-gray-50/50  border border-gray-200/50  hover:border-rose-300  transition-all duration-300 group"
+          >
+            <Heart className="w-4 h-4 text-rose-500 group-hover:fill-rose-500 transition-all" />
+          </Link>
+
+          {/* Cart */}
+          <Link 
+            href="/cart" 
+            className="hidden md:flex px-4 py-2.5 rounded-xl bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white items-center gap-2 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300 group"
+          >
+            <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            <span className="text-sm font-bold">{t.cart}</span>
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden p-2.5 rounded-xl  border border-gray-200/50 50"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={20} className="text-gray-700 " /> : <Menu size={20} className="text-gray-700 " />}
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop nav */}
+      <div className="hidden md:block border-t   border-gray-100/50 ">
+        <div className=" mx-auto ">
+          <nav className="flex items-center justify-center gap-40  text-gray-700 ">
+            
+            {/* Products mega */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenMega('products')}
+              onMouseLeave={() => setOpenMega(null)}
+            >
+              <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600  transition-colors group">
+                <span className="font-medium">{t.products}</span>
+                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              </button>
+              <AnimatePresence>
+                {openMega === 'products' && (
+                  <motion.div
+                    ref={megaRef}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="absolute left-1/2 -translate-x-1/2 mt-0 w-[920px] rounded-3xl bg-white/95 900/95 backdrop-blur-xl shadow-2xl border border-gray-100/50 800/50 p-8 overflow-hidden"
+                  >
+                    {/* linear Background */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-amber-400/10 to-orange-500/10 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-linear-to-tr from-rose-400/10 to-pink-500/10 rounded-full blur-3xl"></div>
+                    
+                    <div className="relative grid grid-cols-3 gap-4">
+                      {products.map(({ title, icon: Icon, linear, href }, i) => (
+                        <Link 
+                          key={i} 
+                          href={href} 
+                          className="group relative overflow-hidden rounded-2xl bg-linear-to-br p-6 hover:scale-[1.02] transition-all duration-300 border border-gray-100/50 800/50"
+                        >
+                          <div className={`absolute inset-0 bg-linear-to-br ${linear} opacity-80 `}></div>
+                          <div className="relative">
+                            <div className="mb-4 w-12 h-12 rounded-xl bg-white/80 900/80 flex items-center justify-center shadow-lg backdrop-blur-sm">
+                              <Icon className="w-6 h-6 text-gray-800 200" />
+                            </div>
+                            <div className="font-bold text-gray-900 mb-1">{title}</div>
+                            <div className="text-xs text-gray-700 300 opacity-80">مشاهده همه →</div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    
+                    {/* Highlight CTA */}
+                    <div className="relative mt-6 rounded-2xl bg-linear-to-r from-amber-500 to-orange-500 p-6 text-white flex items-center justify-between overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                      <div className="absolute inset-0 bg-linear-to-r from-orange-600 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="relative z-10">
+                        <div className="text-lg font-black mb-1">پک‌های هدیه لوکس</div>
+                        <div className="text-sm opacity-90">برای مناسبت‌ها و هدیه‌های خاطره‌ساز</div>
+                      </div>
+                      <Link 
+                        href="/gifts" 
+                        className="relative z-10 px-6 py-3 bg-white text-gray-900 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                      >
+                        خرید پک هدیه
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            {/* Mobile drawer */}
-            <AnimatePresence>
-                {open && (
-                    <motion.div
-                        className="lg:hidden fixed top-16 left-0 right-0 z-[95] bg-white border-b border-gray-100 shadow-xl"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                    >
-                        <div className="px-4 py-4 space-y-3 text-gray-800">
-                            <Link href="/" className="flex items-center gap-2">
-                                <Home className="w-4 h-4" /> صفحه اصلی
-                            </Link>
-                            <Link href="/products" className="flex items-center gap-2">
-                                <ListTree className="w-4 h-4" /> محصولات
-                            </Link>
-                            <Link href="/gifts" className="flex items-center gap-2">
-                                <Gift className="w-4 h-4" /> پک‌های هدیه
-                            </Link>
-                            <Link href="/about" className="flex items-center gap-2">
-                                <Info className="w-4 h-4" /> درباره ما
-                            </Link>
-                            <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
-                                <User className="w-4 h-4" /> حساب کاربری
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <LogIn className="w-4 h-4" /> ورود
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <LogOut className="w-4 h-4" /> خروج
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Phone className="w-4 h-4" /> پشتیبانی: 021-xxx
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4" /> تهران، ایران
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Settings className="w-4 h-4" /> تنظیمات
-                            </div>
-                        </div>
-                    </motion.div>
+            {/* Resources mega */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenMega('resources')}
+              onMouseLeave={() => setOpenMega(null)}
+            >
+              <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600  transition-colors group">
+                <span className="font-medium">{t.resources}</span>
+                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              </button>
+              <AnimatePresence>
+                {openMega === 'resources' && (
+                  <motion.div
+                    ref={megaRef}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="absolute left-1/2 -translate-x-1/2 mt-0 w-[760px] rounded-3xl bg-white/95  backdrop-blur-xl shadow-2xl border border-gray-100/50  p-8 overflow-hidden"
+                  >
+                    <div className="absolute top-0 left-0 w-64 h-64 bg-linear-to-br from-rose-400/10 to-pink-500/10 rounded-full blur-3xl"></div>
+                    
+                    <div className="relative grid grid-cols-2 gap-4">
+                      {resources.map((r, i) => (
+                        <Link 
+                          key={i} 
+                          href={r.href} 
+                          className="group rounded-2xl border border-gray-100/50  bg-gray-50/50  p-6 hover:border-amber-200  hover:shadow-xl hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm"
+                        >
+                          <div className="font-bold text-gray-900  mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{r.title}</div>
+                          <div className="text-sm text-gray-600 ">{r.desc}</div>
+                        </Link>
+                      ))}
+                    </div>
+                    
+                    <div className="relative mt-6 rounded-2xl bg-linear-to-r from-rose-500 to-pink-500 p-6 text-white flex items-center justify-between overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                      <div className="absolute inset-0 bg-linear-to-r from-pink-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="relative z-10">
+                        <div className="font-extrabold mb-1">راهنمای انتخاب مغزها</div>
+                        <div className="text-sm opacity-90">طعم، بافت و کاربردها را حرفه‌ای بشناس</div>
+                      </div>
+                      <Link 
+                        href="/guides/buying-nuts" 
+                        className="relative z-10 px-6 py-3 bg-white text-gray-900 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                      >
+                        مطالعه راهنما
+                      </Link>
+                    </div>
+                  </motion.div>
                 )}
-            </AnimatePresence>
+              </AnimatePresence>
+            </div>
 
-            
-        </header>
-    );
+            {/* Integrations mega */}
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenMega('integrations')}
+              onMouseLeave={() => setOpenMega(null)}
+            >
+              <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600  transition-colors group">
+                <span className="font-medium">{t.integrations}</span>
+                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              </button>
+              <AnimatePresence>
+                {openMega === 'integrations' && (
+                  <motion.div
+                    ref={megaRef}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="absolute left-1/2 -translate-x-1/2 mt-0 w-[880px] rounded-3xl bg-white/95 95 backdrop-blur-xl shadow-2xl border border-gray-100/50  p-8 overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-blue-400/10 to-purple-500/10 rounded-full blur-3xl"></div>
+                    
+                    <div className="relative grid grid-cols-2 gap-4">
+                      {integrations.map((item, i) => (
+                        <Link 
+                          key={i} 
+                          href={item.href} 
+                          className="group p-6 rounded-2xl border border-gray-100/50 50 bg-gray-50/50 50 hover:border-amber-200 700 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm"
+                        >
+                          <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 rounded-xl bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
+                              <item.icon className="w-6 h-6 text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-bold text-gray-900  mb-1 group-hover:text-amber-600 ">{item.title}</div>
+                              <div className="text-xs text-gray-600 ">{item.desc}</div>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    
+                    {/* Stats */}
+                    <div className="relative mt-6 grid grid-cols-3 gap-4">
+                      {[
+                        { num: '۲٬۴۲۰', label: 'کل ادغام‌ها', color: 'from-blue-500 to-cyan-500' },
+                        { num: '۱٬۲۱۰', label: 'فعال', color: 'from-green-500 to-emerald-500' },
+                        { num: '۳۱۶', label: 'جدید', color: 'from-orange-500 to-amber-500' }
+                      ].map((stat, i) => (
+                        <div key={i} className={`rounded-2xl bg-linear-to-br ${stat.color} p-5 text-white text-center shadow-lg hover:scale-105 transition-transform duration-300`}>
+                          <div className="text-2xl font-black mb-1">{stat.num}</div>
+                          <div className="text-xs opacity-90">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <Link 
+              href="/pricing" 
+              className="px-4 py-4 hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-medium"
+            >
+              {t.pricing}
+            </Link>
+          </nav>
+        </div>
+      </div>
+      
+      </header>
+  )
 }

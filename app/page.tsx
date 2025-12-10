@@ -1,10 +1,13 @@
 'use client';
 import { useState } from 'react';
-import { Header } from './layout/Header';
+import { HeaderNuts } from './layout/Header';
 import { PRODUCTS } from './lib/data';
 import { QuickView } from './ui/QuickView';
 import { HomeMain } from './ui/template-2';
 import { StickyCartBar } from './ui/StickyCartBar';
+import { CategoryCard } from './ui/CategoryCard';
+import { ShopCard } from './ui/ShopCard';
+import { FiltersSidebar } from './ui/filterSidebat';
 
 export default function HomePage() {
   const [quickOpen, setQuickOpen] = useState(false);
@@ -19,10 +22,14 @@ export default function HomePage() {
 
   return (
     <>
-      <Header />
+      <HeaderNuts />
       <HomeMain />
       <StickyCartBar totalItems={2} totalPrice={1500} />
       <QuickView open={quickOpen} product={selectedProduct} onClose={handleClose} />
+      <div className='flex'>
+
+
+      </div>
     </>
   );
 }
