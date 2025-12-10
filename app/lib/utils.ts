@@ -6,5 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatPrice(price: number): string {
-  return `${price.toFixed(4).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+  return `${price?.toFixed(4).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 }

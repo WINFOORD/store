@@ -26,19 +26,19 @@ export function ProductCard({ product, gradient = 'from-pink-300 to-pink-400' }:
   };
   
   return (
-    <Link href={`/product/${product.slug}`} className="group block">
+    <Link href={`/product/${product?.slug}`} className="group block">
       <div className="relative">
         <div className={`relative bg-linear-to-br ${gradient} rounded-2xl overflow-hidden aspect-square mb-4 transform group-hover:scale-105 transition duration-300`}>
           <OptimizedImage
-            src={product.image}
-            alt={product.name}
+            src={product?.image}
+            alt={product?.name}
             fill
             className="object-cover mix-blend-multiply"
           />
           
-          {product.discount && (
+          {product?.discount && (
             <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-              -{product.discount}%
+              -{product?.discount}%
             </div>
           )}
           
@@ -62,19 +62,19 @@ export function ProductCard({ product, gradient = 'from-pink-300 to-pink-400' }:
           </Button>
         </div>
         
-        <h4 className="font-semibold text-gray-900 mb-1">{product.name}</h4>
+        <h4 className="font-semibold text-gray-900 mb-1">{product?.name}</h4>
         <div className="flex items-center gap-2">
-          {product.discount ? (
+          {product?.discount ? (
             <>
               <p className="text-lg font-bold text-gray-900">
-                {formatPrice(product.price * (1 - product.discount / 100))}
+                {formatPrice(product?.price * (1 - product?.discount / 100))}
               </p>
               <p className="text-sm text-gray-500 line-through">
-                {formatPrice(product.price)}
+                {formatPrice(product?.price)}
               </p>
             </>
           ) : (
-            <p className="text-lg font-bold text-gray-900">{formatPrice(product.price)}</p>
+            <p className="text-lg font-bold text-gray-900">{formatPrice(product?.price)}</p>
           )}
         </div>
       </div>
