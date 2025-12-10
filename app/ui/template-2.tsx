@@ -10,7 +10,7 @@ import { MagneticButton } from './MagneticButton';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, ShieldCheck, Sparkles, Truck } from 'lucide-react';
 import { Marquee } from '../layout/Marquee';
 import { BackgroundBlobs } from '../layout/BackgroundBlobs';
-import { Carousel, Carousel3D, Carousel3DCard, Crusal } from './crosual';
+import { Carousel, Carousel3D, Carousel3DCard, CarouselCardSmooth, CarouselSmoothFixed, Crusal } from './crosual';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,7 +90,7 @@ export function HomeMain(){
 
             // Floating hero objects
             gsap.to('.hero-float', { y: -18, duration: 2, ease: 'power1.inOut', repeat: -1, yoyo: true, stagger: 0.25 });
-
+            
             // Parallax pointer for hero floats
             const xs = gsap.utils.toArray<HTMLElement>('.hero-float').map(el => gsap.quickSetter(el, 'x', 'px'));
             const ys = gsap.utils.toArray<HTMLElement>('.hero-float').map(el => gsap.quickSetter(el, 'y', 'px'));
@@ -102,7 +102,7 @@ export function HomeMain(){
                 ys.forEach((setter, i) => setter(ny * 5 * (i + 1)));
             };
             window.addEventListener('pointermove', onMove, { passive: true });
-
+            
             // Titles & cards reveal on scroll
             gsap.utils.toArray<HTMLElement>('.section-title').forEach((el) => {
                 gsap.from(el, {
@@ -116,18 +116,18 @@ export function HomeMain(){
                     y: 24, opacity: 0, duration: 0.6, delay: idx * 0.08, ease: 'power3.out',
                 });
             });
-
+            
             return () => {
                 window.removeEventListener('pointermove', onMove);
             };
         }, heroRef);
-
+        
         return () => ctx.revert();
     }, []);
-
+    
     const featured = useMemo(() => PRODUCTS.slice(0, 4), []);
     const recommended = useMemo(() => PRODUCTS.slice(4, 8), []);
-
+    
     return (
         <div className="overflow-hidden">
             {/* <Header /> */}
@@ -201,8 +201,8 @@ export function HomeMain(){
 
                     {/* Visuals */}
 
-                <Carousel3DCard/>
            
+                        < CarouselCardSmooth/>
                 </div>
 
                 {/* Wave */}
@@ -214,6 +214,8 @@ export function HomeMain(){
                         />
                     </svg>
                 </div>
+
+                
             </section>
 
 

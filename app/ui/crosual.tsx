@@ -1,104 +1,241 @@
 'use client';
-import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { gsap } from "gsap";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight, ShoppingCart, Eye, Heart } from "lucide-react";
 
-export function Carousel3DCard() {
-  const slides = [0, 1, 2, 3];
+export function CarouselCardSmooth() {
+  const slides = [
+    { 
+      img: "🥜", 
+      title: "پسته ویژه", 
+      price: "450,000",
+      desc: "پسته اکبری برشته با کیفیت عالی",
+      link: "/products/pistachio" 
+    },
+    { 
+      img: "🌰", 
+      title: "بادام هندی", 
+      price: "320,000",
+      desc: "بادام هندی روست شده مرغوب",
+      link: "/products/almond" 
+    },
+    { 
+      img: "🍇", 
+      title: "کشمش سبز", 
+      price: "185,000",
+      desc: "کشمش سبز قلمی درجه یک",
+      link: "/products/raisin" 
+    },
+    { 
+      img: "🍫", 
+      title: "شکلات تلخ", 
+      price: "225,000",
+      desc: "شکلات تلخ 85% کاکائو",
+      link: "/products/choco" 
+    },
+  ];
+
   const [current, setCurrent] = useState(0);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const goToSlide = (index: number) => {
-    if (!trackRef.current) return;
-    const angle = 360 / slides.length;
-    gsap.to(trackRef.current, {
-      rotateY: -angle * index,
-      duration: 1,
-      ease: "power3.inOut",
-    });
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    timerRef.current = setInterval(() => {
+      if (!isAnimating) {
+        setIsAnimating(true);
+        setCurrent((prev) => (prev + 1) % slides.length);
+        setTimeout(() => setIsAnimating(false), 600);
+      }
+    }, 4000);
+  }, [isAnimating, slides.length]);
+
+  const goToNext = useCallback(() => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrent((prev) => (prev + 1) % slides.length);
+    setTimeout(() => setIsAnimating(false), 600);
+    resetTimer();
+  }, [isAnimating, slides.length, resetTimer]);
+
+  const goToPrev = useCallback(() => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+    setTimeout(() => setIsAnimating(false), 600);
+    resetTimer();
+  }, [isAnimating, slides.length, resetTimer]);
+
+  const goToSlide = useCallback((index: number) => {
+    if (isAnimating || index === current) return;
+    setIsAnimating(true);
     setCurrent(index);
-  };
-
-  const prevSlide = () => {
-    const newIndex = current === 0 ? slides.length - 1 : current - 1;
-    goToSlide(newIndex);
-  };
-
-  const nextSlide = () => {
-    const newIndex = current === slides.length - 1 ? 0 : current + 1;
-    goToSlide(newIndex);
-  };
+    setTimeout(() => setIsAnimating(false), 600);
+    resetTimer();
+  }, [isAnimating, current, resetTimer]);
 
   useEffect(() => {
-    if (trackRef.current) {
-      gsap.set(trackRef.current, {
-        rotateY: 0,
-        transformPerspective: 800,
-        transformStyle: "preserve-3d",
-      });
-    }
-    // تایمر اتوپلی
-    timerRef.current = setInterval(() => {
-      nextSlide();
-    }, 3000);
+    resetTimer();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, []);
 
+  const getSlideStyle = (index: number) => {
+    const diff = index - current;
+    const normalizedDiff = diff > slides.length / 2 ? diff - slides.length : diff < -slides.length / 2 ? diff + slides.length : diff;
+
+    if (normalizedDiff === 0) {
+      return {
+        transform: 'translateX(0) scale(1) rotateY(0deg)',
+        opacity: 1,
+        zIndex: 20,
+        transition: 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      };
+    } else if (Math.abs(normalizedDiff) === 1) {
+      return {
+        transform: `translateX(${normalizedDiff * 85}%) scale(0.8) rotateY(${-normalizedDiff * 15}deg)`,
+        opacity: 0.5,
+        zIndex: 10,
+        transition: 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        pointerEvents: 'none' as const,
+      };
+    } else {
+      return {
+        transform: `translateX(${normalizedDiff * 100}%) scale(0.6)`,
+        opacity: 0,
+        zIndex: 0,
+        transition: 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        pointerEvents: 'none' as const,
+      };
+    }
+  };
+
   return (
-    <div className="relative w-full mr-24 mx-auto perspective-midrange">
-      <div className="relative w-full h-[260px] rounded-xl overflow-visible">
-        <div
-          ref={trackRef}
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {slides.map((i) => {
-            const angle = (360 / slides.length) * i;
-            return (
-              <div
-                key={i}
-                className="absolute  w-100 h-60 flex flex-col items-center justify-center bg-linear-to-br from-amber-200 to-orange-300 rounded-xl shadow-lg"
-                style={{
-                  transform: `rotateY(${angle}deg) translateZ(300px)`,
-                  backfaceVisibility: "hidden",
-                }}
-              >
-                <div className="text-4xl">🥜</div>
-                <div className="mt-2 text-lg font-bold">پسته ویژه</div>
-                <div className="text-amber-700 text-sm">بسته‌بندی هدیه</div>
+    <div className="relative w-full h-full flex items-center justify-center">
+      {/* Container with perspective for 3D effect */}
+      <div className="relative h-[340px] w-full flex items-center justify-center" style={{ perspective: '1200px' }}>
+        {/* Slides */}
+        <div className="relative w-full max-w-[280px] h-full">
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              style={getSlideStyle(index)}
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full"
+            >
+              <div className="w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
+                {/* Image Area */}
+                <div className="h-[52%] bg-gradient-to-br  flex items-center justify-center relative overflow-hidden">
+                  {/* Decorative circles */}
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/30 rounded-full blur-2xl"></div>
+                  <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-orange-300/20 rounded-full blur-2xl"></div>
+                  
+                  <div className="text-7xl select-none relative z-10 animate-bounce-slow">{slide.img}</div>
+                  
+                  {/* Quick Actions */}
+                  {index === current && (
+                    <div className="absolute top-2 right-2 animate-in fade-in slide-in-from-top duration-500">
+                      <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-rose-50 hover:scale-110 transition-all duration-300 shadow-lg group">
+                        <Heart className="w-4 h-4 text-rose-500 group-hover:fill-rose-500 transition-all" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Discount Badge */}
+                  {index === 0 && (
+                    <div className="absolute top-2 left-2 bg-gradient-to-r from-rose-500 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">
+                      ۲۰٪ تخفیف
+                    </div>
+                  )}
+                </div>
+
+                {/* Content Area */}
+                <div className="h-[48%] bg-white p-3.5 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-base font-black text-gray-900 mb-1 line-clamp-1">
+                      {slide.title}
+                    </h3>
+                    <p className="text-xs text-gray-600 mb-2 line-clamp-1">
+                      {slide.desc}
+                    </p>
+                    <div className="flex items-baseline gap-1 mb-2">
+                      <span className="text-lg font-black bg-gradient-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent">
+                        {slide.price}
+                      </span>
+                      <span className="text-xs text-gray-500">تومان</span>
+                    </div>
+                  </div>
+
+                  {/* Buttons */}
+                  {index === current && (
+                    <div className="flex gap-2 animate-in slide-in-from-bottom duration-500">
+                      <button className="flex-1 px-2.5 py-2 bg-gradient-to-r from-orange-500 via-orange-600 to-rose-500 text-white rounded-lg text-xs font-bold hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-300 flex items-center justify-center gap-1">
+                        <ShoppingCart className="w-3.5 h-3.5" />
+                        افزودن
+                      </button>
+                      <button 
+                        onClick={() => window.location.href = slide.link}
+                        className="px-2.5 py-2 bg-gray-100 text-gray-900 rounded-lg text-xs font-bold hover:bg-gray-200 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-1"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        جزئیات
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            );
-          })}
-        </div>
-
-        {/* کنترل‌ها */}
-        <button
-          onClick={prevSlide}
-          className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/70 hover:bg-white p-2 rounded-full shadow transition"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/70 hover:bg-white p-2 rounded-full shadow transition"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-
-        {/* دایره‌های پایین */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2">
-          {slides.map((i) => (
-            <button
-              key={i}
-              onClick={() => goToSlide(i)}
-              className={`w-2.5 h-2.5 rounded-full ${current === i ? "bg-amber-600" : "bg-gray-300"}`}
-            />
+            </div>
           ))}
         </div>
+
+        {/* Navigation Buttons with new design */}
+        <button
+          onClick={goToPrev}
+          disabled={isAnimating}
+          className="absolute -left-3 lg:left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-br from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed z-30 group"
+        >
+          <ChevronLeft className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+        </button>
+        
+        <button
+          onClick={goToNext}
+          disabled={isAnimating}
+          className="absolute -right-3 lg:right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-br from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed z-30 group"
+        >
+          <ChevronRight className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+        </button>
       </div>
+
+      {/* Dots Navigation with new style */}
+      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex justify-center items-center gap-1.5">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            disabled={isAnimating}
+            className={`transition-all duration-300 rounded-full ${
+              index === current
+                ? 'w-6 h-2 bg-gradient-to-r from-orange-500 to-rose-500 shadow-md'
+                : 'w-2 h-2 bg-gray-300 hover:bg-gray-400 hover:scale-125'
+            } disabled:cursor-not-allowed`}
+          />
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes bounce-slow {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        .animate-bounce-slow {
+          animation: bounce-slow 3s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }
