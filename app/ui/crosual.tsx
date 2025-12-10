@@ -1,32 +1,53 @@
 'use client';
 import { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, ShoppingCart, Eye, Heart } from "lucide-react";
+import OptimizedImage from "../optimizeImage";
 
 export function CarouselCardSmooth() {
   const slides = [
     { 
-      img: "🥜", 
+      img: "/images/almond.webp", 
       title: "پسته ویژه", 
       price: "450,000",
       desc: "پسته اکبری برشته با کیفیت عالی",
       link: "/products/pistachio" 
     },
     { 
-      img: "🌰", 
+            img: "/images/choco.webp", 
+
       title: "بادام هندی", 
       price: "320,000",
       desc: "بادام هندی روست شده مرغوب",
       link: "/products/almond" 
     },
     { 
-      img: "🍇", 
+            img: "/images/pistachio.webp", 
+ 
       title: "کشمش سبز", 
       price: "185,000",
       desc: "کشمش سبز قلمی درجه یک",
       link: "/products/raisin" 
     },
     { 
-      img: "🍫", 
+            img: "/images/raisin.webp", 
+
+      title: "شکلات تلخ", 
+      price: "225,000",
+      desc: "شکلات تلخ 85% کاکائو",
+      link: "/products/choco" 
+    },
+    ,
+    { 
+            img: "/images/raisin.webp", 
+
+      title: "شکلات تلخ", 
+      price: "225,0000",
+      desc: "شکلات تلخ 85% کاکائو",
+      link: "/products/choco" 
+    },
+    { 
+            img: "/images/raisin.webp", 
+
       title: "شکلات تلخ", 
       price: "225,000",
       desc: "شکلات تلخ 85% کاکائو",
@@ -126,12 +147,49 @@ export function CarouselCardSmooth() {
             >
               <div className="w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
                 {/* Image Area */}
-                <div className="h-[52%] bg-gradient-to-br  flex items-center justify-center relative overflow-hidden">
                   {/* Decorative circles */}
-                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/30 rounded-full blur-2xl"></div>
-                  <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-orange-300/20 rounded-full blur-2xl"></div>
                   
-                  <div className="text-7xl select-none relative z-10 animate-bounce-slow">{slide.img}</div>
+       <OptimizedImage
+             fill
+               src={slide?.img || '/images/default-product.jpg'}
+               alt={slide?.title || 'product'}
+               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+             />
+                <div className="absolute  bottom-0 right-8">
+                   <div className="bg-linear-to-t from-gray-950 to-gray-0" />
+
+                  <div>
+                    <h3 className="text-xl  text-white   mb-1 line-clamp-1">
+                      {slide?.title}
+                    </h3>
+                    <p className="text-xs  text-white mb-2 line-clamp-1">
+                      {slide?.desc}
+                    </p>
+                    <div className="flex items-baseline gap-1 mb-2">
+                      {/* <span className="text-lg font-black bg-linear-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent">
+                        {slide.price}
+                      </span> */}
+                      {/* <span className="text-xs text-gray-500">تومان</span> */}
+                    </div>
+                  </div>
+
+                  {/* Buttons */}
+                  {/* {index === current && (
+                    <div className="flex gap-2 animate-in slide-in-from-bottom duration-500">
+                      <button className="flex-1 px-2.5 py-2 bg-linear-to-r from-orange-500 via-orange-600 to-rose-500 text-white rounded-lg text-xs font-bold hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-300 flex items-center justify-center gap-1">
+                        <ShoppingCart className="w-3.5 h-3.5" />
+                        افزودن
+                      </button>
+                      <button 
+                        onClick={() => window.location.href = slide.link}
+                        className="px-2.5 py-2 bg-gray-100 text-gray-900 rounded-lg text-xs font-bold hover:bg-gray-200 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-1"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        جزئیات
+                      </button>
+                    </div>
+                  )} */}
+                </div>
                   
                   {/* Quick Actions */}
                   {index === current && (
@@ -144,48 +202,18 @@ export function CarouselCardSmooth() {
 
                   {/* Discount Badge */}
                   {index === 0 && (
-                    <div className="absolute top-2 left-2 bg-gradient-to-r from-rose-500 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">
+                    <div className="absolute top-2 left-2 bg-linear-to-r from-rose-500 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">
                       ۲۰٪ تخفیف
                     </div>
                   )}
+
+
+                  
                 </div>
 
                 {/* Content Area */}
-                <div className="h-[48%] bg-white p-3.5 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-base font-black text-gray-900 mb-1 line-clamp-1">
-                      {slide.title}
-                    </h3>
-                    <p className="text-xs text-gray-600 mb-2 line-clamp-1">
-                      {slide.desc}
-                    </p>
-                    <div className="flex items-baseline gap-1 mb-2">
-                      <span className="text-lg font-black bg-gradient-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent">
-                        {slide.price}
-                      </span>
-                      <span className="text-xs text-gray-500">تومان</span>
-                    </div>
-                  </div>
-
-                  {/* Buttons */}
-                  {index === current && (
-                    <div className="flex gap-2 animate-in slide-in-from-bottom duration-500">
-                      <button className="flex-1 px-2.5 py-2 bg-gradient-to-r from-orange-500 via-orange-600 to-rose-500 text-white rounded-lg text-xs font-bold hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-300 flex items-center justify-center gap-1">
-                        <ShoppingCart className="w-3.5 h-3.5" />
-                        افزودن
-                      </button>
-                      <button 
-                        onClick={() => window.location.href = slide.link}
-                        className="px-2.5 py-2 bg-gray-100 text-gray-900 rounded-lg text-xs font-bold hover:bg-gray-200 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-1"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        جزئیات
-                      </button>
-                    </div>
-                  )}
-                </div>
+             
               </div>
-            </div>
           ))}
         </div>
 
@@ -193,7 +221,7 @@ export function CarouselCardSmooth() {
         <button
           onClick={goToPrev}
           disabled={isAnimating}
-          className="absolute -left-3 lg:left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-br from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed z-30 group"
+          className="absolute -left-3 lg:left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-linear-to-br from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed z-30 group"
         >
           <ChevronLeft className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
         </button>
@@ -201,7 +229,7 @@ export function CarouselCardSmooth() {
         <button
           onClick={goToNext}
           disabled={isAnimating}
-          className="absolute -right-3 lg:right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-br from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed z-30 group"
+          className="absolute -right-3 lg:right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-linear-to-br from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed z-30 group"
         >
           <ChevronRight className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
         </button>
@@ -216,7 +244,7 @@ export function CarouselCardSmooth() {
             disabled={isAnimating}
             className={`transition-all duration-300 rounded-full ${
               index === current
-                ? 'w-6 h-2 bg-gradient-to-r from-orange-500 to-rose-500 shadow-md'
+                ? 'w-6 h-2 bg-linear-to-r from-orange-500 to-rose-500 shadow-md'
                 : 'w-2 h-2 bg-gray-300 hover:bg-gray-400 hover:scale-125'
             } disabled:cursor-not-allowed`}
           />

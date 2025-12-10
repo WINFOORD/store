@@ -3,18 +3,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion } from 'framer-motion';
 import { useGsapCarousel } from '../hooks/hook';
 import { BANNERS, Product, PRODUCTS } from '../lib/data';
 import { MagneticButton } from './MagneticButton';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, ShieldCheck, Sparkles, Truck } from 'lucide-react';
-import { Marquee } from '../layout/Marquee';
-import { BackgroundBlobs } from '../layout/BackgroundBlobs';
-import { Carousel, Carousel3D, Carousel3DCard, CarouselCardSmooth, CarouselSmoothFixed, Crusal } from './crosual';
+import {  CarouselCardSmooth } from './crosual';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- Component: HeroBanner (using the hook) ---
 
 function HeroBanner() {
 
