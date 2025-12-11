@@ -52,5 +52,17 @@
     "homeDescription": "Shop online with best prices and quality - Fast shipping",
     "productsTitle": "All Products",
     "productsDescription": "Browse and shop products at best prices"
+  },
+    "footer": {
+    "aboutUs": "درباره ما",
+    "contactUs": "تماس با ما",
+    "termsOfService": "شرایط استفاده",
+    "privacyPolicy": "حریم خصوصی",
+    "faq": "سوالات متداول",
+    "newsletter": "خبرنامه",
+    "subscribeText": "برای دریافت آخرین اخبار و تخفیفات عضو شوید",
+    "subscribe": "عضویت",
+    "followUs": "ما را دنبال کنید",
+    "copyright": "تمامی حقوق محفوظ است"
   }
 }

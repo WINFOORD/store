@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default async function HomePage({ params }: Props) {
-  const locale = params.locale;
+  const { locale } = await params;
   const dict = await getDictionary(locale); // حالا await می‌کنی و با locale درست
 
   // stateful parts رو می‌تونی توی client component جدا کنی، مثلاً یک ClientHome بساز
