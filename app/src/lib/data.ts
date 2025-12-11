@@ -1,4 +1,4 @@
-import { BadgePercent, Boxes, Candy, Flame, Gift, Leaf, Nut, PackageOpen, Sparkles, Truck } from "lucide-react";
+import { BadgePercent, Boxes, Candy, Flame, Gift, Heart, Leaf, Nut, PackageOpen, Sparkles, Truck } from "lucide-react";
 
 // Imports for Lottie are moved here as it's a constant
 export const SPARKLE_LOTTIE = {
@@ -73,25 +73,25 @@ export const BANNERS: Banner[] = [
     { id: 3, title: 'پک هدیه', subtitle: 'بسته‌بندی لاکچری برای عزیزانتان', gradient: 'from-amber-500 via-orange-500 to-red-500', cta: 'انتخاب هدیه', emoji: '🎁' },
 ];
 
-    export const products = [
-        { title: 'آجیل و مغزها', icon: Nut, linear: 'from-amber-100 to-orange-200', href: '/products?c=nuts' },
-        { title: 'خشکبار ارگانیک', icon: Leaf, linear: 'from-emerald-100 to-emerald-300', href: '/products?c=dried' },
-        { title: 'شکلات و تنقلات', icon: Candy, linear: 'from-neutral-100 to-neutral-300', href: '/products?c=choco' },
-        { title: 'پک‌های هدیه', icon: Gift, linear: 'from-rose-100 to-pink-200', href: '/gifts' },
-        { title: 'پیشنهاد ویژه', icon: BadgePercent, linear: 'from-amber-100 to-rose-100', href: '/deals' },
-        { title: 'روست تازه روز', icon: Flame, linear: 'from-orange-100 to-amber-200', href: '/fresh-roast' },
-    ];
+export const products = [
+    { title: 'آجیل کامل', icon: Nut, href: '/products/nuts', desc: 'انواع مغزها و آجیل‌های شور و خام' },
+    { title: 'خشکبار', icon: Leaf, href: '/products/dried-fruits', desc: 'میوه‌های خشک شده طبیعی و ارگانیک' },
+    { title: 'شکلات', icon: Candy, href: '/products/chocolates', desc: 'شکلات‌های لوکس، کاکائو و ترافل' },
+    { title: 'پک هدیه', icon: Gift, href: '/products/gifts', desc: 'سبدهای زیبا برای مناسبت‌ها' },
+    { title: 'ارگانیک', icon: Sparkles, href: '/products/organic', desc: 'محصولات بدون مواد افزودنی' },
+    { title: 'سفارش عمده', icon: PackageOpen, href: '/products/bulk', desc: 'خرید با تخفیف‌های ویژه حجمی' },
+];
 
-    export const resources = [
-        { title: 'راهنمای خرید آجیل', desc: 'انتخاب هوشمندانه برای سلیقه شما', href: '/guides/buying-nuts', icon: Candy },
-        { title: 'آموزش نگهداری', desc: 'تازه و خوش‌طعم نگهش دار', href: '/guides/storage', icon: Candy },
-        { title: 'وبلاگ کیفیت و اصالت', desc: 'داستان مزه‌های اصیل', href: '/blog', icon: Candy },
-        { title: 'پرسش‌های متداول', desc: 'سریع به پاسخ برس', href: '/faq', icon: Candy },
-    ];
+export const resources = [
+    { title: 'راهنمای خرید', icon: Flame, desc: 'چگونه بهترین محصول را انتخاب کنید', href: '/guides' },
+    { title: 'نکات نگهداری', icon: PackageOpen, desc: 'حفظ تازگی آجیل در خانه', href: '/guides/storage' },
+    { title: 'مقالات سلامت', icon: Heart, desc: 'خواص و فواید تغذیه‌ای', href: '/blog' },
+    { title: 'دستور پخت', icon: Candy, desc: 'دستورهای غذایی با مغزها و خشکبار', href: '/recipes' },
+];
 
-    export const integrations = [
-        { title: 'ارسال سریع', icon: Truck, desc: 'اتصال به سرویس پست پیشرفته', href: '/integrations/shipping' },
-        { title: 'بسته‌بندی لوکس', icon: PackageOpen, desc: 'سفارشی‌سازی پک‌های هدیه', href: '/integrations/packaging' },
-        { title: 'باشگاه مشتریان', icon: Sparkles, desc: 'امتیاز و تخفیف‌های وفاداری', href: '/integrations/loyalty' },
-        { title: 'مدیریت انبار', icon: Boxes, desc: 'همگام‌سازی موجودی و سفارش', href: '/integrations/inventory' },
-    ];
+export const integrations = [
+    { title: 'تماس با ما', icon: Truck, desc: 'پشتیبانی فروش و پیگیری سفارش', href: '/contact' },
+    { title: 'سوالات متداول', icon: Heart, desc: 'جواب سؤالات پرتکرار', href: '/faq' },
+    { title: 'شرایط ارسال', icon: Truck, desc: 'جزئیات زمان و هزینه ارسال', href: '/shipping' },
+    { title: 'حساب کاربری', icon: Nut, desc: 'پیگیری سفارش و جزئیات پروفایل', href: '/profile' },
+];

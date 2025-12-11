@@ -3,20 +3,7 @@
 
 
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), sans-serif;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-/* تنظیمات اولیه */
-:root {
-  --color-primary: #7FB280;
-  --color-gold: #D4AF37;
-  --color-background: #ffffff;
-  --color-foreground: #1a1a1a;
-}
+
 
 * {
   font-family: "Vazir", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -45,8 +32,8 @@ body {
 /* فونت وزیر */
 @font-face {
   font-family: "Vazir";
-  src: url("/fonts/Vazir/Vazir-Thin.woff2") format("woff2"),
-       url("/fonts/Vazir/Vazir-Thin.woff") format("woff");
+  src: url("../public/fonts/Vazir/Vazir-Thin.woff2") format("woff2"),
+       url("../public/fonts/Vazir/Vazir.woff") format("woff");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -54,8 +41,8 @@ body {
 
 @font-face {
   font-family: "Vazir";
-  src: url("/fonts/Vazir/Vazir-Light.woff2") format("woff2"),
-       url("/fonts/Vazir/Vazir-Light.woff") format("woff");
+  src: url("../public/fonts/Vazir/Vazir-Light.woff2") format("woff2"),
+       url("../public/fonts/Vazir/Vazir-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -63,8 +50,8 @@ body {
 
 @font-face {
   font-family: "Vazir";
-  src: url("/fonts/Vazir/Vazir.woff2") format("woff2"),
-       url("/fonts/Vazir/Vazir.woff") format("woff");
+  src: url("../public/fonts/Vazir/Vazir.woff2") format("woff2"),
+       url("../public/fonts/Vazir/Vazir.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -72,44 +59,27 @@ body {
 
 @font-face {
   font-family: "Vazir";
-  src: url("/fonts/Vazir/Vazir-Medium.woff2") format("woff2"),
-       url("/fonts/Vazir/Vazir-Medium.woff") format("woff");
+  src: url("../public/fonts/Vazir/Vazir-Medium.woff2") format("woff2"),
+       url("../public/fonts/Vazir/Vazir-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
+
 @font-face {
   font-family: "Vazir";
-  src: url("/fonts/Vazir/Vazir-Bold.woff2") format("woff2"),
-       url("/fonts/Vazir/Vazir-Bold.woff") format("woff");
+  src: url("../public/fonts/Vazir/Vazir-Bold.woff2") format("woff2"),
+       url("../public/fonts/Vazir/Vazir-Bold.woff2") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "Vazir";
-  src: url("/fonts/Vazir/Vazir-Black.woff2") format("woff2"),
-       url("/fonts/Vazir/Vazir-Black.woff") format("woff");
+  src: url("../public/fonts/Vazir/Vazir-Bold.woff2") format("woff2"),
+       url("../public/fonts/Vazir/Vazir-Bold.woff2") format("woff");
   font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* فونت بریکولاژ برای متون انگلیسی (در صورت نیاز) */
-@font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("/fonts/bricolage/BricolageGrotesque-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("/fonts/bricolage/BricolageGrotesque-Bold.ttf") format("truetype");
-  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -124,18 +94,14 @@ label, li, td, th {
   direction: rtl;
 }
 
-.font-fa {
+.font {
   font-family: "Vazir", sans-serif !important;
   direction: rtl;
 }
 
-.font-en {
-  font-family: "Bricolage Grotesque", -apple-system, sans-serif !important;
-  direction: ltr;
-}
 
 .mixed-font {
-  font-family: "Vazir", "Bricolage Grotesque", sans-serif;
+  font-family: "Vazir", sans-serif;
 }
 
 .text-primary {
