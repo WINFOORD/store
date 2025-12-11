@@ -9,7 +9,14 @@ import {
     Leaf, Flame, BadgePercent, Truck, Heart, Nut, Candy, PackageOpen,
     Moon, Sun, Globe, MapPin
 } from 'lucide-react';
-
+import { Dictionary } from '../i18n/Dictionary'
+import { Locale } from '../i18n/config';
+import LanguageSwitcher from '../components/SwitchLang';
+import { integrations, products, PRODUCTS, resources } from '../lib/data';
+type Props = {
+  locale: Locale
+  dict: Dictionary
+}
 /**
  * HeaderNuts — هدر مدرن و لوکس با دراپ‌دان مگامنو برای فروشگاه خشکبار
  * ویژگی‌ها:
@@ -20,11 +27,11 @@ import {
  * - لوگو و برند حرفه‌ای
  */
 
-export function HeaderNuts() {
+export function HeaderNuts( {locale, dict }: Props) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openMega, setOpenMega] = useState<null | 'products' | 'resources' | 'integrations'>(null);
     const [darkMode, setDarkMode] = useState(true);
-    const [language, setLanguage] = useState<'fa' | 'ar' | 'en'>('fa');
+
     const [showLangMenu, setShowLangMenu] = useState(false);
     const megaRef = useRef<HTMLDivElement>(null);
 
@@ -39,72 +46,6 @@ export function HeaderNuts() {
         }
     }, [openMega]);
 
-    const languages = {
-        fa: { name: 'فارسی', flag: '🇮🇷' },
-        ar: { name: 'العربية', flag: '🇸🇦' },
-        en: { name: 'English', flag: '🇬🇧' }
-    };
-
-    const texts = {
-        fa: {
-            search: 'جستجو در محصولات...',
-            products: 'محصولات',
-            resources: 'منابع',
-            integrations: 'ادغام‌ها',
-            pricing: 'قیمت‌گذاری',
-            cart: 'سبد',
-            login: 'ورود',
-            signup: 'ثبت‌نام',
-            brand: 'آجیل بابل'
-        },
-        ar: {
-            search: 'البحث في المنتجات...',
-            products: 'المنتجات',
-            resources: 'الموارد',
-            integrations: 'التكاملات',
-            pricing: 'التسعير',
-            cart: 'السلة',
-            login: 'دخول',
-            signup: 'تسجيل',
-            brand: 'المكسرات بابل'
-        },
-        en: {
-            search: 'Search products...',
-            products: 'Products',
-            resources: 'Resources',
-            integrations: 'Integrations',
-            pricing: 'Pricing',
-            cart: 'Cart',
-            login: 'Login',
-            signup: 'Sign up',
-            brand: 'Babel Nuts'
-        }
-    };
-
-    const t = texts[language];
-
-    const products = [
-        { title: 'آجیل و مغزها', icon: Nut, linear: 'from-amber-100 to-orange-200', href: '/products?c=nuts' },
-        { title: 'خشکبار ارگانیک', icon: Leaf, linear: 'from-emerald-100 to-emerald-300', href: '/products?c=dried' },
-        { title: 'شکلات و تنقلات', icon: Candy, linear: 'from-neutral-100 to-neutral-300', href: '/products?c=choco' },
-        { title: 'پک‌های هدیه', icon: Gift, linear: 'from-rose-100 to-pink-200', href: '/gifts' },
-        { title: 'پیشنهاد ویژه', icon: BadgePercent, linear: 'from-amber-100 to-rose-100', href: '/deals' },
-        { title: 'روست تازه روز', icon: Flame, linear: 'from-orange-100 to-amber-200', href: '/fresh-roast' },
-    ];
-
-    const resources = [
-        { title: 'راهنمای خرید آجیل', desc: 'انتخاب هوشمندانه برای سلیقه شما', href: '/guides/buying-nuts', icon: Candy },
-        { title: 'آموزش نگهداری', desc: 'تازه و خوش‌طعم نگهش دار', href: '/guides/storage', icon: Candy },
-        { title: 'وبلاگ کیفیت و اصالت', desc: 'داستان مزه‌های اصیل', href: '/blog', icon: Candy },
-        { title: 'پرسش‌های متداول', desc: 'سریع به پاسخ برس', href: '/faq', icon: Candy },
-    ];
-
-    const integrations = [
-        { title: 'ارسال سریع', icon: Truck, desc: 'اتصال به سرویس پست پیشرفته', href: '/integrations/shipping' },
-        { title: 'بسته‌بندی لوکس', icon: PackageOpen, desc: 'سفارشی‌سازی پک‌های هدیه', href: '/integrations/packaging' },
-        { title: 'باشگاه مشتریان', icon: Sparkles, desc: 'امتیاز و تخفیف‌های وفاداری', href: '/integrations/loyalty' },
-        { title: 'مدیریت انبار', icon: Boxes, desc: 'همگام‌سازی موجودی و سفارش', href: '/integrations/inventory' },
-    ];
 
     const megaVariants = {
         hidden: { opacity: 0, y: 12, scale: 0.96, pointerEvents: 'none' as const },
@@ -140,11 +81,11 @@ export function HeaderNuts() {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xl font-black bg-linear-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 bg-clip-text text-transparent">
-                            {t.brand}
+                                        {dict.seo.homeTitle}
                         </span>
                         <span className="text-[10px] text-gray-500  items-center gap-1">
                             <MapPin className="w-3 h-3" />
-                            Premium Quality
+                            babol
                         </span>
                     </div>
                 </Link>
@@ -153,7 +94,7 @@ export function HeaderNuts() {
                 <div className="hidden md:block flex-1 max-w-2xl">
                     <div className="relative group">
                         <input
-                            placeholder={t.search}
+                            placeholder={dict.header.searchPlaceholder}
                             className="w-full rounded-2xl py-3.5 px-6 pr-14 bg-gray-50/50  border border-gray-200/50  shadow-sm outline-none focus:ring-2 focus:ring-amber-400/50  focus:bg-white  transition-all duration-300 text-gray-900 :text-gray-400 "
                         />
                         <div className="absolute right-5 top-1/2 -translate-y-1/2">
@@ -165,48 +106,9 @@ export function HeaderNuts() {
                 {/* Actions */}
                 <div className="flex items-center gap-2">
 
-                    {/* Language Switcher */}
-                    <div className="relative ">
-                        <button
-                            onClick={() => setShowLangMenu(!showLangMenu)}
-                            className="p-2.5 rounded-xl bg-gray-50/50  border border-gray-200/50 /50 hover:border-amber-300 -600 transition-all duration-300 flex items-center gap-2 group"
-                        >
-                            <Globe className="w-4 h-4 text-gray-600  group-hover:text-amber-600 -amber-400 transition-colors" />
-                            <span className="text-sm hidden lg:block text-gray-700 ">{languages[language].flag}</span>
-                            <ChevronDown className="w-3 h-3 text-gray-500 " />
-                        </button>
+                
+            <LanguageSwitcher currentLocale={locale} />
 
-                        <AnimatePresence>
-                            {showLangMenu && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="absolute right-0 mt-2 w-48 rounded-2xl bg-white shadow-2xl border border-gray-100 p-2 backdrop-blur-xl"
-                                >
-                                    {(Object.keys(languages) as Array<keyof typeof languages>).map((lang) => (
-                                        <button
-                                            key={lang}
-                                            onClick={() => {
-                                                setLanguage(lang);
-                                                setShowLangMenu(false);
-                                            }}
-                                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${language === lang
-                                                    ? 'bg-amber-50 text-amber-600 '
-                                                    : 'hover:bg-gray-50 700/50 text-gray-700 '
-                                                }`}
-                                        >
-                                            <span className="text-xl">{languages[lang].flag}</span>
-                                            <span className="font-medium">{languages[lang].name}</span>
-                                        </button>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    {/* Dark Mode Toggle */}
                     <button
                         onClick={() => setDarkMode(!darkMode)}
                         className="p-2.5 rounded-xl  bg-gray-50/50  border border-gray-200/50  hover:border-amber-300  transition-all duration-300 group"
@@ -218,21 +120,14 @@ export function HeaderNuts() {
                         )}
                     </button>
 
-                    {/* Wishlist */}
-                    <Link
-                        href="/wishlist"
-                        className="hidden md:flex p-2.5 rounded-xl bg-gray-50/50  border border-gray-200/50  hover:border-rose-300  transition-all duration-300 group"
-                    >
-                        <Heart className="w-4 h-4 text-rose-500 group-hover:fill-rose-500 transition-all" />
-                    </Link>
+               
 
-                    {/* Cart */}
                     <Link
                         href="/cart"
                         className="hidden md:flex px-4 py-2.5 rounded-xl bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white items-center gap-2 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300 group"
                     >
                         <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                        <span className="text-sm font-bold">{t.cart}</span>
+                        <span className="text-sm font-bold">{dict.header.cart}</span>
                     </Link>
 
                     {/* Mobile Menu Toggle */}
@@ -258,7 +153,7 @@ export function HeaderNuts() {
                             onMouseLeave={() => setOpenMega(null)}
                         >
                             <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600  transition-colors group">
-                                <span className="font-medium">{t.products}</span>
+                                <span className="font-medium">{dict.product.category}</span>
                                 <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
                             </button>
                             <AnimatePresence>
@@ -271,30 +166,31 @@ export function HeaderNuts() {
                                         className="absolute left-1/2 -translate-x-1/2 mt-0 w-[980px] rounded-3xl bg-white/95 900/95 backdrop-blur-xl shadow-2xl border border-gray-100/50 800/50 p-8 overflow-hidden"
                                     >
                                         {/* linear Background */}
-                                        <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-amber-400/10 to-orange-500/10 rounded-full blur-3xl"></div>
+                                     
                                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-linear-to-tr from-rose-400/10 to-pink-500/10 rounded-full blur-3xl"></div>
 
                                         <div className="relative grid grid-cols-3 gap-4">
-                                            {products.map(({ title, icon: Icon, linear, href }, i) => (
-                                                <Link
+                                           {products.map(({ title, icon: Icon, href }, i) => (
+                                                 <Link
                                                     key={i}
                                                     href={href}
-                                                    className="group relative overflow-hidden rounded-2xl bg-linear-to-br p-6 hover:scale-[1.02] transition-all duration-300 border border-gray-100/50 800/50"
+                                                    className="group p-6 rounded-2xl border border-gray-100/50 50 bg-gray-50/50 50 hover:border-amber-200 700 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm"
                                                 >
-                                                    <div className={`absolute inset-0 bg-linear-to-br ${linear} opacity-80 `}></div>
-                                                    <div className="relative">
-                                                        <div className="mb-4 w-12 h-12 rounded-xl bg-white/80 900/80 flex items-center justify-center shadow-lg backdrop-blur-sm">
-                                                            <Icon className="w-6 h-6 text-gray-800 200" />
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="w-12 h-12 rounded-xl  flex items-center justify-center border border-gray-300 ">
+                                                            <Icon className="w-6 h-6 " />
                                                         </div>
-                                                        <div className="font-bold text-gray-900 mb-1">{title}</div>
-                                                        <div className="text-xs text-gray-700 300 opacity-80">مشاهده همه →</div>
+                                                        <div className="flex">
+                                                            <div className="font-bold text-gray-900   group-hover:text-amber-600 ">{title}</div>
+                                                         
+                                                        </div>
                                                     </div>
                                                 </Link>
                                             ))}
                                         </div>
 
                                         {/* Highlight CTA */}
-                                        <div className="relative mt-6 rounded-2xl bg-linear-to-r from-amber-500 to-orange-500 p-6 text-white flex items-center justify-between overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                                        <div className="relative mt-2 rounded-2xl bg-linear-to-r from-amber-500 to-orange-500 p-6 text-white flex items-center justify-between overflow-hidden group hover:shadow-2xl transition-all duration-300">
                                             <div className="absolute inset-0 bg-linear-to-r from-orange-600 to-amber-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                             <div className="relative z-10">
                                                 <div className="text-lg font-black mb-1">پک‌های هدیه لوکس</div>
@@ -319,7 +215,7 @@ export function HeaderNuts() {
                             onMouseLeave={() => setOpenMega(null)}
                         >
                             <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600  transition-colors group">
-                                <span className="font-medium">{t.resources}</span>
+                                <span className="font-medium">{dict.header.support}</span>
                                 <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
                             </button>
                             <AnimatePresence>
@@ -379,7 +275,7 @@ export function HeaderNuts() {
                             onMouseLeave={() => setOpenMega(null)}
                         >
                             <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600  transition-colors group">
-                                <span className="font-medium">{t.integrations}</span>
+                                <span className="font-medium">{dict.header.integrations}</span>
                                 <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
                             </button>
                             <AnimatePresence>
@@ -435,7 +331,7 @@ export function HeaderNuts() {
                             href="/pricing"
                             className="px-4 py-4 hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-medium"
                         >
-                            {t.pricing}
+                            {dict.header.pricing}
                         </Link>
                     </nav>
                 </div>

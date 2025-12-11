@@ -1,3 +1,5 @@
+import { BadgePercent, Boxes, Candy, Flame, Gift, Leaf, Nut, PackageOpen, Sparkles, Truck } from "lucide-react";
+
 // Imports for Lottie are moved here as it's a constant
 export const SPARKLE_LOTTIE = {
     v: '5.7.4', fr: 29.97, ip: 0, op: 60, w: 64, h: 64, nm: 'sparkle', ddd: 0, assets: [],
@@ -26,8 +28,9 @@ export type Product = {
     originalPrice?: number;
     picture: string;
     tag?: string;
-    category: string[];
-    
+    category: string;
+    href: string;
+    icon:string;
 };
 
 export type CategoryKey = 'nuts' | 'pistachio' | 'dried' | 'choco';
@@ -49,14 +52,12 @@ export type Banner = {
 };
 
 export const PRODUCTS: Product[] = [
-    { id: 1, title: 'آجیل مخلوط لاکچری', description: 'ترکیب دست‌چین با روست طلایی و بافت کرانچی', price: 360000, originalPrice: 420000, rating: 4.9, reviews: 312, picture: '🥜', tag: 'پرفروش', color: 'from-amber-200 to-orange-300', category: 'nuts' },
-    { id: 2, title: 'پسته اکبری برشته', description: 'نمک دریا، روست دقیق برای عطر ملایم', price: 470000, rating: 4.8, reviews: 178, picture: '🌿', tag: 'پریمیوم', color: 'from-emerald-200 to-emerald-300', category: 'pistachio' },
-    { id: 3, title: 'بادام درختی خام', description: 'منبع طبیعی فیبر و پروتئین، بدون افزودنی', price: 295000, rating: 4.6, reviews: 104, picture: '🌰', tag: 'سلامتی', color: 'from-amber-100 to-rose-200', category: 'nuts' },
-    { id: 4, title: 'کشمش سبز قلمی', description: 'شیرینی طبیعی، انرژی‌زا، مناسب میان‌وعده', price: 185000, originalPrice: 210000, rating: 4.7, reviews: 139, picture: '🍇', tag: 'ارگانیک', color: 'from-green-200 to-lime-300', category: 'dried' },
-    { id: 5, title: 'شکلات تلخ ۸۵٪', description: 'کاکائو خالص با رایحه‌ی میوه‌ای، فاخر و خوش‌طعم', price: 225000, rating: 4.8, reviews: 212, picture: '🍫', tag: 'جدید', color: 'from-neutral-200 to-neutral-300', category: 'choco' },
-    { id: 6, title: 'خرما مضافتی اعلا', description: 'بافت نرم، شیرینی معتدل، بسته‌بندی بهداشتی', price: 160000, rating: 4.6, reviews: 97, picture: '🍯', tag: 'طبیعی', color: 'from-amber-100 to-amber-300', category: 'dried' },
-    { id: 7, title: 'بادام هندی روست سبک', description: 'روست سبک، کرانچی و دل‌چسب', price: 340000, originalPrice: 380000, rating: 4.7, reviews: 126, picture: '🥥', tag: 'تخفیف', color: 'from-rose-200 to-pink-300', category: 'nuts' },
-    { id: 8, title: 'نوقا مغزدار عسلی', description: 'لطیف، مغزدار، هدیه‌ای خوشمزه', price: 210000, rating: 4.5, reviews: 68, picture: '🍬', tag: 'دسر', color: 'from-amber-200 to-orange-400', category: 'choco' },
+    { id: 1, title: 'شکلات', description: 'ترکیب دست‌چین با روست طلایی و بافت کرانچی', price: 360000, originalPrice: 420000,  picture: '🥜', tag: 'پرفروش',  category: 'nuts', href: '/test' , icon : 'truck'},
+    { id: 2, title: 'آجیل', description: 'نمک دریا، روست دقیق برای عطر ملایم', price: 470000,  picture: '🌿', tag: 'پریمیوم',  category: 'pistachio', href: '/test' , icon : 'truck' },
+    { id: 3, title: 'بیسکوییت', description: 'منبع طبیعی فیبر و پروتئین، بدون افزودنی', price: 295000,  picture: '🌰', tag: 'سلامتی',  category: 'nuts' , href: '/test' , icon : 'truck'},
+    { id: 4, title: 'میوه خشک', description: 'شیرینی طبیعی، انرژی‌زا، مناسب میان‌وعده', price: 185000, originalPrice: 210000,  picture: '🍇', tag: 'ارگانیک',  category: 'dried', href: '/test' , icon : 'truck' },
+    { id: 5, title: 'پروتئینی', description: 'کاکائو خالص با رایحه‌ی میوه‌ای، فاخر و خوش‌طعم', price: 225000,  picture: '🍫', tag: 'جدید',  category: 'choco', href: '/test' , icon : 'truck' },
+    { id: 6, title: 'رژیمی', description: 'بافت نرم، شیرینی معتدل، بسته‌بندی بهداشتی', price: 160000,  picture: '🍯', tag: 'طبیعی',  category: 'dried' , href: '/test' , icon : 'truck' },
 ];
 
 export const CATEGORIES: Category[] = [
@@ -71,3 +72,26 @@ export const BANNERS: Banner[] = [
     { id: 2, title: 'محصولات جدید', subtitle: 'تازه‌ترین آجیل‌های فصل', gradient: 'from-emerald-500 via-teal-500 to-cyan-500', cta: 'کاوش کنید', emoji: '✨' },
     { id: 3, title: 'پک هدیه', subtitle: 'بسته‌بندی لاکچری برای عزیزانتان', gradient: 'from-amber-500 via-orange-500 to-red-500', cta: 'انتخاب هدیه', emoji: '🎁' },
 ];
+
+    export const products = [
+        { title: 'آجیل و مغزها', icon: Nut, linear: 'from-amber-100 to-orange-200', href: '/products?c=nuts' },
+        { title: 'خشکبار ارگانیک', icon: Leaf, linear: 'from-emerald-100 to-emerald-300', href: '/products?c=dried' },
+        { title: 'شکلات و تنقلات', icon: Candy, linear: 'from-neutral-100 to-neutral-300', href: '/products?c=choco' },
+        { title: 'پک‌های هدیه', icon: Gift, linear: 'from-rose-100 to-pink-200', href: '/gifts' },
+        { title: 'پیشنهاد ویژه', icon: BadgePercent, linear: 'from-amber-100 to-rose-100', href: '/deals' },
+        { title: 'روست تازه روز', icon: Flame, linear: 'from-orange-100 to-amber-200', href: '/fresh-roast' },
+    ];
+
+    export const resources = [
+        { title: 'راهنمای خرید آجیل', desc: 'انتخاب هوشمندانه برای سلیقه شما', href: '/guides/buying-nuts', icon: Candy },
+        { title: 'آموزش نگهداری', desc: 'تازه و خوش‌طعم نگهش دار', href: '/guides/storage', icon: Candy },
+        { title: 'وبلاگ کیفیت و اصالت', desc: 'داستان مزه‌های اصیل', href: '/blog', icon: Candy },
+        { title: 'پرسش‌های متداول', desc: 'سریع به پاسخ برس', href: '/faq', icon: Candy },
+    ];
+
+    export const integrations = [
+        { title: 'ارسال سریع', icon: Truck, desc: 'اتصال به سرویس پست پیشرفته', href: '/integrations/shipping' },
+        { title: 'بسته‌بندی لوکس', icon: PackageOpen, desc: 'سفارشی‌سازی پک‌های هدیه', href: '/integrations/packaging' },
+        { title: 'باشگاه مشتریان', icon: Sparkles, desc: 'امتیاز و تخفیف‌های وفاداری', href: '/integrations/loyalty' },
+        { title: 'مدیریت انبار', icon: Boxes, desc: 'همگام‌سازی موجودی و سفارش', href: '/integrations/inventory' },
+    ];

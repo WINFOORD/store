@@ -170,7 +170,7 @@ export function HomeMain() {
 
             <section
                 ref={heroRef}
-                className="relative min-h-[84vh] bg-linear-to-br from-amber-50 via-orange-50 to-rose-50 overflow-hidden "
+                className="relative min-h-[84vh] bg-linear-to-br from-amber-100 via-orange-100 to-rose-200 overflow-hidden "
             >
                 <div className="absolute -top-10 rotate-180 left-0 right-0">
                     <svg viewBox="0 0 1440 120" className="w-full h-auto">

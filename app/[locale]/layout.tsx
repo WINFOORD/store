@@ -13,7 +13,7 @@ export default async function LocaleLayout({
   const { locale } = await params
 
   return (
-    <html lang={locale}>
+    <html >
       <body>{children}</body>
     </html>
   )

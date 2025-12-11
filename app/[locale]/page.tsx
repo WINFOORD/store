@@ -20,39 +20,12 @@ export default async function HomePage({ params }: Props) {
   // stateful parts رو می‌تونی توی client component جدا کنی، مثلاً یک ClientHome بساز
   return (
     <>
-      <Header locale={locale} dict={dict} /> {/* حالا dict آبجکت هست */}
 
-      <HeaderNuts />
+      <HeaderNuts dict={dict} locale={locale} />
       <HomeMain />
       <StickyCartBar totalItems={2} totalPrice={1500} />
-      {/* برای QuickView که state داره، می‌تونی 'use client' جدا بسازی */}
-      {/* <ClientQuickView products={PRODUCTS} /> */}
+
       <div className='flex'></div>
     </>
   );
 }
-
-// // یک client component جدا برای قسمت stateful
-// 'use client';
-// import { useState } from 'react';
-// import { QuickView } from '../src/ui/QuickView';
-
-// type ClientProps = {
-//   products: typeof PRODUCTS;
-// };
-
-// function ClientQuickView({ products }: ClientProps) {
-//   const [quickOpen, setQuickOpen] = useState(false);
-//   const [selectedProduct, setSelectedProduct] = useState(products[0]);
-
-//   const handleOpen = (productIndex: number) => {
-//     setSelectedProduct(products[productIndex]);
-//     setQuickOpen(true);
-//   };
-
-//   const handleClose = () => setQuickOpen(false);
-
-//   return (
-//     <QuickView open={quickOpen} product={selectedProduct} onClose={handleClose} />
-//   );
-// }
