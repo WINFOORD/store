@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/app/ui/Button';
-import OptimizedImage from '@/app/optimizeImage';
+import OptimizedImage from '@/app/src/ui/optimizeImage';
+import { Button } from '@/app/src/ui/Button';
 
 export function HeroSection() {
   return (
@@ -29,7 +29,7 @@ export function HeroSection() {
                   alt="Gift box with products"
                   fill
                   className="object-contain rounded-lg"
-                  
+
                 />
               </div>
               <div className="absolute -top-6 -left-6 w-32 h-32 bg-teal-400 rounded-full opacity-50 blur-2xl"></div>

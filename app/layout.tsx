@@ -1,18 +1,14 @@
 import "./globals.css";
-import ClientLayout from "./ClientLayout";
 
-// Disable automatic preload to avoid 'preloaded but not used' warnings
+export const metadata = {
+  title: "Store",
+  description: "My Store",
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-      </head>
-      <body  suppressHydrationWarning>
-        <ClientLayout>
-          {children}
-        </ClientLayout>
-      </body>
+    <html >
+      <body>{children}</body>
     </html>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { Product } from '@/app/types';
+import { Product } from '@/app/src/types';
 import Link from 'next/link';
 import { ProductCard } from '../ProductCard';
 

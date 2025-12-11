@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, ShoppingCart } from 'lucide-react';
-import { useCartStore } from '../store/cartStore';
 import { Product } from '../types';
-import { Button } from '../ui/Button';
+
 import { formatPrice } from '../lib/utils';
-import OptimizedImage from '../optimizeImage';
+import OptimizedImage from '../ui/optimizeImage';
+import { useCartStore } from '../store/cartStore';
+import { Button } from '../ui/Button';
 
 
 interface ProductCardProps {
@@ -19,12 +20,12 @@ interface ProductCardProps {
 export function ProductCard({ product, gradient = 'from-pink-300 to-pink-400' }: ProductCardProps) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
-  
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     addItem(product);
   };
-  
+
   return (
     <Link href={`/product/${product?.slug}`} className="group block">
       <div className="relative">
@@ -35,13 +36,13 @@ export function ProductCard({ product, gradient = 'from-pink-300 to-pink-400' }:
             fill
             className="object-cover mix-blend-multiply"
           />
-          
+
           {product?.discount && (
             <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
               -{product?.discount}%
             </div>
           )}
-          
+
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -51,7 +52,7 @@ export function ProductCard({ product, gradient = 'from-pink-300 to-pink-400' }:
           >
             <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-red-500 text-red-500' : ''}`} />
           </button>
-          
+
           <Button
             onClick={handleAddToCart}
             size="sm"
@@ -61,7 +62,7 @@ export function ProductCard({ product, gradient = 'from-pink-300 to-pink-400' }:
             Add to Cart
           </Button>
         </div>
-        
+
         <h4 className="font-semibold text-gray-900 mb-1">{product?.name}</h4>
         <div className="flex items-center gap-2">
           {product?.discount ? (

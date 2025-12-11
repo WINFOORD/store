@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+productionBrowserSourceMaps: true,
+  trailingSlash: false,
   images: {
     domains: ['images.unsplash.com'],
   },

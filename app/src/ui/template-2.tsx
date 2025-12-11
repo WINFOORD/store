@@ -7,7 +7,7 @@ import { useGsapCarousel } from '../hooks/hook';
 import { BANNERS, Product, PRODUCTS } from '../lib/data';
 import { MagneticButton } from './MagneticButton';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, ShieldCheck, Sparkles, Truck } from 'lucide-react';
-import {  CarouselCardSmooth } from './crosual';
+import { CarouselCardSmooth } from './crosual';
 import LuxuryShopCards from './ShopCard';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,54 +56,54 @@ function HeroBanner() {
 }
 
 
-export function HomeMain(){
-      const heroRef = useRef<HTMLDivElement>(null);
+export function HomeMain() {
+    const heroRef = useRef<HTMLDivElement>(null);
     const carouselRef = useRef<HTMLDivElement>(null);
     const [wishlist, setWishlist] = useState<number[]>([]);
     const [quickOpen, setQuickOpen] = useState(false);
     const [quickProduct, setQuickProduct] = useState<Product | null>(null);
     const [cartCount, setCartCount] = useState(2);
     const [cartTotal, setCartTotal] = useState(585000);
-        const products = [
-    {
-      image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
-      title: "Premium Cashew Nuts",
-      desc: "Fresh and high-quality cashew nuts",
-      price: "€13.00",
-      offPrice: "€15.00",
-      offer: true,
-      rating: 4.7,
-      reviews: 2338,
-    },
-    {
-      image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?w=800&q=80",
-      title: "Mixed Nuts Deluxe",
-      desc: "A perfect blend of premium nuts",
-      price: "€18.00",
-      offPrice: "€22.00",
-      offer: true,
-      rating: 4.9,
-      reviews: 1856,
-    },
-    {
-      image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
-      title: "Organic Almonds",
-      desc: "Certified organic raw almonds",
-      price: "€16.00",
-      rating: 4.8,
-      reviews: 2104,
-    },
-    {
-      image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?w=800&q=80",
-      title: "شکلات فرانسوی مخصوص",
-      desc: "دارای گواهینامه رسمی",
-      price: "2,100,000 تومان",
-      offPrice: " 2.400,000",
-      offer: true,
-      rating: 3,
-      reviews: 1523,
-    },
-  ];
+    const products = [
+        {
+            image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
+            title: "Premium Cashew Nuts",
+            desc: "Fresh and high-quality cashew nuts",
+            price: "€13.00",
+            offPrice: "€15.00",
+            offer: true,
+            rating: 4.7,
+            reviews: 2338,
+        },
+        {
+            image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?w=800&q=80",
+            title: "Mixed Nuts Deluxe",
+            desc: "A perfect blend of premium nuts",
+            price: "€18.00",
+            offPrice: "€22.00",
+            offer: true,
+            rating: 4.9,
+            reviews: 1856,
+        },
+        {
+            image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
+            title: "Organic Almonds",
+            desc: "Certified organic raw almonds",
+            price: "€16.00",
+            rating: 4.8,
+            reviews: 2104,
+        },
+        {
+            image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?w=800&q=80",
+            title: "شکلات فرانسوی مخصوص",
+            desc: "دارای گواهینامه رسمی",
+            price: "2,100,000 تومان",
+            offPrice: " 2.400,000",
+            offer: true,
+            rating: 3,
+            reviews: 1523,
+        },
+    ];
 
     // Hooks for carousel
     useGsapCarousel(carouselRef, BANNERS.length);
@@ -126,7 +126,7 @@ export function HomeMain(){
 
             // Floating hero objects
             gsap.to('.hero-float', { y: -18, duration: 2, ease: 'power1.inOut', repeat: -1, yoyo: true, stagger: 0.25 });
-            
+
             // Parallax pointer for hero floats
             const xs = gsap.utils.toArray<HTMLElement>('.hero-float').map(el => gsap.quickSetter(el, 'x', 'px'));
             const ys = gsap.utils.toArray<HTMLElement>('.hero-float').map(el => gsap.quickSetter(el, 'y', 'px'));
@@ -138,7 +138,7 @@ export function HomeMain(){
                 ys.forEach((setter, i) => setter(ny * 5 * (i + 1)));
             };
             window.addEventListener('pointermove', onMove, { passive: true });
-            
+
             // Titles & cards reveal on scroll
             gsap.utils.toArray<HTMLElement>('.section-title').forEach((el) => {
                 gsap.from(el, {
@@ -152,27 +152,27 @@ export function HomeMain(){
                     y: 24, opacity: 0, duration: 0.6, delay: idx * 0.08, ease: 'power3.out',
                 });
             });
-            
+
             return () => {
                 window.removeEventListener('pointermove', onMove);
             };
         }, heroRef);
-        
+
         return () => ctx.revert();
     }, []);
-    
+
     const featured = useMemo(() => PRODUCTS.slice(0, 4), []);
     const recommended = useMemo(() => PRODUCTS.slice(4, 8), []);
-    
+
     return (
         <div className="overflow-hidden">
             {/* <Header /> */}
-          
+
             <section
                 ref={heroRef}
                 className="relative min-h-[84vh] bg-linear-to-br from-amber-50 via-orange-50 to-rose-50 overflow-hidden "
             >
-                 <div className="absolute -top-10 rotate-180 left-0 right-0">
+                <div className="absolute -top-10 rotate-180 left-0 right-0">
                     <svg viewBox="0 0 1440 120" className="w-full h-auto">
                         <path
                             fill="#ffffff"
@@ -180,7 +180,7 @@ export function HomeMain(){
                         />
                     </svg>
                 </div>
-                
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center py-16">
                     {/* Content */}
                     <div className="space-y-7 z-10">
@@ -237,8 +237,8 @@ export function HomeMain(){
 
                     {/* Visuals */}
 
-           
-                        < CarouselCardSmooth/>
+
+                    < CarouselCardSmooth />
                 </div>
 
                 {/* Wave */}
@@ -249,13 +249,13 @@ export function HomeMain(){
                             d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
                         />
                     </svg>
-                    
-                </div>
-                
-            </section>
-<HeroBanner />
 
-            <LuxuryShopCards/>
+                </div>
+
+            </section>
+            <HeroBanner />
+
+            <LuxuryShopCards />
 
 
         </div>

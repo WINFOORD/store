@@ -1,0 +1,56 @@
+{
+  "common": {
+    "home": "Home",
+    "products": "Products",
+    "about": "About Us",
+    "contact": "Contact",
+    "cart": "Cart",
+    "search": "Search",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "nav": {
+    "categories": "Categories",
+    "brands": "Brands",
+    "offers": "Special Offers",
+    "new": "New Arrivals",
+    "bestsellers": "Best Sellers"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "price": "Price",
+    "discount": "Discount",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "specifications": "Specifications",
+    "description": "Description",
+    "reviews": "Reviews",
+    "rating": "Rating",
+    "share": "Share",
+    "compare": "Compare",
+    "wishlist": "Wishlist",
+    "sku": "SKU",
+    "category": "Category",
+    "brand": "Brand",
+    "colors": "Colors",
+    "sizes": "Sizes",
+    "quantity": "Quantity"
+  },
+  "seo": {
+    "homeTitle": "Online Store - Quality Products",
+    "homeDescription": "Shop online with best prices and quality - Fast shipping",
+    "productsTitle": "All Products",
+    "productsDescription": "Browse and shop products at best prices"
+  }
+}

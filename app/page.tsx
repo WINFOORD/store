@@ -1,35 +1,6 @@
-'use client';
-import { useState } from 'react';
-import { HeaderNuts } from './layout/Header';
-import { PRODUCTS } from './lib/data';
-import { QuickView } from './ui/QuickView';
-import { HomeMain } from './ui/template-2';
-import { StickyCartBar } from './ui/StickyCartBar';
-import { CategoryCard } from './ui/CategoryCard';
-import { ShopCard } from './ui/ShopCard';
-import { FiltersSidebar } from './ui/filterSidebat';
+import { redirect } from "next/navigation";
+import { defaultLocale } from "./src/i18n/config";
 
-export default function HomePage() {
-  const [quickOpen, setQuickOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(PRODUCTS[0]);
-
-  const handleOpen = (productIndex: number) => {
-    setSelectedProduct(PRODUCTS[productIndex]);
-    setQuickOpen(true);
-  };
-
-  const handleClose = () => setQuickOpen(false);
-
-  return (
-    <>
-      <HeaderNuts />
-      <HomeMain />
-      <StickyCartBar totalItems={2} totalPrice={1500} />
-      <QuickView open={quickOpen} product={selectedProduct} onClose={handleClose} />
-      <div className='flex'>
-
-
-      </div>
-    </>
-  );
+export default function Page() {
+  redirect(`/${defaultLocale}`);
 }

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, ShoppingCart, Eye, Heart } from "lucide-react";
-import OptimizedImage from "../optimizeImage";
+import OptimizedImage from "./optimizeImage";
 
 export function CarouselCardSmooth() {
   const slides = [
