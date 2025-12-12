@@ -120,7 +120,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
   }, []);
 
   const headerClasses = `bg-white/90 backdrop-blur-xl sticky top-0 z-50 transition-all duration-500 ${
-    isScrolled ? 'py-0 border-b border-stone-200 shadow-md' : 'pt-1 border-b border-stone-100/50'
+    isScrolled ? 'py-0 border-b border-stone-200 shadow-md' : 'pt-1 '
   }`;
   
   const logoSizeClass = isScrolled ? 'w-10 h-10' : 'w-12 h-12';
@@ -189,13 +189,9 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
             </div>
           </div>
 
-          {/* Right Actions */}
           <div className="flex items-center gap-2">
             
-            {/* Language Switcher */}
                        <LanguageSwitcher currentLocale={locale} />
-
-            {/* Dark Mode Toggle */}
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2.5 rounded-sm bg-stone-50/50 border border-stone-200/50 hover:border-stone-300 transition-all duration-300 group"
@@ -228,8 +224,10 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
       </div>
 
       {/* Desktop Mega Menu Navigation */}
-      <div className="  w-1/2 flex  mx-auto  border-stone-100/50">
-        <div className="max-w-7xl mx-auto">
+      <div className="  flex  mx-auto mt-3 ">
+          <div className='bg-stone-300 w-1/4 rounded-tl-full'>
+        </div>
+        {!isScrolled &&<div className="max-w-7xl mx-auto  ">
           <nav className="flex items-center justify-center gap-16">
 
             {/* Products Mega Menu */}
@@ -295,6 +293,8 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
             </MegaMenuItem>
 
           </nav>
+        </div>}
+        <div className='bg-stone-300 w-1/4 rounded-tr-full '>
         </div>
       </div>
 
