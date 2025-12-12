@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Store",
-  description: "My Store",
+  title: "خرید آجیل - آجیل سرای بابل",
+  description: "آجیل سرای بابل",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
