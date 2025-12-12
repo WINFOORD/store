@@ -9,26 +9,22 @@ type NavCardItemProps = {
     desc: string;
     href: string;
     Icon: ElementType; // Lucide icon
-    color: 'amber' | 'rose' | 'blue' | 'teal' | 'indigo';
 };
 
-export function NavCardItem({ title, desc, href, Icon, color }: NavCardItemProps) {
-    const borderColor = `hover:border-${color}-200`;
-    const iconBgClass = `bg-${color}-500/10 border border-${color}-300/50`;
-    const iconColorClass = `text-${color}-600`;
-    const titleHoverClass = `group-hover:text-${color}-600`;
+export function NavCardItem({ title, desc, href, Icon }: NavCardItemProps) {
+
 
     return (
         <Link
             href={href}
-            className={`group p-4 rounded-2xl border border-gray-100/50 bg-gray-50/50 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm ${borderColor}`}
+            className={`group p-4 rounded-2xl border border-gray-100/50 bg-gray-50/50 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm `}
         >
             <div className="flex items-start gap-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${iconBgClass}`}>
-                    <Icon className={`w-5 h-5 ${iconColorClass}`} />
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center `}>
+                    <Icon className={`w-5 h-5 `} />
                 </div>
                 <div className="flex-1">
-                    <div className={`font-bold text-gray-900 mb-0.5 ${titleHoverClass}`}>{title}</div>
+                    <div className={`font-bold text-gray-900 mb-0.5 `}>{title}</div>
                     <div className="text-xs text-gray-500">{desc}</div>
                 </div>
             </div>

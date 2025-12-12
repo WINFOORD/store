@@ -119,12 +119,10 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const headerClasses = `bg-white/90 backdrop-blur-xl sticky top-0 z-50 transition-all duration-500 ${
-    isScrolled ? 'py-0 border-b border-stone-200 shadow-md' : 'pt-1 '
+  const headerClasses = `bg-white/40 backdrop-blur-xl sticky top-0 z-50 transition-all duration-500 ${
+    isScrolled ? 'shadow-md' : ''
   }`;
   
-  const logoSizeClass = isScrolled ? 'w-10 h-10' : 'w-12 h-12';
-  const logoTextClass = isScrolled ? 'text-lg' : 'text-xl';
 
   return (
     <header className={headerClasses}>
@@ -133,7 +131,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
   
 
         {/* Main Navigation Row */}
-        <div className="flex items-center justify-between pt-4 gap-4">
+        <div className={`flex items-center justify-between ${isScrolled ? 'pt-1' : 'pt-4 '} gap-4`}>
           
           {/* Logo */}
          <Link href="/" className="flex items-center gap-4 group">
@@ -153,7 +151,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
 
   {/* Text Label - نام برند */}
   <div className="flex flex-col ">
-    <div className={`flex items-baseline transition-all duration-500 ${isScrolled ? 'scale-90 origin-right' : 'scale-100'}`}>
+    <div className={`flex items-baseline transition-all duration-500 ${isScrolled ? 'scale-80 origin-right' : 'scale-100'}`}>
       <span className="font-serif text-2xl tracking-tight text-stone-900">
         Ajil<span className=" font-light text-stone-500 ml-1">Saraye</span>
       </span>
@@ -179,8 +177,8 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
             <div className="relative group">
               <input
                 placeholder={dict.header.searchPlaceholder}
-                className={`w-full rounded-sm px-6 pr-14 bg-stone-50/50 border border-stone-200/50 shadow-sm outline-none focus:ring-1 focus:ring-stone-400 focus:bg-white transition-all duration-300 text-stone-900 font-light ${
-                  isScrolled ? 'py-2.5' : 'py-3'
+                className={`w-full rounded-sm px-6 pr-14 bg-stone-200/50 border-b border-stone-400/50 shadow-sm outline-none focus:ring-1 focus:ring-stone-400 focus:bg-white transition-all duration-300 text-stone-900 font-light ${
+                  isScrolled ? 'py-2.5' : 'py-2.5'
                 }`}
               />
               <div className="absolute right-5 top-1/2 -translate-y-1/2">
@@ -308,7 +306,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
             className="md:hidden border-t border-stone-200 bg-white"
           >
             <div className="px-6 py-8 space-y-6 max-w-7xl mx-auto">
-              
+                          
               {/* Mobile Search */}
               <div className="relative">
                 <input
