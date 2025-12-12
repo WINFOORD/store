@@ -8,22 +8,22 @@ export function CarouselCardSmooth() {
   const slides = [
     { 
       id: 1, 
-      img: null, 
-      title: 'شکلات فرانسوی', 
+      img: '/images/giftpack.webp', 
+      title: 'پک هدیه', 
       sub: 'وارداتی', 
       price: 'T 250,000 ' 
     },
     { 
       id: 2, 
-      img: null, 
-      title: 'تمشک آلمانی', 
+      img: '/images/yalda.webp', 
+      title: 'پک های شیشه ای', 
       sub: 'ارگانیک', 
       price: 'T 370,000' 
     },
     { 
       id: 3, 
-      img: null, 
-      title: 'پسته سبز', 
+      img: '/images/yaldapack.webp', 
+      title: 'پک شب یلدا', 
       sub: 'پر فروش ترین این ماه', 
       price: 'T 1,200,000' 
     },
@@ -38,31 +38,31 @@ export function CarouselCardSmooth() {
   }, []);
 
   return (
-    <div className="relative w-full h-[550px]  flex items-center justify-center">
+    <div className="relative w-full h-[500px]  flex items-center justify-center">
       <motion.div
         key={index}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -30 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        className="relative w-[400px] h-[520px]"
+        className="relative w-[500px] h-[520px]"
       >
         {/* Image Container with Editorial Frame */}
-        <div className="relative w-full h-full p-6 border border-stone-200 bg-white shadow-xl rounded-md">
+        <div className="relative w-full h-full p-2  border border-stone-200 bg-white shadow-xl rounded-xl">
           <div className="relative w-full h-full overflow-hidden">
             <OptimizedImage
-              src={'/images/placeholder.webp'}
+              src={slides[index].img || '/images/placeholder.png'}
               alt={slides[index].title}
               fill
-              className="transition-transform duration-[3s] hover:scale-105"
+              className="transition-transform rounded-2xl duration-[3s] hover:scale-105"
             />
-            <div className="absolute inset-0  bg-gradient-to-t from-black/10 to-transparent" />
+            
           </div>
           
           {/* Floating Price Tag */}
-          <div className="absolute -right-8 top-16 bg-stone-900 text-white px-5 py-2 text-xs font-light tracking-[0.25em] rounded-xs">
+          {/* <div className="absolute -right-8 top-16 bg-stone-900 text-white px-5 py-2 text-xs font-light tracking-[0.25em] rounded-xs">
             {slides[index].price}
-          </div>
+          </div> */}
         </div>
 
         {/* Text Overlay - Dior Inspired Typography */}
@@ -79,7 +79,7 @@ export function CarouselCardSmooth() {
       </motion.div>
 
       {/* Minimal Navigation Dots */}
-      <div className="absolute -top-5 left-1/2 -translate-x-1/2 flex gap-4">
+      <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
         {slides.map((_, i) => (
           <button
             key={i}

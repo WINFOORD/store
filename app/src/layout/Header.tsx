@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LanguageSwitcher from '../components/SwitchLang';
 import Link from 'next/link';
 import { MegaMenuItem } from '../ui/MegaMenuItem';
+import { integrations, products, resources } from '../lib/data';
 
 // Mock Types & Data
 type Locale = 'en' | 'fa';
@@ -29,29 +30,9 @@ const mockDict: Dictionary = {
 
 
 
-// Data
-const products = [
-  { title: 'بادام کالیفرنیا', desc: 'مرغوب و تازه', href: '/products/almond', icon: Nut },
-  { title: 'پسته اکبری', desc: 'درجه یک', href: '/products/pistachio', icon: Leaf },
-  { title: 'گردو مغز', desc: 'ارگانیک', href: '/products/walnut', icon: PackageOpen },
-  { title: 'کاجو هندی', desc: 'تست شده', href: '/products/cashew', icon: Candy },
-  { title: 'کشمش طلایی', desc: 'بدون شکر', href: '/products/raisin', icon: Gift },
-  { title: 'فندق ترک', desc: 'بو داده', href: '/products/hazelnut', icon: Flame },
-];
 
-const resources = [
-  { title: 'راهنمای خرید', desc: 'نکات انتخاب آجیل', href: '/guide', icon: Info },
-  { title: 'طرز تهیه', desc: 'دستور پخت‌ها', href: '/recipes', icon: Gift },
-  { title: 'مقالات تغذیه', desc: 'خواص درمانی', href: '/articles', icon: Heart },
-  { title: 'ویدیوها', desc: 'آموزش‌های تصویری', href: '/videos', icon: Sparkles },
-];
 
-const integrations = [
-  { title: 'ارسال سریع', desc: 'تحویل در ۲۴ ساعت', href: '/shipping', icon: Truck },
-  { title: 'پشتیبانی ۲۴/۷', desc: 'همیشه در خدمت', href: '/support', icon: Phone },
-  { title: 'ضمانت کیفیت', desc: 'بازگشت وجه ۱۰۰٪', href: '/guarantee', icon: Gift },
-  { title: 'مشاوره رایگان', desc: 'کارشناس تغذیه', href: '/consultation', icon: User },
-];
+
 
 const aboutUsLinks = [
   { title: 'داستان ما', icon: Info, href: '/about/story', desc: 'تاریخچه برند' },
