@@ -13,47 +13,6 @@ import LuxuryShopCards from './ShopCard';
 gsap.registerPlugin(ScrollTrigger);
 
 
-function HeroBanner() {
-
-    const trackRef = useRef<HTMLDivElement>(null);
-    useGsapCarousel(trackRef, BANNERS.length);
-
-    const navigate = (direction: 'next' | 'prev') => {
-        const track = trackRef.current;
-        if (!track) return;
-        const fn = direction === 'next' ? (track as any).__carouselNext : (track as any).__carouselPrev;
-        if (typeof fn === 'function') fn();
-    };
-
-    return (
-        <section className="mt-16 relative overflow-hidden h-[400px] md:h-[500px] lg:h-[600px] rounded-b-[40px] shadow-2xl bg-orange-50">
-            <div className="absolute inset-0 overflow-hidden">
-                <div ref={trackRef} className="flex h-full w-[300%] lg:w-[300%] transition-transform duration-700 ease-in-out">
-                    {BANNERS.map((b, index) => (
-                        <div key={b.id} className="w-1/3 shrink relative">
-                            <div className={`absolute inset-0 bg-linear-to-br ${b.linear} opacity-90`}></div>
-                            <div className="relative z-10 p-8 md:p-12 lg:p-20 text-white flex flex-col justify-center h-full">
-                                <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold mb-4">{b.title}</h1>
-                                <p className="text-lg md:text-2xl mb-8 max-w-xl">{b.subtitle}</p>
-                                <MagneticButton className="self-start px-8 py-3 bg-white text-gray-900 rounded-xl font-bold shadow-lg flex items-center gap-2">
-                                    {b.cta || 'مشاهده'} <ArrowRight className="w-5 h-5 rtl:rotate-180" />
-                                </MagneticButton>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <div className="absolute inset-0 flex items-center justify-between p-4 z-20 pointer-events-none">
-                <button onClick={() => navigate('prev')} className="p-3 bg-white/50 text-gray-900 rounded-full shadow-lg pointer-events-auto hover:bg-white/80 transition" aria-label="قبلی">
-                    <ChevronRight className="w-6 h-6" />
-                </button>
-                <button onClick={() => navigate('next')} className="p-3 bg-white/50 text-gray-900 rounded-full shadow-lg pointer-events-auto hover:bg-white/80 transition" aria-label="بعدی">
-                    <ChevronLeft className="w-6 h-6" />
-                </button>
-            </div>
-        </section>
-    );
-}
 
 
 export function HomeMain() {
@@ -105,19 +64,13 @@ export function HomeMain() {
         },
     ];
 
-    // Hooks for carousel
-    useGsapCarousel(carouselRef, BANNERS.length);
-    const onQuickView = (p: Product) => {
-        setQuickProduct(p);
-        setQuickOpen(true);
-    };
+
     const toggleWishlist = (id: number) => {
         setWishlist(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
     };
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Hero entrance
             gsap.from('.hero-kicker', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' });
             gsap.from('.hero-title-1', { y: 80, opacity: 0, duration: 1.2, ease: 'power4.out', delay: 0.1 });
             gsap.from('.hero-title-2', { y: 80, opacity: 0, duration: 1.2, ease: 'power4.out', delay: 0.2 });
@@ -170,27 +123,21 @@ export function HomeMain() {
 
             <section
                 ref={heroRef}
-                className="relative min-h-[84vh] bg-linear-to-br from-amber-100 via-orange-100 to-rose-200 overflow-hidden "
+                className="relative min-h-[84vh] bg-linear-to-b from-stone-300 via-gray-100 to-gray-100 overflow-hidden "
             >
-                <div className="absolute -top-10 rotate-180 left-0 right-0">
-                    <svg viewBox="0 0 1440 120" className="w-full h-auto">
-                        <path
-                            fill="#ffffff"
-                            d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
-                        />
-                    </svg>
-                </div>
+ 
+
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center py-16">
                     {/* Content */}
                     <div className="space-y-7 z-10">
-                        <div className="hero-kicker inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg">
-                            <Sparkles className="w-4 h-4 text-amber-600" />
-                            <span className="text-sm font-semibold text-amber-900">پریمیوم، ارگانیک، خوش‌طعم</span>
+                        <div className="hero-kicker inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-md shadow-lg">
+                            <Sparkles className="w-4 h-4 text-yellow-700" />
+                            <span className="text-sm font-semibold text-gray-900">پریمیوم، ارگانیک، خوش‌طعم</span>
                         </div>
                         <h1 className="space-y-2">
-                            <div className="hero-title-1 text-6xl lg:text-7xl font-black text-gray-900 leading-tight">طعم واقعی</div>
-                            <div className="hero-title-2 text-6xl lg:text-7xl font-black bg-linear-to-r from-amber-600 via-orange-600 to-rose-600 bg-clip-text text-transparent leading-tight">
+                            <div className="hero-title-1 text-6xl lg:text-7xl font-black text-stone-900 leading-tight">طعم واقعی</div>
+                            <div className="hero-title-2 text-6xl lg:text-7xl font-black bg-linear-to-r from-stone-100 via-stone-700 to-stone-400 bg-clip-text text-transparent leading-tight">
                                 لذت خالص
                             </div>
                         </h1>
@@ -199,7 +146,7 @@ export function HomeMain() {
                         </p>
                         <div className="hero-cta flex flex-wrap gap-4">
                             <Link href="/products">
-                                <MagneticButton className="group px-7 py-4 bg-linear-to-r from-amber-600 to-orange-600 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl flex items-center gap-2">
+                                <MagneticButton className="group px-7 py-4 bg-linear-to-r from-stone-950 to-stone-800 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl flex items-center gap-2">
                                     شروع خرید
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </MagneticButton>
@@ -242,18 +189,10 @@ export function HomeMain() {
                 </div>
 
                 {/* Wave */}
-                <div className="absolute bottom-0 left-0 right-0">
-                    <svg viewBox="0 0 1440 120" className="w-full h-auto">
-                        <path
-                            fill="#ffffff"
-                            d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
-                        />
-                    </svg>
-
-                </div>
+              
 
             </section>
-            <HeroBanner />
+  
 
             <LuxuryShopCards />
 

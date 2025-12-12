@@ -24,6 +24,7 @@ export default async function HomePage({ params }: Props) {
       <HeaderNuts dict={dict} locale={locale} />
       <HomeMain />
       <StickyCartBar totalItems={2} totalPrice={1500} />
+      
 
       <div className='flex'></div>
     </>

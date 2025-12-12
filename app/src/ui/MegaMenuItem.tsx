@@ -10,7 +10,6 @@ interface MegaMenuItemProps {
     title: string;
     children: ReactNode;
     width: 'small' | 'medium' | 'large'; 
-    bgColorClass: string;
 }
 
 const widthMap = {
@@ -43,7 +42,6 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
     title,
     children,
     width,
-    bgColorClass,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const megaRef = useRef<HTMLDivElement>(null);
@@ -72,7 +70,7 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
             onMouseLeave={() => setIsOpen(false)}
         >
             <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600 transition-colors group">
-                <span className="font-medium">{title}</span>
+                <span className="text-[12.5px] text-stone-600 ">{title}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180 translate-y-0.5' : ''}`} />
             </button>
 
@@ -84,10 +82,10 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
                         animate="visible"
                         exit="exit"
                         variants={megaVariants} // استفاده مستقیم از variants
-                        className={`absolute left-1/2 -translate-x-1/2 mt-0 ${widthMap[width]}  rounded-3xl bg-white/95 backdrop-blur-xl shadow-2xl border-2 border-gray-100/80 p-8 overflow-hidden`}
+                        className={`absolute left-1/2 -translate-x-1/2 mt-0 ${widthMap[width]}  rounded-xl bg-white/95 backdrop-blur-xl shadow-2xl border border-gray-300 p-8 overflow-hidden`}
                     >
                         {/* بک‌گراند بلوری دینامیک برای زیبایی */}
-                        <div className={`absolute bottom-0 left-0 w-64 h-64 ${bgColorClass} rounded-full blur-3xl opacity-30`}></div>
+                        <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-30`}></div>
                         
                         {/* محتوای واقعی دراپ‌دان */}
                         <div className="relative z-10">{children}</div>

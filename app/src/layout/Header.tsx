@@ -1,290 +1,362 @@
-// HeaderNuts.tsx (بازنویسی شده)
-
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import {
-    Menu, X, ShoppingCart, Search, Sun, Moon, MapPin, User, Info,
-    Sparkles, Gift, Flame, Leaf, PackageOpen, Truck, Heart, Nut, Candy
-} from 'lucide-react';
-import { Dictionary } from '../i18n/Dictionary'
-import { Locale } from '../i18n/config';
+import { Menu, X, ShoppingCart, Search, Sun, Moon, MapPin, User, Info, Heart, Gift, Truck, Phone, Mail, Clock, Sparkles, Leaf, PackageOpen, Flame, Candy, Nut } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import LanguageSwitcher from '../components/SwitchLang';
+import Link from 'next/link';
 import { MegaMenuItem } from '../ui/MegaMenuItem';
-import { CTABanner, NavCardItem, StatCard } from '../ui/NavCardItem'; // کامپوننت جدید
-import { integrations, products, resources } from '../lib/data';
+
+// Mock Types & Data
+type Locale = 'en' | 'fa';
+type Dictionary = {
+  seo: { homeTitle: string };
+  header: { searchPlaceholder: string; cart: string; support: string };
+  product: { category: string };
+  footer: { customerService: string };
+};
+
+const mockDict: Dictionary = {
+  seo: { homeTitle: 'PREMIUM | فروشگاه آجیل' },
+  header: { 
+    searchPlaceholder: 'جستجوی محصولات...', 
+    cart: 'سبد خرید',
+    support: 'راهنما'
+  },
+  product: { category: 'محصولات' },
+  footer: { customerService: 'خدمات مشتریان' }
+};
 
 
-type Props = {
-    locale: Locale
-    dict: Dictionary
-}
 
-// === داده‌های ناوبری جدید (بدون تغییر) ===
+// Data
+const products = [
+  { title: 'بادام کالیفرنیا', desc: 'مرغوب و تازه', href: '/products/almond', icon: Nut },
+  { title: 'پسته اکبری', desc: 'درجه یک', href: '/products/pistachio', icon: Leaf },
+  { title: 'گردو مغز', desc: 'ارگانیک', href: '/products/walnut', icon: PackageOpen },
+  { title: 'کاجو هندی', desc: 'تست شده', href: '/products/cashew', icon: Candy },
+  { title: 'کشمش طلایی', desc: 'بدون شکر', href: '/products/raisin', icon: Gift },
+  { title: 'فندق ترک', desc: 'بو داده', href: '/products/hazelnut', icon: Flame },
+];
+
+const resources = [
+  { title: 'راهنمای خرید', desc: 'نکات انتخاب آجیل', href: '/guide', icon: Info },
+  { title: 'طرز تهیه', desc: 'دستور پخت‌ها', href: '/recipes', icon: Gift },
+  { title: 'مقالات تغذیه', desc: 'خواص درمانی', href: '/articles', icon: Heart },
+  { title: 'ویدیوها', desc: 'آموزش‌های تصویری', href: '/videos', icon: Sparkles },
+];
+
+const integrations = [
+  { title: 'ارسال سریع', desc: 'تحویل در ۲۴ ساعت', href: '/shipping', icon: Truck },
+  { title: 'پشتیبانی ۲۴/۷', desc: 'همیشه در خدمت', href: '/support', icon: Phone },
+  { title: 'ضمانت کیفیت', desc: 'بازگشت وجه ۱۰۰٪', href: '/guarantee', icon: Gift },
+  { title: 'مشاوره رایگان', desc: 'کارشناس تغذیه', href: '/consultation', icon: User },
+];
+
 const aboutUsLinks = [
-    { title: 'داستان ما', icon: Info, href: '/about/story', desc: 'با  تاریخچه ما آشنا شوید' },
-    { title: 'اعضای تیم', icon: User, href: '/about/team', desc: 'مغزهای  پشت این تجارت' },
-    { title: 'فرصت‌های شغلی', icon: Heart, href: '/about/careers', desc: 'به تیم ما بپیوندید' },
+  { title: 'داستان ما', icon: Info, href: '/about/story', desc: 'تاریخچه برند' },
+  { title: 'اعضای تیم', icon: User, href: '/about/team', desc: 'متخصصین حرفه‌ای' },
+  { title: 'فرصت‌های شغلی', icon: Heart, href: '/about/careers', desc: 'همکاری با ما' },
 ];
 
 const authLinks = [
-    { title: 'ورود', icon: User, href: '/auth/login', desc: 'ورود به حساب کاربری موجود' },
-    { title: 'ثبت نام', icon: Sparkles, href: '/auth/signup', desc: 'ایجاد حساب کاربری جدید' },
-    { title: 'فراموشی رمز عبور', icon: X, href: '/auth/reset', desc: 'بازیابی رمز عبور' },
+  { title: 'ورود', icon: User, href: '/auth/login', desc: 'ورود به حساب کاربری' },
+  { title: 'ثبت نام', icon: Sparkles, href: '/auth/signup', desc: 'عضویت رایگان' },
+  { title: 'فراموشی رمز', icon: X, href: '/auth/reset', desc: 'بازیابی رمز عبور' },
 ];
-// ======================================
 
-export function HeaderNuts({ locale, dict }: Props) {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    // رصد موقعیت اسکرول (بدون تغییر)
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    // کلاس‌های پویا بر اساس وضعیت اسکرول (بدون تغییر)
-    const headerClasses = `
-        bg-white/90 backdrop-blur-xl sticky top-0 z-50 transition-all duration-300
-        ${isScrolled
-            ? 'py-2 border-b border-amber-200/50 shadow-md'
-            : 'py-4 border-b border-amber-100/20'
-        }
-    `;
-    const logoSizeClass = isScrolled ? 'w-10 h-10' : 'w-12 h-12';
-    const logoTextClass = isScrolled ? 'text-lg' : 'text-xl';
+// Mega Menu Item Component
 
 
-    return (
-        <header className={headerClasses}>
-            <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-6">
-                {/* ... بخش‌های لوگو، جستجو و اکشن‌ها (بدون تغییر) ... */}
-                <Link href="/" className="flex items-center gap-3 group">
-                    <div className="relative transition-all duration-300">
-                        <div className={`absolute inset-0 bg-linear-to-br from-amber-400 to-orange-500 rounded-2xl blur-md opacity-40 group-hover:opacity-60 transition-opacity ${isScrolled ? 'scale-90' : ''}`}></div>
-                        <div className={`relative rounded-2xl bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl shadow-lg transform group-hover:scale-105 transition-transform ${logoSizeClass}`}>
-                            🥜
-                        </div>
-                    </div>
-                    <div className="flex flex-col">
-                        <span className={`font-black bg-linear-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent transition-all duration-300 ${logoTextClass}`}>
-                            {dict.seo.homeTitle.split('|')[0].trim()}
-                        </span>
-                        <span className="text-[10px] text-gray-500 flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
-                            babol
-                        </span>
-                    </div>
-                </Link>
+// Nav Card Component
+function NavCardItem({ title, desc, href, Icon, color = 'stone' }: { title: string; desc: string; href: string; Icon: any; color?: string }) {
 
-                {/* Search */}
-                <div className="hidden lg:block flex-1 max-w-2xl">
-                    <div className="relative group">
-                        <input
-                            placeholder={dict.header.searchPlaceholder}
-                            className={`w-full rounded-2xl px-6 pr-14 bg-gray-50/50 border border-gray-200/50 shadow-sm outline-none focus:ring-2 focus:ring-amber-400/50 focus:bg-white transition-all duration-300 text-gray-900 ${isScrolled ? 'py-2.5' : 'py-3.5'}`}
-                        />
-                        <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                            <Search className="w-5 h-5 text-gray-400 group-focus-within:text-amber-500 transition-colors" />
-                        </div>
-                    </div>
-                </div>
 
-                {/* Actions */}
-                <div className="flex items-center gap-2">
-                    <LanguageSwitcher currentLocale={locale} />
+  return (
+    <a 
+      href={href}
+      className={`group block p-4 border-b hover:scale-[1.02] border-gray-300  rounded-xl transition-all duration-300 hover:shadow-xl`}
+    >
+      <div className="flex items-start gap-3">
+        <Icon className="w-4 h-4 text-stone-400 mt-1 group-hover:text-stone-900 transition-colors" />
+        <div>
+          <h4 className="text-sm font-light text-stone-900 mb-1">{title}</h4>
+          <p className="text-xs text-stone-500 font-light">{desc}</p>
+        </div>
+      </div>
+    </a>
+  );
+}
 
-                    {/* Dark/Light Mode Toggle */}
-                    <button
-                        onClick={() => setDarkMode(!darkMode)}
-                        className="p-2.5 rounded-xl bg-gray-50/50 border border-gray-200/50 hover:border-amber-300 transition-all duration-300 group"
-                    >
-                        {darkMode ? (
-                            <Sun className="w-4 h-4 text-amber-500 group-hover:rotate-45 transition-transform duration-300" />
-                        ) : (
-                            <Moon className="w-4 h-4 text-gray-600 group-hover:text-amber-600 transition-colors" />
-                        )}
-                    </button>
+// CTA Banner Component
+function CTABanner({ title, subtitle, buttonText, href, fromColor, toColor }: { title: string; subtitle: string; buttonText: string; href: string; fromColor?: string; toColor?: string }) {
+  return (
+    <div className="mt-6 p-6 rounded-xl bg-stone-900 text-white relative overflow-hidden">
+      <div className="absolute top-0 right-10 w-72 h-72  bg-white/5 rounded-full -mr-16 -mt-16" />
+      <h4 className="text-lg font-light mb-2 relative z-10">{title}</h4>
+      <p className="text-sm text-stone-400 mb-4 font-light relative z-10">{subtitle}</p>
+      <a 
+        href={href}
+        className="inline-block text-xs flex justify-end tracking-[0.2em] uppercase border border-white/20 px-6 py-2 hover:bg-white hover:text-stone-900 transition-all duration-300 relative z-10"
+      >
+        {buttonText}
+      </a>
+    </div>
+  );
+}
 
-                    {/* Cart CTA */}
-                    <Link
-                        href="/cart"
-                        className="hidden md:flex px-4 py-2.5 rounded-xl bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white items-center gap-2 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300 group"
-                    >
-                        <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                        <span className="text-sm font-bold">{dict.header.cart}</span>
-                    </Link>
+// Stat Card Component
 
-                    {/* Mobile Menu Toggle */}
-                    <button
-                        className="md:hidden p-2.5 rounded-xl border border-gray-200/50"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        aria-label="Toggle menu"
-                    >
-                        {mobileMenuOpen ? <X size={20} className="text-gray-700" /> : <Menu size={20} className="text-gray-700" />}
-                    </button>
-                </div>
+// Main Header Component
+export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Locale; dict?: Dictionary }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const headerClasses = `bg-white/90 backdrop-blur-xl sticky top-0 z-50 transition-all duration-500 ${
+    isScrolled ? 'py-0 border-b border-stone-200 shadow-md' : 'pt-1 border-b border-stone-100/50'
+  }`;
+  
+  const logoSizeClass = isScrolled ? 'w-10 h-10' : 'w-12 h-12';
+  const logoTextClass = isScrolled ? 'text-lg' : 'text-xl';
+
+  return (
+    <header className={headerClasses}>
+      <div className="max-w-7xl mx-auto px-6">
+        
+  
+
+        {/* Main Navigation Row */}
+        <div className="flex items-center justify-between pt-4 gap-4">
+          
+          {/* Logo */}
+         <Link href="/" className="flex items-center gap-4 group">
+  {/* Emblem - نشان مونوگرام */}
+  <div className={`relative flex items-center justify-center transition-all duration-700 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-14 h-14'}`}>
+    {/* Border Frame: یک قاب بسیار ظریف که با هاور می‌چرخد */}
+    <div className="absolute inset-0 border border-stone-500 rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
+    
+    {/* Background Square: تخت و با وقار */}
+    <div className="absolute inset-[2px]  bg-stone-900 shadow-2xl transition-colors duration-500 group-hover:bg-stone-800" />
+    
+    {/* Initials: تایپوگرافی سریف سفید */}
+    <span className={`relative font-serif text-white transition-all duration-500 ${isScrolled ? 'text-sm' : 'text-lg'} tracking-tighter`}>
+      AS
+    </span>
+  </div>
+
+  {/* Text Label - نام برند */}
+  <div className="flex flex-col ">
+    <div className={`flex items-baseline transition-all duration-500 ${isScrolled ? 'scale-90 origin-right' : 'scale-100'}`}>
+      <span className="font-serif text-2xl tracking-tight text-stone-900">
+        Ajil<span className=" font-light text-stone-500 ml-1">Saraye</span>
+      </span>
+    </div>
+    
+    <div className="flex items-center gap-2 overflow-hidden">
+      <motion.div 
+        initial={{ x: 20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        className="flex items-center gap-1"
+      >
+        <MapPin className="w-4 h-4 text-stone-400" />
+        <span className="text-[12px] tracking-[0.4em] uppercase font-medium text-stone-500">
+          Babol 
+        </span>
+      </motion.div>
+    </div>
+  </div>
+</Link>
+
+          {/* Search Bar - Desktop */}
+          <div className="hidden lg:block flex-1 max-w-2xl">
+            <div className="relative group">
+              <input
+                placeholder={dict.header.searchPlaceholder}
+                className={`w-full rounded-sm px-6 pr-14 bg-stone-50/50 border border-stone-200/50 shadow-sm outline-none focus:ring-1 focus:ring-stone-400 focus:bg-white transition-all duration-300 text-stone-900 font-light ${
+                  isScrolled ? 'py-2.5' : 'py-3'
+                }`}
+              />
+              <div className="absolute right-5 top-1/2 -translate-y-1/2">
+                <Search className="w-4 h-4 text-stone-400 group-focus-within:text-stone-900 transition-colors" />
+              </div>
             </div>
+          </div>
 
-            {/* Desktop Nav - استفاده از MegaMenuItem */}
-            <div className="hidden md:block border-t border-gray-100/50">
-                <div className="mx-auto">
-                    <nav className="flex items-center justify-center gap-6 lg:gap-10 text-gray-700">
+          {/* Right Actions */}
+          <div className="flex items-center gap-2">
+            
+            {/* Language Switcher */}
+                       <LanguageSwitcher currentLocale={locale} />
 
-                        {/* ۱. مگامنوی محصولات */}
-                        <MegaMenuItem
-                            title={dict.product.category}
-                            width="large"
-                            bgColorClass="from-rose-400/10 to-pink-500/10"
-                        >
-                            <div className="grid grid-cols-3 gap-4">
-                                {products.map(({ title, icon, href, desc }, i) => (
-                                    <NavCardItem
-                                        key={i}
-                                        title={title}
-                                        desc={desc}
-                                        href={href}
-                                        Icon={icon}
-                                        color="amber" // رنگ اصلی برای محصولات
-                                    />
-                                ))}
-                            </div>
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2.5 rounded-sm bg-stone-50/50 border border-stone-200/50 hover:border-stone-300 transition-all duration-300 group"
+            >
+              {darkMode ? (
+                <Sun className="w-4 h-4 text-amber-500 group-hover:rotate-45 transition-transform duration-300" />
+              ) : (
+                <Moon className="w-4 h-4 text-stone-600 group-hover:text-amber-600 transition-colors" />
+              )}
+            </button>
 
-                            {/* Highlight CTA - Gift Box */}
-                            <CTABanner
-                                title="پک‌های هدیه لوکس"
-                                subtitle="برای مناسبت‌ها و هدیه‌های خاطره‌ساز"
-                                buttonText="خرید پک هدیه"
-                                href="/gifts"
-                                fromColor="from-amber-500"
-                                toColor="to-orange-500"
-                            />
-                        </MegaMenuItem>
+            {/* Cart Button */}
+            <a
+              href="/cart"
+              className="hidden md:flex px-5 py-2.5 rounded-sm bg-gradient-to-r from-stone-700 transition-colors duration-300 to-stone-900 hover:from-stone-800 hover:to-stone-600 text-white items-center gap-2 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30   group"
+            >
+              <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-light tracking-wider uppercase">{dict.header.cart}</span>
+            </a>
 
-                        {/* ۲. مگامنوی راهنما/منابع */}
-                        <MegaMenuItem
-                            title={dict.header.support}
-                            width="medium"
-                            bgColorClass="from-rose-400/10 to-pink-500/10"
-                        >
-                            <div className="grid grid-cols-2 gap-4">
-                                {resources.map((r, i) => (
-                                    <NavCardItem
-                                        key={i}
-                                        title={r.title}
-                                        desc={r.desc}
-                                        href={r.href}
-                                        Icon={r.icon}
-                                        color="rose" // رنگ برای منابع
-                                    />
-                                ))}
-                            </div>
-                            {/* CTA Guide */}
-                            <CTABanner
-                                title="راهنمای انتخاب مغزها"
-                                subtitle="طعم، بافت و کاربردها را حرفه‌ای بشناس"
-                                buttonText="مطالعه راهنما"
-                                href="/guides/buying-nuts"
-                                fromColor="from-rose-500"
-                                toColor="to-pink-500"
-                            />
-                        </MegaMenuItem>
+            {/* Mobile Menu Toggle */}
+            <button
+              className="md:hidden p-2.5 rounded-sm border border-stone-200/50 hover:bg-stone-50 transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 text-stone-700" /> : <Menu className="w-5 h-5 text-stone-700" />}
+            </button>
+          </div>
+        </div>
+      </div>
 
-                        {/* ۳. مگامنوی خدمات مشتریان */}
-                        <MegaMenuItem
-                            title={dict.footer.customerService}
-                            width="medium"
-                            bgColorClass="from-blue-400/10 to-purple-500/10"
-                        >
-                            <div className="grid grid-cols-2 gap-4">
-                                {integrations.map((item, i) => (
-                                    <NavCardItem
-                                        key={i}
-                                        title={item.title}
-                                        desc={item.desc}
-                                        href={item.href}
-                                        Icon={item.icon}
-                                        color="blue" // رنگ برای خدمات مشتریان
-                                    />
-                                ))}
-                            </div>
+      {/* Desktop Mega Menu Navigation */}
+      <div className="  w-1/2 flex  mx-auto  border-stone-100/50">
+        <div className="max-w-7xl mx-auto">
+          <nav className="flex items-center justify-center gap-16">
 
-                            <div className="relative mt-6 grid grid-cols-3 gap-4">
-                                {[
-                                    { num: '۲٬۴۲۰', label: 'رضایت', color: 'from-blue-500 to-cyan-500' },
-                                    { num: '۱٬۲۱۰', label: 'سفارش موفق', color: 'from-green-500 to-emerald-500' },
-                                    { num: '۳۱۶', label: 'پشتیبانی آنلاین', color: 'from-orange-500 to-amber-500' }
-                                ].map((stat, i) => (
-                                    <StatCard
-                                        key={i}
-                                        num={stat.num}
-                                        label={stat.label}
-                                        color={stat.color}
-                                    />
-                                ))}
-                            </div>
-                        </MegaMenuItem>
+            {/* Products Mega Menu */}
+            <MegaMenuItem  title={dict.product.category} width="large">
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                {products.map((item, i) => (
+                  <NavCardItem key={i} {...item} Icon={item.icon} color="amber" />
+                ))}
+              </div>
+              <CTABanner
+                title="پک‌های هدیه لوکس"
+                subtitle="برای مناسبت‌ها و هدیه‌های خاطره‌ساز"
+                buttonText="خرید پک هدیه"
+                href="/gifts"
+                fromColor="from-amber-500"
+                toColor="to-orange-500"
+              />
+            </MegaMenuItem>
 
-                        {/* ۴. مگامنوی درباره ما */}
-                        <MegaMenuItem
-                            title="درباره ما"
-                            width="medium"
-                            bgColorClass="from-green-400/10 to-teal-500/10"
-                        >
-                            <div className="grid grid-cols-3 gap-4">
-                                {aboutUsLinks.map((item, i) => (
-                                    <NavCardItem
-                                        key={i}
-                                        title={item.title}
-                                        desc={item.desc}
-                                        href={item.href}
-                                        Icon={item.icon}
-                                        color="teal" // رنگ برای درباره ما
-                                    />
-                                ))}
-                            </div>
-                        </MegaMenuItem>
+            {/* Resources/Support Mega Menu */}
+            <MegaMenuItem title={dict.header.support} width="medium">
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {resources.map((r, i) => (
+                  <NavCardItem key={i} title={r.title} desc={r.desc} href={r.href} Icon={r.icon} color="rose" />
+                ))}
+              </div>
+              <CTABanner
+                title="راهنمای انتخاب مغزها"
+                subtitle="طعم، بافت و کاربردها را حرفه‌ای بشناس"
+                buttonText="مطالعه راهنما"
+                href="/guides/buying-nuts"
+                fromColor="from-rose-500"
+                toColor="to-pink-500"
+              />
+            </MegaMenuItem>
 
-                        {/* ۵. مگامنوی ورود/ثبت نام */}
-                        <MegaMenuItem
-                            title="ورود / ثبت نام"
-                            width="small"
-                            bgColorClass="from-indigo-400/10 to-violet-500/10"
-                        >
-                            <div className="grid grid-cols-1 gap-4">
-                                {authLinks.map((item, i) => (
-                                    <NavCardItem
-                                        key={i}
-                                        title={item.title}
-                                        desc={item.desc}
-                                        href={item.href}
-                                        Icon={item.icon}
-                                        color="indigo" // رنگ برای ورود/ثبت نام
-                                    />
-                                ))}
-                            </div>
-                        </MegaMenuItem>
+            {/* Customer Service Mega Menu */}
+            <MegaMenuItem title={dict.footer.customerService} width="medium">
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {integrations.map((item, i) => (
+                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} color="blue" />
+                ))}
+              </div>
+             
+            </MegaMenuItem>
 
-                    </nav>
+            {/* About Us Mega Menu */}
+            <MegaMenuItem title="درباره ما" width="medium">
+              <div className="grid grid-cols-3 gap-3">
+                {aboutUsLinks.map((item, i) => (
+                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} color="teal" />
+                ))}
+              </div>
+            </MegaMenuItem>
+
+            {/* Auth Mega Menu */}
+            <MegaMenuItem title="ورود / ثبت نام" width="small">
+              <div className="space-y-3">
+                {authLinks.map((item, i) => (
+                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} color="indigo" />
+                ))}
+              </div>
+            </MegaMenuItem>
+
+          </nav>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden border-t border-stone-200 bg-white"
+          >
+            <div className="px-6 py-8 space-y-6 max-w-7xl mx-auto">
+              
+              {/* Mobile Search */}
+              <div className="relative">
+                <input
+                  placeholder={dict.header.searchPlaceholder}
+                  className="w-full rounded-sm px-4 pr-12 py-3 bg-stone-50 border border-stone-200 outline-none focus:ring-1 focus:ring-stone-400 text-stone-900 font-light"
+                />
+                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+              </div>
+
+              {/* Mobile Menu Sections */}
+              <div>
+                <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4 font-light">محصولات</h3>
+                <div className="space-y-3">
+                  {products.slice(0, 4).map((item, i) => (
+                    <a key={i} href={item.href} className="block text-sm text-stone-700 hover:text-stone-900 font-light">
+                      {item.title}
+                    </a>
+                  ))}
                 </div>
+              </div>
+
+              <div className="h-px bg-stone-200" />
+
+              <div>
+                <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4 font-light">خدمات</h3>
+                <div className="space-y-3">
+                  {integrations.slice(0, 3).map((item, i) => (
+                    <a key={i} href={item.href} className="block text-sm text-stone-700 hover:text-stone-900 font-light">
+                      {item.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="h-px bg-stone-200" />
+
+              {/* Mobile Cart Button */}
+              <a 
+                href="/cart" 
+                className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm tracking-wider uppercase font-light rounded-sm"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                {dict.header.cart}
+              </a>
             </div>
-
-            {/* Mobile Menu Content (برای تکمیل باید اضافه شود) */}
-
-        </header>
-    )
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
 }
