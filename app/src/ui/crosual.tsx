@@ -60,26 +60,23 @@ export function CarouselCardSmooth() {
           </div>
           
           {/* Floating Price Tag */}
-          {/* <div className="absolute -right-8 top-16 bg-stone-900 text-white px-5 py-2 text-xs font-light tracking-[0.25em] rounded-xs">
-            {slides[index].price}
-          </div> */}
+      
         </div>
 
         {/* Text Overlay - Dior Inspired Typography */}
-        <div className="absolute  -bottom-12 -left-8 text-left">
-          <h3 className="text-5xl  bg-clip-text font-serif text-gray-950 leading-none font-light" 
-          style={{ filter: 'drop-shadow(0 0 10px rgba(255, 255, 0, 0.2))' }}
-          >
-            {slides[index].title}
-          </h3>
-          <p className="text-stone-500 text-[11px] tracking-[0.3em] uppercase mt-1 font-light ">
+        <div className="flex mt-2 gap-4 justify-center align-middle items-center">
+             <div className="absolute w-60 text-center -bottom-15 rounded-b-full bg-stone-900 text-white px-5 py-2 text-xl tracking-[0.25em] ">
+           {slides[index].title}
+              <h5 className="text-stone-500 text-xs tracking-[0.3em] uppercase  ">
             {slides[index].sub}
-          </p>
+          </h5>
+          </div>
+       
         </div>
       </motion.div>
 
       {/* Minimal Navigation Dots */}
-      <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
+      <div className="absolute -bottom-25 left-1/2 -translate-x-1/2 flex gap-4">
         {slides.map((_, i) => (
           <button
             key={i}
