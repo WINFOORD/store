@@ -119,7 +119,7 @@ const headerClasses = `rounded-b-full fixed  bg-white backdrop-blur-xl top-0 z-5
           {/* Logo */}
          <Link href="/" className="flex items-center gap-4 group">
   {/* Emblem - نشان مونوگرام */}
-  <div className={`relative flex items-center justify-center transition-all duration-700 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-14 h-14'}`}>
+  <div className={`relative flex items-center justify-center transition-all duration-700 m-1 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-12 h-12'}`}>
     {/* Border Frame: یک قاب بسیار ظریف که با هاور می‌چرخد */}
     <div className="absolute inset-0 border border-stone-500 rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
     
