@@ -1,14 +1,14 @@
 import Link from 'next/link'
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
-import { Locale } from '../i18n/config'
-import { Dictionary } from '../i18n/Dictionary'
+import { Locale } from '../../i18n/config'
+import { Dictionary } from '../../i18n/Dictionary'
 
 type Props = {
   locale: Locale
   dict: Dictionary
 }
 
-export default function Footer({ locale, dict }: Props) {
+export  function Footers({ locale, dict }: Props) {
   const currentYear = new Date().getFullYear()
 
   return (

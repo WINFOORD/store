@@ -1,12 +1,13 @@
 // حذف 'use client'
 
-import Footer from "../src/components/Footer";
 import { Locale } from "../src/i18n/config";
 import { getDictionary } from "../src/i18n/Dictionary";
-import { HeaderNuts } from "../src/layout/Header";
+import { Footers } from "../src/layout/Main/Footer";
+import { HeaderNuts } from "../src/layout/Main/Header";
+import { HomeMain } from "../src/layout/Main/templateMain";
 import { products } from "../src/lib/data";
 import { StickyCartBar } from "../src/ui/main/StickyCartBar";
-import { HomeMain } from "../src/ui/main/templateMain";
+import LuxuryShopCards from "../src/ui/ShopCard";
 
 
 
@@ -23,8 +24,10 @@ export default async function HomePage({ params }: Props) {
 
       <HeaderNuts dict={dict} locale={locale} />
       <HomeMain />
+      <LuxuryShopCards />
+
       <StickyCartBar totalItems={2} totalPrice={1500} />
-      <Footer locale={locale} dict={dict} />
+      <Footers locale={locale} dict={dict} />
     </>
   );
 }

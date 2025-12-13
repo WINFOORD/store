@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ShoppingCart, Search, Sun, Moon, MapPin, User, Info, Heart, Gift, Truck, Phone, Mail, Clock, Sparkles, Leaf, PackageOpen, Flame, Candy, Nut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import LanguageSwitcher from '../components/SwitchLang';
 import Link from 'next/link';
-import { MegaMenuItem } from '../ui/header/MegaMenuItem';
-import { integrations, products, resources } from '../lib/data';
+import LanguageSwitcher from '../../ui/SwitchLang';
+import { MegaMenuItem } from '../../ui/header/MegaMenuItem';
+import { integrations, products, resources } from '../../lib/data';
 
 // Mock Types & Data
 type Locale = 'en' | 'fa' | 'ar';

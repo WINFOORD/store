@@ -9,16 +9,13 @@ export function useLocale() {
   const pathname = usePathname()
   const router = useRouter()
 
-  // استخراج locale از pathname
   const currentLocale = (pathname.split('/')[1] || 'fa') as Locale
 
-  // تغییر زبان
   const changeLocale = useCallback((newLocale: Locale) => {
     const segments = pathname.split('/')
     segments[1] = newLocale
     const newPath = segments.join('/')
     
-    // ذخیره در Cookie
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`
     
     router.push(newPath)
@@ -42,7 +39,6 @@ export function useLocale() {
   }
 }
 
-// Hook برای ترجمات
 export function useTranslations() {
   const { t } = useLocale()
 

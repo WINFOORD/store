@@ -4,9 +4,8 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Leaf, ShieldCheck, Truck } from 'lucide-react';
-import { MagneticButton } from '../MagneticButton';
-import { CarouselCardSmooth } from './crosual';
-import LuxuryShopCards from '../ShopCard';
+import { MagneticButton } from '../../ui/MagneticButton';
+import { CarouselCardSmooth } from '../../ui/main/crosual';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,7 +149,6 @@ export function HomeMain() {
       </section>
 
       {/* بخش‌های بعدی مثل محصولات ویژه */}
-      <LuxuryShopCards />
     </div>
   );
 }
