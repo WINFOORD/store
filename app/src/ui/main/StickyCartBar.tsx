@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShoppingCart } from 'lucide-react';
-import { MagneticButton } from './MagneticButton';
+import { MagneticButton } from '../MagneticButton';
 
 export function StickyCartBar({ totalItems, totalPrice }: { totalItems: number; totalPrice: number }) {
     return (

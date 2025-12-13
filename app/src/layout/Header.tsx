@@ -5,11 +5,11 @@ import { Menu, X, ShoppingCart, Search, Sun, Moon, MapPin, User, Info, Heart, Gi
 import { motion, AnimatePresence } from 'framer-motion';
 import LanguageSwitcher from '../components/SwitchLang';
 import Link from 'next/link';
-import { MegaMenuItem } from '../ui/MegaMenuItem';
+import { MegaMenuItem } from '../ui/header/MegaMenuItem';
 import { integrations, products, resources } from '../lib/data';
 
 // Mock Types & Data
-type Locale = 'en' | 'fa';
+type Locale = 'en' | 'fa' | 'ar';
 type Dictionary = {
   seo: { homeTitle: string };
   header: { searchPlaceholder: string; cart: string; support: string };

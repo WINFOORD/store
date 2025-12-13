@@ -52,12 +52,12 @@ export type Banner = {
 };
 
 export const PRODUCTS: Product[] = [
-    { id: 1, title: 'شکلات', description: 'ترکیب دست‌چین با روست طلایی و بافت کرانچی', price: 360000, originalPrice: 420000,  picture: '🥜', tag: 'پرفروش',  category: 'nuts', href: '/test' , icon : 'truck'},
-    { id: 2, title: 'آجیل', description: 'نمک دریا، روست دقیق برای عطر ملایم', price: 470000,  picture: '🌿', tag: 'پریمیوم',  category: 'pistachio', href: '/test' , icon : 'truck' },
-    { id: 3, title: 'بیسکوییت', description: 'منبع طبیعی فیبر و پروتئین، بدون افزودنی', price: 295000,  picture: '🌰', tag: 'سلامتی',  category: 'nuts' , href: '/test' , icon : 'truck'},
-    { id: 4, title: 'میوه خشک', description: 'شیرینی طبیعی، انرژی‌زا، مناسب میان‌وعده', price: 185000, originalPrice: 210000,  picture: '🍇', tag: 'ارگانیک',  category: 'dried', href: '/test' , icon : 'truck' },
-    { id: 5, title: 'پروتئینی', description: 'کاکائو خالص با رایحه‌ی میوه‌ای، فاخر و خوش‌طعم', price: 225000,  picture: '🍫', tag: 'جدید',  category: 'choco', href: '/test' , icon : 'truck' },
-    { id: 6, title: 'رژیمی', description: 'بافت نرم، شیرینی معتدل، بسته‌بندی بهداشتی', price: 160000,  picture: '🍯', tag: 'طبیعی',  category: 'dried' , href: '/test' , icon : 'truck' },
+    { id: 1, title: 'شکلات', description: 'ترکیب دست‌چین با روست طلایی و بافت کرانچی', price: 360000, originalPrice: 420000,  picture: '', tag: 'پرفروش',  category: 'nuts', href: '/test' , icon : 'truck'},
+    { id: 2, title: 'آجیل', description: 'نمک دریا، روست دقیق برای عطر ملایم', price: 470000,  picture: '', tag: 'پریمیوم',  category: 'pistachio', href: '/test' , icon : 'truck' },
+    { id: 3, title: 'بیسکوییت', description: 'منبع طبیعی فیبر و پروتئین، بدون افزودنی', price: 295000,  picture: '', tag: 'سلامتی',  category: 'nuts' , href: '/test' , icon : 'truck'},
+    { id: 4, title: 'میوه خشک', description: 'شیرینی طبیعی، انرژی‌زا، مناسب میان‌وعده', price: 185000, originalPrice: 210000,  picture: '', tag: 'ارگانیک',  category: 'dried', href: '/test' , icon : 'truck' },
+    { id: 5, title: 'پروتئینی', description: 'کاکائو خالص با رایحه‌ی میوه‌ای، فاخر و خوش‌طعم', price: 225000,  picture: '', tag: 'جدید',  category: 'choco', href: '/test' , icon : 'truck' },
+    { id: 6, title: 'رژیمی', description: 'بافت نرم، شیرینی معتدل، بسته‌بندی بهداشتی', price: 160000,  picture: '', tag: 'طبیعی',  category: 'dried' , href: '/test' , icon : 'truck' },
 ];
 
 export const CATEGORIES: Category[] = [

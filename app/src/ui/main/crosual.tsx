@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
-import OptimizedImage from "./optimizeImage";
+import OptimizedImage from "../optimizeImage";
 
 export function CarouselCardSmooth() {
   const [index, setIndex] = useState(0);
 
   const slides = [
-    { 
-      id: 1, 
-      img: '/images/giftpack.webp', 
-      title: 'پک هدیه', 
-      sub: 'وارداتی', 
-      price: 'T 250,000 ' 
+    {
+      id: 1,
+      img: '/images/giftpack.webp',
+      title: 'پک هدیه',
+      sub: 'وارداتی',
+      price: 'T 250,000 '
     },
-    { 
-      id: 2, 
-      img: '/images/yalda.webp', 
-      title: 'پک های شیشه ای', 
-      sub: 'ارگانیک', 
-      price: 'T 370,000' 
+    {
+      id: 2,
+      img: '/images/yalda.webp',
+      title: 'پک های شیشه ای',
+      sub: 'ارگانیک',
+      price: 'T 370,000'
     },
-    { 
-      id: 3, 
-     img: '/images/yaldaPack.webp', 
-      title: 'پک شب یلدا', 
-      sub: 'پر فروش ترین این ماه', 
-      price: 'T 1,200,000' 
+    {
+      id: 3,
+      img: '/images/yaldaPack.webp',
+      title: 'پک شب یلدا',
+      sub: 'پر فروش ترین این ماه',
+      price: 'T 1,200,000'
     },
   ];
 
@@ -48,7 +48,7 @@ export function CarouselCardSmooth() {
         className="relative w-[500px] h-[550px] max-sm:w-[400] max-sm:h-[400] max-sm:scale-70"
       >
         {/* Image Container with Editorial Frame */}
-        <div className="relative w-full h-full p-2  border border-stone-200 bg-white shadow-xl rounded-xl">
+        <div className="relative w-full h-full p-2   border-stone-200 bg-white shadow-xl rounded-xl">
           <div className="relative w-full h-full overflow-hidden">
             <OptimizedImage
               src={slides[index].img || '/images/placeholder.png'}
@@ -56,22 +56,22 @@ export function CarouselCardSmooth() {
               fill
               className="transition-transform rounded-2xl duration-[3s] hover:scale-105"
             />
-            
+
           </div>
-          
+
           {/* Floating Price Tag */}
-      
+
         </div>
 
         {/* Text Overlay - Dior Inspired Typography */}
         <div className="flex mt-8 gap-4 justify-center align-middle items-center">
-             <div className="absolute w-60 text-center -bottom-15 rounded-b-full bg-stone-900 text-white px-5 py-2 text-xl tracking-[0.25em] ">
-           {slides[index].title}
-              <h5 className="text-stone-500 text-xs tracking-[0.3em] uppercase  ">
-            {slides[index].sub}
-          </h5>
+          <div className="absolute w-60 text-center -bottom-15 rounded-b-full bg-stone-900 text-white px-5 py-2 text-xl tracking-[0.25em] ">
+            {slides[index].title}
+            <h5 className="text-stone-500 text-xs tracking-[0.3em] uppercase  ">
+              {slides[index].sub}
+            </h5>
           </div>
-       
+
         </div>
       </motion.div>
 
@@ -83,15 +83,13 @@ export function CarouselCardSmooth() {
             onClick={() => setIndex(i)}
             className="group flex    items-center gap-2"
           >
-            <div 
-              className={`h-px transition-all duration-500 ${
-                index === i ? 'w-12 bg-stone-100' : 'w-6 bg-stone-500'
-              }`} 
+            <div
+              className={`h-px transition-all duration-500 ${index === i ? 'w-12 bg-stone-100' : 'w-6 bg-stone-500'
+                }`}
             />
-            <span 
-              className={`text-[10px]  tracking-wider ${
-                index === i ? 'text-stone-100' : 'text-stone-400'
-              }`}
+            <span
+              className={`text-[10px]  tracking-wider ${index === i ? 'text-stone-100' : 'text-stone-400'
+                }`}
             >
               {i + 1}
             </span>

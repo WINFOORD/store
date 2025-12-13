@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Leaf, ShieldCheck, Truck } from 'lucide-react';
-import { MagneticButton } from './MagneticButton';
+import { MagneticButton } from '../MagneticButton';
 import { CarouselCardSmooth } from './crosual';
-import LuxuryShopCards from './ShopCard';
+import LuxuryShopCards from '../ShopCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
