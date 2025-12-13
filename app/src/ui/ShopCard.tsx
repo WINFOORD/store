@@ -314,8 +314,6 @@ export default function LuxuryShopCards() {
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-rose-200/20 to-pink-200/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-amber-200/20 to-orange-200/20 rounded-full blur-3xl" />
       </motion.section>
 
       {/* Products Grid */}

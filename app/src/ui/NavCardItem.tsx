@@ -63,16 +63,13 @@ type CTABannerProps = {
 };
 
 export function CTABanner({ title, subtitle, buttonText, href, fromColor, toColor }: CTABannerProps) {
-    const fromHover = fromColor.replace('500', '600');
-    const toHover = toColor.replace('500', '600');
-
     return (
         <Link
             href={href}
             className={`relative mt-4 block rounded-2xl bg-linear-to-r ${fromColor} ${toColor} p-6 text-white overflow-hidden group hover:shadow-2xl transition-all duration-300`}
         >
             {/* Hover Overlay */}
-            <div className={`absolute inset-0 bg-linear-to-r ${fromHover} ${toHover} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+            <div className={`absolute inset-0 bg-linear-to-r  opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
             <div className="relative z-10 flex items-center justify-between">
                 <div>
                     <div className="text-lg font-black mb-1">{title}</div>

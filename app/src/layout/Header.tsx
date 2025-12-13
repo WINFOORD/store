@@ -100,19 +100,21 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const headerClasses = `bg-white/40 backdrop-blur-xl sticky top-0 z-50 transition-all duration-500 ${
-    isScrolled ? 'shadow-md' : ''
+  const headerClasses = `rounded-b-full fixed left-1/7 bg-white backdrop-blur-xl    top-0 z-50 transition-all w-[70%] mx-auto  duration-500 ${
+    isScrolled ? 'shadow-md bg-white/50' : ''
   }`;
   
 
   return (
-    <header className={headerClasses}>
+    
+    <header className={headerClasses }>
+      
       <div className="max-w-7xl mx-auto px-6">
-        
+   
   
 
         {/* Main Navigation Row */}
-        <div className={`flex items-center justify-between ${isScrolled ? 'pt-1' : 'pt-4 '} gap-4`}>
+        <div className={`flex items-center justify-between ${isScrolled ? 'py-2' : 'pt-4 '} gap-4`}>
           
           {/* Logo */}
          <Link href="/" className="flex items-center gap-4 group">
@@ -125,7 +127,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
     <div className="absolute inset-[2px]  bg-stone-900 shadow-2xl transition-colors duration-500 group-hover:bg-stone-800" />
     
     {/* Initials: تایپوگرافی سریف سفید */}
-    <span className={`relative font-serif text-white transition-all duration-500 ${isScrolled ? 'text-sm' : 'text-lg'} tracking-tighter`}>
+    <span className={`relative font-serif text-white transition-all duration-500 ${isScrolled ? 'text-sm' : 'text-xl'} tracking-tighter`}>
       AS
     </span>
   </div>
@@ -158,12 +160,12 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
             <div className="relative group">
               <input
                 placeholder={dict.header.searchPlaceholder}
-                className={`w-full rounded-sm px-6 pr-14 bg-stone-200/50 border-b border-stone-400/50 shadow-sm outline-none focus:ring-1 focus:ring-stone-400 focus:bg-white transition-all duration-300 text-stone-900 font-light ${
+                className={`w-full rounded-sm px-6 pr-14 border-b outline-none focus:ring-1 focus:ring-stone-400 focus:bg-white transition-all duration-300 text-stone-900 font-light ${
                   isScrolled ? 'py-2.5' : 'py-2.5'
                 }`}
               />
               <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                <Search className="w-4 h-4 text-stone-400 group-focus-within:text-stone-900 transition-colors" />
+                <Search className="w-4 h-4 text-stone-300 group-focus-within:text-stone-900 transition-colors" />
               </div>
             </div>
           </div>
@@ -200,13 +202,13 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
             </button>
           </div>
         </div>
+        
       </div>
 
-      {/* Desktop Mega Menu Navigation */}
-      <div className="  flex  mx-auto mt-3 ">
-          <div className='bg-stone-300 w-1/4 rounded-tl-full'>
-        </div>
+      <div className="  flex  mx-auto  ">
+       
         {!isScrolled &&<div className="max-w-7xl mx-auto  ">
+          
           <nav className="flex items-center justify-center gap-16">
 
             {/* Products Mega Menu */}
@@ -273,8 +275,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
 
           </nav>
         </div>}
-        <div className='bg-stone-300 w-1/4 rounded-tr-full '>
-        </div>
+    
       </div>
 
       {/* Mobile Menu */}
@@ -336,6 +337,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
           </motion.div>
         )}
       </AnimatePresence>
+          
     </header>
   );
 }

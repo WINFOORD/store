@@ -82,7 +82,7 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
                         animate="visible"
                         exit="exit"
                         variants={megaVariants} // استفاده مستقیم از variants
-                        className={`absolute left-1/2 -translate-x-1/2 mt-0 ${widthMap[width]}  rounded-xl bg-white/95 backdrop-blur-xl shadow-2xl border border-gray-300 p-8 overflow-hidden`}
+                        className={`absolute left-1/2 -translate-x-1/2 mt-0 ${widthMap[width]}  rounded-xl bg-white backdrop-blur-xl shadow-2xl border border-gray-300 p-8 overflow-hidden`}
                     >
                         {/* بک‌گراند بلوری دینامیک برای زیبایی */}
                         <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-30`}></div>

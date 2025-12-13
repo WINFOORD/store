@@ -22,7 +22,7 @@ export function CarouselCardSmooth() {
     },
     { 
       id: 3, 
-      img: '/images/yaldapack.webp', 
+     img: '/images/yaldaPack.webp', 
       title: 'پک شب یلدا', 
       sub: 'پر فروش ترین این ماه', 
       price: 'T 1,200,000' 
