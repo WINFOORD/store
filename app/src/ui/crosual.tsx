@@ -38,14 +38,14 @@ export function CarouselCardSmooth() {
   }, []);
 
   return (
-    <div className="relative w-full h-[500px]  flex items-center justify-center">
+    <div className="relative w-full h-[500px] -mt-8 flex items-center justify-center">
       <motion.div
         key={index}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -30 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        className="relative w-[500px] h-[520px]"
+        className="relative w-[500px] h-[550px]"
       >
         {/* Image Container with Editorial Frame */}
         <div className="relative w-full h-full p-2  border border-stone-200 bg-white shadow-xl rounded-xl">
@@ -64,7 +64,7 @@ export function CarouselCardSmooth() {
         </div>
 
         {/* Text Overlay - Dior Inspired Typography */}
-        <div className="flex mt-2 gap-4 justify-center align-middle items-center">
+        <div className="flex mt-8 gap-4 justify-center align-middle items-center">
              <div className="absolute w-60 text-center -bottom-15 rounded-b-full bg-stone-900 text-white px-5 py-2 text-xl tracking-[0.25em] ">
            {slides[index].title}
               <h5 className="text-stone-500 text-xs tracking-[0.3em] uppercase  ">
@@ -76,7 +76,7 @@ export function CarouselCardSmooth() {
       </motion.div>
 
       {/* Minimal Navigation Dots */}
-      <div className="absolute -bottom-25 left-1/2 -translate-x-1/2 flex gap-4">
+      <div className="absolute -bottom-28 left-1/2 -translate-x-1/2 flex gap-4">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -85,12 +85,12 @@ export function CarouselCardSmooth() {
           >
             <div 
               className={`h-px transition-all duration-500 ${
-                index === i ? 'w-12 bg-stone-900' : 'w-6 bg-stone-400'
+                index === i ? 'w-12 bg-stone-100' : 'w-6 bg-stone-500'
               }`} 
             />
             <span 
               className={`text-[10px]  tracking-wider ${
-                index === i ? 'text-stone-900' : 'text-stone-400'
+                index === i ? 'text-stone-100' : 'text-stone-400'
               }`}
             >
               {i + 1}

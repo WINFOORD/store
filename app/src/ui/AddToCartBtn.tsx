@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { ShoppingCart, Check } from 'lucide-react'
-import { Locale } from '../i18n'
+import { Dictionary } from '../i18n/Dictionary'
+import { Locale } from '../i18n/config'
 
 type Props = {
   product: {

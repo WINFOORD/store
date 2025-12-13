@@ -100,9 +100,9 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const headerClasses = `rounded-b-full fixed left-1/7 bg-white backdrop-blur-xl    top-0 z-50 transition-all w-[70%] mx-auto  duration-500 ${
-    isScrolled ? 'shadow-md bg-white/50' : ''
-  }`;
+const headerClasses = `rounded-b-full fixed  bg-white backdrop-blur-xl top-0 z-50 transition-all left-1/2 -translate-x-1/2 w-full max-w-7xl mx-auto duration-500 ${
+  isScrolled ? 'shadow-md bg-white/50' : ''
+}`;
   
 
   return (
