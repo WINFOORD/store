@@ -62,28 +62,28 @@ export function HomeMain() {
     <div className="overflow-hidden" dir="rtl">
       <section
         ref={heroRef}
-        className="relative min-h-screen overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
+        className="relative h-screen overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ backgroundImage: "url('/images/bg-4.webp')" }} // هماهنگ با body
       >
         {/* Overlay دقیقاً مثل body::after */}
         <div
           className="absolute inset-0 z-10"
           style={{
-            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5))',
+            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))',
             filter: 'grayscale(40%)',
           }}
         />
 
         {/* محتوا بالای overlay */}
         <div className="relative z-20 h-full flex flex-col">
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-20 items-center py-16 lg:py-42 max-w-8xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col lg:grid  lg:grid-cols-2 max-sm:gap-3 max-sm:flex-col-reverse max-sm:mt-10 gap-12 lg:gap-20 items-center py-16 lg:py-42 max-w-8xl mx-auto max-sm:px-2 lg:px-8">
             {/* متن - در موبایل پایین‌تر */}
             <div className="space-y-10 order-2 lg:order-1 text-right">
               <h1 className="space-y-4">
-                <div className="hero-title-1 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-300 to-amber-300 leading-tight [text-shadow:_0_4px_20px_rgba(0,0,0,0.7)]">
+                <div className="hero-title-1 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-300 to-amber-300 leading-tight [text-shadow:_0_4px_20px_rgba(0,0,0,0.4)]">
                   طعم واقعی
                 </div>
-                <div className="hero-title-2 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-yellow-100 via-amber-100 to-yellow-50 leading-tight [text-shadow:_0_4px_20px_rgba(0,0,0,0.9)]">
+                <div className="hero-title-2 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-yellow-100 via-amber-100 to-yellow-50 leading-tight [text-shadow:_0_4px_20px_rgba(0,0,0,0.4)]">
                   لذت خالص
                 </div>
               </h1>
@@ -108,7 +108,7 @@ export function HomeMain() {
               </div>
 
               {/* کارت‌های ویژگی */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
+              <div className="max-sm:hidden grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
                 <div className="feature-card flex items-start gap-3 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300">
                   <div className="p-2 bg-amber-500/20 rounded-lg">
                     <Truck className="w-6 h-6 text-amber-400" />

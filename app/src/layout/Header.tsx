@@ -100,7 +100,7 @@ export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Local
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-const headerClasses = `rounded-b-full fixed  bg-white backdrop-blur-xl top-0 z-50 transition-all left-1/2 -translate-x-1/2 w-full max-w-7xl mx-auto duration-500 ${
+const headerClasses = `max-sm:rounded-none max-sm:pb-2 rounded-b-full fixed  bg-white backdrop-blur-xl top-0 z-50 transition-all left-1/2 -translate-x-1/2 w-full max-w-7xl mx-auto duration-500 ${
   isScrolled ? 'shadow-md bg-white/50' : ''
 }`;
   
@@ -205,7 +205,7 @@ const headerClasses = `rounded-b-full fixed  bg-white backdrop-blur-xl top-0 z-5
         
       </div>
 
-      <div className="  flex  mx-auto  ">
+      <div className=" max-sm:hidden flex  mx-auto  ">
        
         {!isScrolled &&<div className="max-w-7xl mx-auto  ">
           

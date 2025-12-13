@@ -45,7 +45,7 @@ export function CarouselCardSmooth() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -30 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        className="relative w-[500px] h-[550px]"
+        className="relative w-[500px] h-[550px] max-sm:w-[400] max-sm:h-[400] max-sm:scale-70"
       >
         {/* Image Container with Editorial Frame */}
         <div className="relative w-full h-full p-2  border border-stone-200 bg-white shadow-xl rounded-xl">
@@ -76,7 +76,7 @@ export function CarouselCardSmooth() {
       </motion.div>
 
       {/* Minimal Navigation Dots */}
-      <div className="absolute -bottom-28 left-1/2 -translate-x-1/2 flex gap-4">
+      <div className="absolute max-sm:bottom-0 -bottom-28 left-1/2 -translate-x-1/2 flex gap-4">
         {slides.map((_, i) => (
           <button
             key={i}
