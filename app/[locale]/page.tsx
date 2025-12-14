@@ -8,7 +8,7 @@ import { HeaderNuts } from "../src/layout/Main/Header";
 import { HomeMain } from "../src/layout/Main/templateMain";
 import { products } from "../src/lib/data";
 import { StickyCartBar } from "../src/ui/main/StickyCartBar";
-import LuxuryShopCards from "../src/ui/ShopCard";
+import LuxuryShopCards  from "../src/ui/ShopCard";
 
 
 
@@ -26,7 +26,7 @@ export default async function HomePage({ params }: Props) {
       <HeaderNuts dict={dict} locale={locale} />
       <HomeMain />
       <ElegantCategories />
-      {/* <LuxuryShopCards   dict={dict} locale={locale}/> */}
+      <LuxuryShopCards   dict={dict} locale={locale}/>
       <StickyCartBar totalItems={2} totalPrice={1500} />
       <Footers locale={locale} dict={dict} />
     </>
