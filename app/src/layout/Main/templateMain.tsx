@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Leaf, ShieldCheck, Truck } from 'lucide-react';
 import { MagneticButton } from '../../ui/MagneticButton';
-import { CarouselCardSmooth } from '../../ui/main/crosual';
+import CategoryCarousel from '../../ui/main/crosual';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -142,7 +142,7 @@ export function HomeMain() {
 
             {/* کاروسل - در موبایل بالاتر */}
             <div className="relative order-1 lg:order-2">
-              <CarouselCardSmooth />
+              <CategoryCarousel />
             </div>
           </div>
         </div>

@@ -428,29 +428,7 @@ export default function LuxuryShopCards({ dict, locale }: LuxuryShopCardsProps) 
         transition={{ duration: 1.2 }}
         className="relative pt-28 pb-20 px-4 overflow-hidden"
       >
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-96 h-96 bg-linear-to-r from-emerald-200/20 to-green-200/20 rounded-full blur-3xl"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, 50, 0],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 10 + i * 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              style={{
-                left: `${20 + i * 30}%`,
-                top: `${10 + i * 20}%`,
-              }}
-            />
-          ))}
-        </div>
+     
 
         <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.div

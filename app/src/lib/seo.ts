@@ -60,9 +60,7 @@ export function generateSEOMetadata(
         },
       ],
       locale: localeMap[locale],
-      type,
-      publishedTime,
-      modifiedTime,
+      type : 'website',
     },
     twitter: {
       card: 'summary_large_image',

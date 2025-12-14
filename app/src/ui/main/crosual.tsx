@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { motion } from 'framer-motion';
-import OptimizedImage from "../optimizeImage";
+'use client';
 
-export function CarouselCardSmooth() {
-  const [index, setIndex] = useState(0);
+import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
-  const slides = [
+const slides = [
     {
       id: 1,
       img: '/images/giftpack.webp',
@@ -28,8 +26,95 @@ export function CarouselCardSmooth() {
       price: 'T 1,200,000'
     },
   ];
+function CategoryCard({ cat, index }: { cat: typeof slides[0]; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseX = useSpring(x, { stiffness: 100, damping: 30 });
+  const mouseY = useSpring(y, { stiffness: 100, damping: 30 });
 
-  // Auto-slide
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (rect) {
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      x.set((e.clientX - centerX) * 0.04);
+      y.set((e.clientY - centerY) * 0.04);
+    }
+  };
+
+  const resetMouse = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetMouse}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.4 }}
+      className="relative group cursor-pointer aspect-[9/10] overflow-hidden rounded-3xl shadow-xl shadow-white/10 transition-shadow duration-700"
+      style={{ perspective: '2000px' }}
+    >
+      <motion.div
+        ref={imageRef}
+        style={{ x: mouseX, y: mouseY }}
+        className="absolute inset-0 scale-110"
+      >
+        <img
+          src={cat.img}
+          alt={cat.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70  via-black/30 to-transparent" />
+      </motion.div>
+      <div className="absolute inset-0 p-8 flex flex-col  justify-end items-center text-center text-white">
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 0.8, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="text-xs tracking-[0.35em] uppercase mb-3 font-light"
+        >
+          {cat.price}
+        </motion.span>
+
+        <motion.h3
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="text-3xl md:text-4xl font-bold tracking-wide mb-6 group-hover:tracking-wider transition-all duration-700"
+        >
+          {cat.title}
+        </motion.h3>
+
+        <div className="w-px h-0 bg-white group-hover:h-16 transition-all duration-700 ease-out" />
+      </div>
+
+      <motion.div
+        className="absolute inset-4 border border-white/20 rounded-3xl pointer-events-none"
+        whileHover={{ borderColor: 'rgba(255,255,255,0.5)' }}
+        transition={{ duration: 0.5 }}
+      />
+
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 pointer-events-none"
+        initial={{ x: '-100%' }}
+        whileHover={{ x: '100%' }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+      />
+    </motion.div>
+  );
+}
+
+export function CategoryCarousel() {
+  const [index, setIndex] = useState(0);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % slides.length);
@@ -38,66 +123,52 @@ export function CarouselCardSmooth() {
   }, []);
 
   return (
-    <div className="relative w-full h-[500px] -mt-8 flex items-center justify-center">
-      <motion.div
-        key={index}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -30 }}
-        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        className="relative w-[500px] h-[550px] max-sm:w-[400] max-sm:h-[400] max-sm:scale-70"
-      >
-        {/* Image Container with Editorial Frame */}
-        <div className="relative w-full h-full p-2   border-stone-200 bg-white shadow-xl rounded-4xl">
-          <div className="relative w-full h-full overflow-hidden">
-            <OptimizedImage
-              src={slides[index].img || '/images/placeholder.png'}
-              alt={slides[index].title}
-              fill
-              className="transition-transform rounded-4xl duration-[3s] hover:scale-105"
-            />
+    <section className="" dir="rtl">
+    
 
-          </div>
+      <div className="  relative z-10">
+   
 
-          {/* Floating Price Tag */}
-
-        </div>
-
-        {/* Text Overlay - Dior Inspired Typography */}
-        <div className="flex mt-8 gap-4 justify-center align-middle items-center">
-          <div className="absolute w-60 text-center -bottom-15 rounded-b-full bg-stone-900 text-white px-5 py-2 text-xl tracking-[0.25em] ">
-            {slides[index].title}
-            <h5 className="text-stone-500 text-xs tracking-[0.3em] uppercase  ">
-              {slides[index].sub}
-            </h5>
-          </div>
-
-        </div>
-      </motion.div>
-
-      {/* Minimal Navigation Dots */}
-      <div className="absolute max-sm:bottom-0 -bottom-28 left-1/2 -translate-x-1/2 flex gap-4">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className="group flex    items-center gap-2"
+        <div className="relative w-full  flex items-center justify-center">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="relative w-full max-w-md"
           >
-            <div
-              className={`h-px transition-all duration-500 ${index === i ? 'w-12 bg-stone-100' : 'w-6 bg-stone-500'
-                }`}
-            />
-            <span
-              className={`text-[10px]  tracking-wider ${index === i ? 'text-stone-100' : 'text-stone-400'
-                }`}
-            >
-              {i + 1}
-            </span>
-          </button>
-        ))}
+            <CategoryCard cat={slides[index]} index={index} />
+          </motion.div>
+
+          <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className="group flex items-center gap-2"
+              >
+                <div
+                  className={`h-px transition-all duration-500 ${
+                    index === i ? 'w-12 bg-stone-900' : 'w-6 bg-stone-400'
+                  }`}
+                />
+                <span
+                  className={`text-[10px] tracking-wider ${
+                    index === i ? 'text-stone-900' : 'text-stone-400'
+                  }`}
+                >
+                  {i + 1}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+         
       </div>
-
-
-    </div>
+    </section>
   );
 }
+
+export default CategoryCarousel;
