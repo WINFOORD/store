@@ -1,8 +1,14 @@
-'use client';
-
+"use client"
 import { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ShoppingCart, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShoppingCart, Star, Sparkles, Heart, Eye } from 'lucide-react';
+import OptimizedImage from './optimizeImage';
+
+// Props type for the main component
+interface LuxuryShopCardsProps {
+  dict: any; // Use your actual Dictionary type
+  locale: string;
+}
 
 interface ShopCardProps {
   image: string;
@@ -14,6 +20,8 @@ interface ShopCardProps {
   rating?: number;
   reviews?: number;
   index?: number;
+  dict: any;
+  locale: string;
 }
 
 function ShopCard({
@@ -26,9 +34,14 @@ function ShopCard({
   rating = 0,
   reviews = 0,
   index = 0,
+  dict,
+  locale,
 }: ShopCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const isRTL = locale === 'fa' || locale === 'ar';
 
   const handleAddToCart = () => {
     setCartCount(prev => prev + 1);
@@ -42,198 +55,334 @@ function ShopCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 60, rotateX: 10 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ 
-        duration: 0.6, 
-        delay: index * 0.1,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        duration: 0.7, 
+        delay: index * 0.15,
+        ease: [0.22, 0.61, 0.36, 1]
       }}
-      whileHover={{ y: -8 }}
-      className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+      whileHover={{ y: -12, transition: { duration: 0.4 } }}
+      className="group relative bg-white rounded-[28px] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ transformStyle: 'preserve-3d' }}
     >
-      {/* Image Container */}
-      <div className="relative w-full aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
-        <motion.img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover"
-          animate={{ scale: isHovered ? 1.08 : 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        />
-        
-        {/* Gradient Overlay */}
+      {/* Image Container with Parallax */}
+      <div className="relative w-full aspect-[3/3] overflow-hidden bg-linear-to-br from-gray-100 via-gray-50 to-white">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+          className="absolute inset-0"
+          animate={{ 
+            scale: isHovered ? 1.15 : 1,
+          }}
+          transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
+        >
+          <OptimizedImage
+          fill
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+        
+        {/* Animated linear Overlay */}
+        <motion.div
+          className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"
           initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+          animate={{ opacity: isHovered ? 1 : 0.3 }}
+          transition={{ duration: 0.5 }}
         />
+
+        {/* Shimmer Effect */}
+        <motion.div
+          className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent"
+          animate={{
+            x: isHovered ? ['0%', '200%'] : '0%',
+          }}
+          transition={{
+            duration: 1.5,
+            ease: "easeInOut",
+          }}
+          style={{ transform: 'skewX(-20deg)' }}
+        />
+
+        {/* Top Actions */}
+        <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} flex flex-col gap-2`}>
+          {/* Favorite Button */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsFavorite(!isFavorite)}
+            className="w-11 h-11 bg-white/95 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
+          >
+            <motion.div
+              animate={{ scale: isFavorite ? [1, 1.3, 1] : 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Heart
+                className={`w-5 h-5 transition-colors ${
+                  isFavorite ? 'fill-rose-500 text-rose-500' : 'text-gray-600'
+                }`}
+              />
+            </motion.div>
+          </motion.button>
+
+          {/* Quick View */}
+          <motion.button
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ 
+              opacity: isHovered ? 1 : 0,
+              scale: isHovered ? 1 : 0,
+            }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="w-11 h-11 bg-white/95 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
+          >
+            <Eye className="w-5 h-5 text-gray-600" />
+          </motion.button>
+        </div>
 
         {/* Offer Badge */}
         {offer && (
           <motion.div
-            initial={{ scale: 0, rotate: -45 }}
+            initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="absolute top-4 left-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"
+            transition={{ 
+              delay: 0.3, 
+              type: "spring", 
+              stiffness: 200,
+              damping: 12
+            }}
+            className={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'}`}
           >
-            تخفیف
+            <div className="relative">
+              <div className="absolute inset-0 bg-linear-to-r from-rose-500 to-pink-500 rounded-full blur-md opacity-60" />
+              <div className="relative bg-linear-to-r from-rose-500 to-pink-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-xl">
+                <Sparkles className="w-3 h-3 inline-block mr-1" />
+                {dict.product.discount}
+              </div>
+            </div>
           </motion.div>
         )}
 
         {/* Cart Count Badge */}
-        {cartCount > 0 && (
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="absolute top-4 right-4 w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center shadow-lg font-bold"
-          >
-            {cartCount}
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {cartCount > 0 && (
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              exit={{ scale: 0, rotate: 180 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'}`}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-linear-to-br from-emerald-500 to-green-600 rounded-full blur-md opacity-60" />
+                <div className="relative w-12 h-12 bg-linear-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center shadow-xl font-bold text-lg">
+                  <motion.span
+                    key={cartCount}
+                    initial={{ scale: 1.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {cartCount}
+                  </motion.span>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Add to Cart Button */}
         <motion.div
-          initial={{ y: 60, opacity: 0 }}
+          initial={{ y: 80, opacity: 0 }}
           animate={{ 
-            y: isHovered ? 0 : 60, 
+            y: isHovered ? 0 : 80, 
             opacity: isHovered ? 1 : 0 
           }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: [0.22, 0.61, 0.36, 1] }}
           className="absolute bottom-4 left-4 right-4"
         >
-          {cartCount === 0 ? (
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleAddToCart}
-              className="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 rounded-full font-semibold flex items-center justify-center gap-2 shadow-xl hover:from-emerald-600 hover:to-green-700 transition-all"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              افزودن به سبد
-            </motion.button>
-          ) : (
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="flex items-center gap-2 bg-white/95 backdrop-blur-md rounded-full p-2 shadow-xl"
-            >
+          <AnimatePresence mode="wait">
+            {cartCount === 0 ? (
               <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setCartCount(prev => prev + 1)}
-                className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md hover:shadow-lg transition-shadow"
+                key="add-button"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={handleAddToCart}
+                className="w-full bg-linear-to-r from-emerald-500 via-green-500 to-emerald-600 text-white py-3.5 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-2xl hover:shadow-emerald-500/50 transition-all relative overflow-hidden group/btn"
               >
-                +
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent group-hover/btn:animate-shimmer" />
+                <ShoppingCart className="w-5 h-5" />
+                <span>{dict.product.addToCart}</span>
               </motion.button>
-              <div className="flex-1 text-center">
-                <motion.span 
-                  key={cartCount}
-                  initial={{ scale: 1.3, color: "#10b981" }}
-                  animate={{ scale: 1, color: "#111827" }}
-                  className="text-xl font-bold"
+            ) : (
+              <motion.div
+                key="counter"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                className="flex items-center gap-3 bg-white/98 backdrop-blur-xl rounded-2xl p-2 shadow-2xl"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.15, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setCartCount(prev => prev + 1)}
+                  className="w-11 h-11 bg-linear-to-br from-emerald-500 to-green-600 text-white rounded-xl flex items-center justify-center font-bold text-2xl shadow-lg hover:shadow-emerald-500/50 transition-all"
                 >
-                  {cartCount}
-                </motion.span>
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={handleDecrement}
-                className="w-10 h-10 bg-gradient-to-br from-gray-500 to-gray-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md hover:shadow-lg transition-shadow"
-              >
-                −
-              </motion.button>
-            </motion.div>
-          )}
+                  +
+                </motion.button>
+                <div className="flex-1 text-center">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={cartCount}
+                      initial={{ y: -20, opacity: 0, scale: 1.5 }}
+                      animate={{ y: 0, opacity: 1, scale: 1 }}
+                      exit={{ y: 20, opacity: 0, scale: 0.5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="text-2xl font-bold bg-linear-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent"
+                    >
+                      {cartCount}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+                
+                <motion.button
+                  whileHover={{ scale: 1.15, rotate: -90 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleDecrement}
+                  className="w-11 h-11 bg-linear-to-br from-gray-500 to-gray-600 text-white rounded-xl flex items-center justify-center font-bold text-2xl shadow-lg hover:shadow-gray-500/50 transition-all"
+                >
+                  −
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-6" dir={isRTL ? 'rtl' : 'ltr'}>
         {/* Rating */}
         {rating > 0 && (
-          <div className="flex items-center gap-2 mb-2">
-            <div className="flex items-center gap-1">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center gap-2 mb-3"
+          >
+            <div className="flex items-center gap-0.5">
               {[...Array(5)].map((_, i) => (
-                <Star
+                <motion.div
                   key={i}
-                  className={`w-3.5 h-3.5 ${
-                    i < Math.floor(rating)
-                      ? 'fill-amber-400 text-amber-400'
-                      : 'text-gray-300'
-                  }`}
-                />
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 + i * 0.05 }}
+                >
+                  <Star
+                    className={`w-4 h-4 ${
+                      i < Math.floor(rating)
+                        ? 'fill-amber-400 text-amber-400'
+                        : 'text-gray-300'
+                    }`}
+                  />
+                </motion.div>
               ))}
             </div>
-            <span className="text-xs font-medium text-gray-600">
-              {rating.toFixed(1)} ({reviews})
+            <span className="text-sm font-semibold text-gray-700">
+              {rating.toFixed(1)}
             </span>
-          </div>
+            <span className="text-xs text-gray-500">
+              ({reviews} {dict.product.rating})
+            </span>
+          </motion.div>
         )}
 
         {/* Title */}
-        <motion.h3 
-          className="font-bold text-gray-900 mb-1 text-lg leading-tight"
-          animate={{ color: isHovered ? '#000' : '#111827' }}
+        <motion.h3
+          className="font-bold text-gray-900 mb-2 text-xl leading-tight"
+          animate={{ 
+            color: isHovered ? '#000' : '#111827',
+            x: isHovered ? (isRTL ? -4 : 4) : 0
+          }}
+          transition={{ duration: 0.3 }}
         >
           {title}
         </motion.h3>
 
         {/* Description */}
         {desc && (
-          <p className="text-sm text-gray-500 mb-3 line-clamp-2 leading-relaxed">
+          <motion.p
+            className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed"
+            animate={{ opacity: isHovered ? 1 : 0.7 }}
+          >
             {desc}
-          </p>
+          </motion.p>
         )}
 
-        {/* Price */}
-        <div className="flex items-baseline gap-2">
-          <motion.span 
-            className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
-            whileHover={{ scale: 1.05 }}
-          >
-            {price}
-          </motion.span>
-          {offPrice && (
-            <motion.span 
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-sm text-gray-400 line-through"
+        {/* Price Section */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-baseline gap-2">
+            <motion.span
+              className="text-3xl font-bold bg-linear-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              {offPrice}
+              {price}
             </motion.span>
+            {offPrice && (
+              <motion.span
+                initial={{ opacity: 0, x: isRTL ? 10 : -10 }}
+                animate={{ opacity: 0.5, x: 0 }}
+                className="text-base text-gray-400 line-through"
+              >
+                {offPrice}
+              </motion.span>
+            )}
+          </div>
+
+          {/* Discount Badge */}
+          {offPrice && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, rotate: -12 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: 0.3, type: "spring" }}
+              whileHover={{ scale: 1.1, rotate: 3 }}
+              className="text-xs font-bold text-rose-600 bg-linear-to-r from-rose-50 to-pink-50 px-3 py-1.5 rounded-full shadow-sm"
+            >
+              {dict.product.save} {Math.round((1 - parseFloat(price.replace(/[^0-9.]/g, '')) / parseFloat(offPrice.replace(/[^0-9.]/g, ''))) * 100)}%
+            </motion.div>
           )}
         </div>
-
-        {/* Discount Percentage */}
-        {offPrice && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="inline-block mt-2 text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-1 rounded-full"
-          >
-            Save {Math.round((1 - parseFloat(price.replace(/[^0-9.]/g, '')) / parseFloat(offPrice.replace(/[^0-9.]/g, ''))) * 100)}%
-          </motion.div>
-        )}
       </div>
+
+      {/* Hover Glow Effect */}
+      <motion.div
+        className="absolute inset-0 rounded-[28px] pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        style={{
+          boxShadow: '0 0 40px rgba(16, 185, 129, 0.3)',
+        }}
+      />
     </motion.div>
   );
 }
 
-// Main component with scroll animations
-export default function LuxuryShopCards() {
+// Main component - NOW RECEIVES dict AND locale AS PROPS
+export default function LuxuryShopCards({ dict, locale }: LuxuryShopCardsProps) {
+  const isRTL = locale === 'fa' || locale === 'ar';
+
   const products = [
     {
       image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
-      title: "Premium Cashew Nuts",
-      desc: "Fresh and high-quality cashew nuts",
+      title: locale === 'fa' ? 'بادام هندی درجه یک' : locale === 'ar' ? 'الكاجو الفاخر' : 'Premium Cashew Nuts',
+      desc: locale === 'fa' ? 'بادام هندی تازه و با کیفیت' : locale === 'ar' ? 'الكاجو طازج وعالي الجودة' : 'Fresh and high-quality cashew nuts',
       price: "€13.00",
       offPrice: "€15.00",
       offer: true,
@@ -242,8 +391,8 @@ export default function LuxuryShopCards() {
     },
     {
       image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?w=800&q=80",
-      title: "Mixed Nuts Deluxe",
-      desc: "A perfect blend of premium nuts",
+      title: locale === 'fa' ? 'آجیل مخلوط لوکس' : locale === 'ar' ? 'المكسرات المختلطة الفاخرة' : 'Mixed Nuts Deluxe',
+      desc: locale === 'fa' ? 'ترکیبی عالی از آجیل درجه یک' : locale === 'ar' ? 'مزيج مثالي من المكسرات الممتازة' : 'A perfect blend of premium nuts',
       price: "€18.00",
       offPrice: "€22.00",
       offer: true,
@@ -252,16 +401,16 @@ export default function LuxuryShopCards() {
     },
     {
       image: "https://images.unsplash.com/photo-1568471173238-64ed8e7e9f49?w=800&q=80",
-      title: "Organic Almonds",
-      desc: "Certified organic raw almonds",
+      title: locale === 'fa' ? 'بادام ارگانیک' : locale === 'ar' ? 'اللوز العضوي' : 'Organic Almonds',
+      desc: locale === 'fa' ? 'بادام خام ارگانیک با گواهی' : locale === 'ar' ? 'اللوز الخام العضوي المعتمد' : 'Certified organic raw almonds',
       price: "€16.00",
       rating: 4.8,
       reviews: 2104,
     },
     {
       image: "https://images.unsplash.com/photo-1607623488235-80ff081b5c38?w=800&q=80",
-      title: "Pistachio Paradise",
-      desc: "Roasted and lightly salted pistachios",
+      title: locale === 'fa' ? 'پسته بهشتی' : locale === 'ar' ? 'الفستق الرائع' : 'Pistachio Paradise',
+      desc: locale === 'fa' ? 'پسته برشته شده با نمک کم' : locale === 'ar' ? 'الفستق المحمص قليل الملح' : 'Roasted and lightly salted pistachios',
       price: "€20.00",
       offPrice: "€24.00",
       offer: true,
@@ -271,86 +420,141 @@ export default function LuxuryShopCards() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-50" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="relative pt-20 pb-16 px-4 overflow-hidden"
+        transition={{ duration: 1.2 }}
+        className="relative pt-28 pb-20 px-4 overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto text-center">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-96 h-96 bg-linear-to-r from-emerald-200/20 to-green-200/20 rounded-full blur-3xl"
+              animate={{
+                x: [0, 100, 0],
+                y: [0, 50, 0],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 10 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{
+                left: `${20 + i * 30}%`,
+                top: `${10 + i * 20}%`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-rose-50 to-pink-50 rounded-full mb-6"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-rose-50 via-pink-50 to-rose-50 rounded-full mb-8 shadow-lg"
           >
-            <span className="text-sm font-semibold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
-              ✨ Premium Collection
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            >
+              <Sparkles className="w-4 h-4 text-rose-600" />
+            </motion.div>
+            <span className="text-sm font-bold bg-linear-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
+              {dict.header.offers}
             </span>
           </motion.div>
           
           <motion.h1
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold mb-4"
+            className="text-6xl md:text-7xl font-bold mb-6 leading-tight"
           >
-            <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-              Indulge in Luxury
-            </span>
+            <motion.span
+              className="inline-block bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent"
+              animate={{ backgroundPosition: ['0%', '100%', '0%'] }}
+              transition={{ duration: 5, repeat: Infinity }}
+            >
+              {dict.product.brand}
+            </motion.span>
           </motion.h1>
           
           <motion.p
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Curated selection of premium nuts and dried fruits, 
-            handpicked for those who appreciate the finer things
+            {dict.product.description}
           </motion.p>
         </div>
-
-        {/* Decorative Elements */}
       </motion.section>
 
       {/* Products Grid */}
-      <section className="max-w-7xl mx-auto px-4 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="max-w-7xl mx-auto px-4 pb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product, index) => (
-            <ShopCard key={index} {...product} index={index} />
+            <ShopCard key={index} {...product} index={index} dict={dict} locale={locale} />
           ))}
         </div>
       </section>
 
-      {/* Floating CTA */}
+      {/* CTA Section */}
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="max-w-4xl mx-auto px-4 pb-20"
+        transition={{ delay: 0.3, duration: 0.8 }}
+        className="max-w-5xl mx-auto px-4 pb-24"
       >
-        <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 to-pink-500/10" />
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          className="relative bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 rounded-[32px] p-10 md:p-16 text-center text-white shadow-2xl overflow-hidden"
+        >
+          {/* Animated Background */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              background: [
+                'radial-linear(circle at 20% 50%, rgba(244, 63, 94, 0.15) 0%, transparent 50%)',
+                'radial-linear(circle at 80% 50%, rgba(236, 72, 153, 0.15) 0%, transparent 50%)',
+                'radial-linear(circle at 20% 50%, rgba(244, 63, 94, 0.15) 0%, transparent 50%)',
+              ],
+            }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Join Our Premium Club
-            </h2>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Get exclusive access to limited editions and early releases
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-shadow"
+            <motion.h2
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              className="text-4xl md:text-5xl font-bold mb-5"
             >
-              Explore Collection
+              {dict.product.wishlist}
+            </motion.h2>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto"
+            >
+              {dict.product.wishlist}
+            </motion.p>
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,255,255,0.2)' }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-white text-gray-900 px-10 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all text-lg"
+            >
+              {dict.categories_nut_specific.organic}
             </motion.button>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );

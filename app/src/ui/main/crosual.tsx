@@ -48,13 +48,13 @@ export function CarouselCardSmooth() {
         className="relative w-[500px] h-[550px] max-sm:w-[400] max-sm:h-[400] max-sm:scale-70"
       >
         {/* Image Container with Editorial Frame */}
-        <div className="relative w-full h-full p-2   border-stone-200 bg-white shadow-xl rounded-xl">
+        <div className="relative w-full h-full p-2   border-stone-200 bg-white shadow-xl rounded-4xl">
           <div className="relative w-full h-full overflow-hidden">
             <OptimizedImage
               src={slides[index].img || '/images/placeholder.png'}
               alt={slides[index].title}
               fill
-              className="transition-transform rounded-2xl duration-[3s] hover:scale-105"
+              className="transition-transform rounded-4xl duration-[3s] hover:scale-105"
             />
 
           </div>

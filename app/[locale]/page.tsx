@@ -2,6 +2,7 @@
 
 import { Locale } from "../src/i18n/config";
 import { getDictionary } from "../src/i18n/Dictionary";
+import Categories, { ElegantCategories } from "../src/layout/Main/categories";
 import { Footers } from "../src/layout/Main/Footer";
 import { HeaderNuts } from "../src/layout/Main/Header";
 import { HomeMain } from "../src/layout/Main/templateMain";
@@ -24,8 +25,8 @@ export default async function HomePage({ params }: Props) {
 
       <HeaderNuts dict={dict} locale={locale} />
       <HomeMain />
-      <LuxuryShopCards />
-
+      <ElegantCategories />
+      <LuxuryShopCards   dict={dict} locale={locale}/>
       <StickyCartBar totalItems={2} totalPrice={1500} />
       <Footers locale={locale} dict={dict} />
     </>
