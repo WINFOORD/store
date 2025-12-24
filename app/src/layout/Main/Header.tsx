@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ShoppingCart, Search, Sun, Moon, MapPin, User, Info, Heart, Gift, Truck, Phone, Mail, Clock, Sparkles, Leaf, PackageOpen, Flame, Candy, Nut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import LanguageSwitcher from '../../ui/SwitchLang';
 import { MegaMenuItem } from '../../ui/header/MegaMenuItem';
 import { integrations, products, resources } from '../../lib/data';
+import { MagneticButton } from '../../ui/MagneticButton';
 
 // Mock Types & Data
 type Locale = 'en' | 'fa' | 'ar';
@@ -91,37 +92,66 @@ function CTABanner({ title, subtitle, buttonText, href, fromColor, toColor }: { 
 // Main Header Component
 export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Locale; dict?: Dictionary }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+const lastScrollY = useRef(0);
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+useEffect(() => {
+  lastScrollY.current = window.scrollY;
 
-const headerClasses = `max-sm:rounded-none max-sm:pb-2 rounded-b-full fixed  bg-white backdrop-blur-xl top-0 z-50 transition-all left-1/2 -translate-x-1/2 w-full max-w-7xl mx-auto duration-500 ${
-  isScrolled ? 'shadow-md bg-white/50' : ''
-}`;
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const delta = 10;
+
+    if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+      setIsScrolled(true);
+    }
+
+    if (currentScrollY < lastScrollY.current - delta) {
+      setIsScrolled(false);
+    }
+
+    lastScrollY.current = currentScrollY;
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
+
+
+
+const headerClasses = `fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
+  ${isScrolled 
+    ? 'top-2 w-[90%] max-w-4xl rounded-full bg-black/50 backdrop-blur-2xl  py-1 shadow-2xl' 
+    : 'top-0 w-full  max-w-full  bg-black/40 backdrop-blur-sm  shadow-2xl'
+  }`;
+
+// در قسمت Logo استایل را کمی مینیمال‌تر کنید:
+<Link href="/" className="group flex items-center gap-3">
+  <div className="w-10 h-10 rounded-xl rotate-45 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
+    <span className=" font-bold -rotate-45 group-hover:-rotate-90 transition-transform">AS</span>
+  </div>
+  <span className="text-white text-xl font-bold tracking-tight">Ajil<span className="text-emerald-500">Saraye</span></span>
+</Link>
   
 
   return (
     
     <header className={headerClasses }>
       
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="w-full mx-auto px-6">
    
   
 
         {/* Main Navigation Row */}
-        <div className={`flex items-center justify-between ${isScrolled ? 'py-2' : 'pt-4 '} gap-4`}>
+        <div className={`flex items-center justify-between ${isScrolled ? 'py-0' : 'pt-4 '} gap-4`}>
           
           {/* Logo */}
          <Link href="/" className="flex items-center gap-4 group">
   {/* Emblem - نشان مونوگرام */}
   <div className={`relative flex items-center justify-center transition-all duration-700 m-1 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-12 h-12'}`}>
     {/* Border Frame: یک قاب بسیار ظریف که با هاور می‌چرخد */}
-    <div className="absolute inset-0 border border-stone-500 rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
+    <div className="absolute inset-0 border border-orange-300 rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
     
     {/* Background Square: تخت و با وقار */}
     <div className="absolute inset-[2px]  bg-stone-900 shadow-2xl transition-colors duration-500 group-hover:bg-stone-800" />
@@ -135,8 +165,8 @@ const headerClasses = `max-sm:rounded-none max-sm:pb-2 rounded-b-full fixed  bg-
   {/* Text Label - نام برند */}
   <div className="flex flex-col ">
     <div className={`flex items-baseline transition-all duration-500 ${isScrolled ? 'scale-80 origin-right' : 'scale-100'}`}>
-      <span className="font-serif text-2xl tracking-tight text-stone-900">
-        Ajil<span className=" font-light text-stone-500 ml-1">Saraye</span>
+      <span className="font-serif text-2xl  tracking-[0.2em] text-orange-300">
+        Ajil<span className=" font-light text-stone-100  ml-1">Saraye</span>
       </span>
     </div>
     
@@ -146,8 +176,9 @@ const headerClasses = `max-sm:rounded-none max-sm:pb-2 rounded-b-full fixed  bg-
         animate={{ x: 0, opacity: 1 }}
         className="flex items-center gap-1"
       >
-        <MapPin className="w-4 h-4 text-stone-400" />
-        <span className="text-[12px] tracking-[0.4em] uppercase font-medium text-stone-500">
+        <MapPin className="w-4 h-4 text-orange-300
+        300" />
+        <span className="text-[16px] tracking-[0.6em] uppercase font-medium text-stone-200">
           Babol 
         </span>
       </motion.div>
@@ -160,12 +191,12 @@ const headerClasses = `max-sm:rounded-none max-sm:pb-2 rounded-b-full fixed  bg-
             <div className="relative group">
               <input
                 placeholder={dict.header.searchPlaceholder}
-                className={`w-full rounded-sm px-6 pr-14 border-b outline-none focus:ring-1 focus:ring-stone-400 focus:bg-white transition-all duration-300 text-stone-900 font-light ${
+                className={`w-full rounded-sm px-6 pr-14 border-b outline-none    transition-all duration-300 text-orange-100 font-light ${
                   isScrolled ? 'py-2.5' : 'py-2.5'
                 }`}
               />
               <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                <Search className="w-4 h-4 text-stone-300 group-focus-within:text-stone-900 transition-colors" />
+                <Search className="w-4 h-4 text-stone-300 group-focus-within:text-orange-300 transition-colors" />
               </div>
             </div>
           </div>
@@ -173,25 +204,27 @@ const headerClasses = `max-sm:rounded-none max-sm:pb-2 rounded-b-full fixed  bg-
           <div className="flex items-center gap-2">
             
                        <LanguageSwitcher currentLocale={locale} />
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 rounded-sm bg-stone-50/50 border border-stone-200/50 hover:border-stone-300 transition-all duration-300 group"
-            >
-              {darkMode ? (
-                <Sun className="w-4 h-4 text-amber-500 group-hover:rotate-45 transition-transform duration-300" />
-              ) : (
-                <Moon className="w-4 h-4 text-stone-600 group-hover:text-amber-600 transition-colors" />
-              )}
-            </button>
+           
 
             {/* Cart Button */}
-            <a
-              href="/cart"
-              className="hidden md:flex px-5 py-2.5 rounded-sm bg-gradient-to-r from-stone-700 transition-colors duration-300 to-stone-900 hover:from-stone-800 hover:to-stone-600 text-white items-center gap-2 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30   group"
-            >
-              <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-light tracking-wider uppercase">{dict.header.cart}</span>
-            </a>
+          <a
+            href="/cart"
+            className="group relative px-6 py-2.5 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105"
+          >
+            {/* Background gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-300/10 via-white-300/10 to-amber-300/10 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-orange-500/50" />
+            
+            {/* Shine effect */}
+           
+            
+            {/* Content */}
+            <div className="relative z-10 flex items-center justify-center gap-2">
+              <ShoppingCart className="w-4 h-4 text-white transition-transform group-hover:rotate-12" />
+              <span className="text-sm font-medium text-white tracking-wide">
+                {dict.header.cart}
+              </span>
+            </div>
+          </a>
 
             {/* Mobile Menu Toggle */}
             <button

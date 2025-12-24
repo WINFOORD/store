@@ -70,8 +70,8 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
             onMouseLeave={() => setIsOpen(false)}
         >
             <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600 transition-colors group">
-                <span className="text-[12.5px] text-stone-600 ">{title}</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180 translate-y-0.5' : ''}`} />
+                <span className="text-[12.5px] text-stone-300 ">{title}</span>
+                <ChevronDown className={`w-4 h-4 text-orange-300 transition-transform ${isOpen ? 'rotate-180 translate-y-0.5' : ''}`} />
             </button>
 
             <AnimatePresence>
