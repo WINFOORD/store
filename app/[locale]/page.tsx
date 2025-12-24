@@ -1,4 +1,3 @@
-// حذف 'use client'
 
 import { Locale } from "../src/i18n/config";
 import { getDictionary } from "../src/i18n/Dictionary";
@@ -9,8 +8,6 @@ import { HomeMain } from "../src/layout/Main/templateMain";
 import { products } from "../src/lib/data";
 import { StickyCartBar } from "../src/ui/main/StickyCartBar";
 import LuxuryShopCards  from "../src/ui/ShopCard";
-
-
 
 type Props = {
   params: { locale: Locale };

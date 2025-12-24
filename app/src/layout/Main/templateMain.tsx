@@ -62,21 +62,18 @@ export function HomeMain() {
       <section
         ref={heroRef}
         className="relative h-screen overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{ backgroundImage: "url('/images/bg-4.webp')" }} // هماهنگ با body
+        style={{ backgroundImage: "url('/images/bg-3.webp')" }} 
       >
-        {/* Overlay دقیقاً مثل body::after */}
         <div
           className="absolute inset-0 z-10"
           style={{
-            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))',
-            filter: 'grayscale(40%)',
+            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.8))',
+            filter: 'grayscale(80%)',
           }}
         />
-
-        {/* محتوا بالای overlay */}
+        
         <div className="relative z-20 h-full flex flex-col">
           <div className="flex flex-col lg:grid  lg:grid-cols-2 max-sm:gap-3 max-sm:flex-col-reverse max-sm:mt-10 gap-12 lg:gap-20 items-center py-16 lg:py-42 max-w-8xl mx-auto max-sm:px-2 lg:px-8">
-            {/* متن - در موبایل پایین‌تر */}
             <div className="space-y-10 order-2 lg:order-1 text-right">
               <h1 className="space-y-4">
                 <div className="hero-title-1 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-300 to-amber-300 leading-tight [text-shadow:_0_4px_20px_rgba(0,0,0,0.4)]">
