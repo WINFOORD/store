@@ -1,85 +1,54 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, ShoppingCart, Search, Sun, Moon, MapPin, User, Info, Heart, Gift, Truck, Phone, Mail, Clock, Sparkles, Leaf, PackageOpen, Flame, Candy, Nut } from 'lucide-react';
+import { Menu, X, ShoppingCart, Search, MapPin, User, Info, Heart, Sparkles, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import LanguageSwitcher from '../../ui/SwitchLang';
 import { MegaMenuItem } from '../../ui/header/MegaMenuItem';
 import { integrations, products, resources } from '../../lib/data';
-import { MagneticButton } from '../../ui/MagneticButton';
 
-// Mock Types & Data
-type Locale = 'en' | 'fa' | 'ar';
-type Dictionary = {
-  seo: { homeTitle: string };
-  header: { searchPlaceholder: string; cart: string; support: string };
-  product: { category: string };
-  footer: { customerService: string };
+// اعمال دقیق پالت رنگی ارسالی شما
+const colors = {
+  '--color-base': '#e2c6aa',
+  '--color-shade-20': '#b59e88',
+  '--color-shade-40': '#887766',
+  '--color-shade-60': '#5a4f44',
+  '--color-shade-80': '#2d2822',
+  '--color-tint-20': '#e8d1bb',
+  '--color-tint-40': '#eeddcc',
+  '--color-tint-60': '#f3e8dd',
+  '--color-tint-80': '#f9f4ee',
 };
 
-const mockDict: Dictionary = {
-  seo: { homeTitle: 'PREMIUM | فروشگاه آجیل' },
-  header: { 
-    searchPlaceholder: 'جستجوی محصولات...', 
-    cart: 'سبد خرید',
-    support: 'راهنما'
-  },
-  product: { category: 'محصولات' },
-  footer: { customerService: 'خدمات مشتریان' }
-};
-
-
-
-
-
-
-
-const aboutUsLinks = [
-  { title: 'داستان ما', icon: Info, href: '/about/story', desc: 'تاریخچه برند' },
-  { title: 'اعضای تیم', icon: User, href: '/about/team', desc: 'متخصصین حرفه‌ای' },
-  { title: 'فرصت‌های شغلی', icon: Heart, href: '/about/careers', desc: 'همکاری با ما' },
-];
-
-const authLinks = [
-  { title: 'ورود', icon: User, href: '/auth/login', desc: 'ورود به حساب کاربری' },
-  { title: 'ثبت نام', icon: Sparkles, href: '/auth/signup', desc: 'عضویت رایگان' },
-  { title: 'فراموشی رمز', icon: X, href: '/auth/reset', desc: 'بازیابی رمز عبور' },
-];
-
-// Mega Menu Item Component
-
-
-// Nav Card Component
-function NavCardItem({ title, desc, href, Icon, color = 'stone' }: { title: string; desc: string; href: string; Icon: any; color?: string }) {
-
-
+// --- Nav Card Component (Updated Colors) ---
+function NavCardItem({ title, desc, href, Icon }: { title: string; desc: string; href: string; Icon: any }) {
   return (
     <a 
       href={href}
-      className={`group block p-4 border-b hover:scale-[1.02] border-gray-300  rounded-xl transition-all duration-300 hover:shadow-xl`}
+      className="group block p-4 border-b border-[var(--color-tint-40)] hover:bg-[var(--color-tint-80)] rounded-xl transition-all duration-300 hover:shadow-lg"
     >
       <div className="flex items-start gap-3">
-        <Icon className="w-4 h-4 text-stone-400 mt-1 group-hover:text-stone-900 transition-colors" />
+        <Icon className="w-5 h-5 text-[var(--color-shade-20)] mt-1 group-hover:text-[var(--color-shade-80)] transition-colors" />
         <div>
-          <h4 className="text-sm font-light text-stone-900 mb-1">{title}</h4>
-          <p className="text-xs text-stone-500 font-light">{desc}</p>
+          <h4 className="text-sm font-bold text-[var(--color-shade-80)] mb-1">{title}</h4>
+          <p className="text-xs text-[var(--color-shade-40)] font-light leading-relaxed">{desc}</p>
         </div>
       </div>
     </a>
   );
 }
 
-// CTA Banner Component
-function CTABanner({ title, subtitle, buttonText, href, fromColor, toColor }: { title: string; subtitle: string; buttonText: string; href: string; fromColor?: string; toColor?: string }) {
+// --- CTA Banner Component (Updated Colors) ---
+function CTABanner({ title, subtitle, buttonText, href }: { title: string; subtitle: string; buttonText: string; href: string }) {
   return (
-    <div className="mt-6 p-6 rounded-xl bg-stone-900 text-white relative overflow-hidden">
-      <div className="absolute top-0 right-10 w-72 h-72  bg-white/5 rounded-full -mr-16 -mt-16" />
-      <h4 className="text-lg font-light mb-2 relative z-10">{title}</h4>
-      <p className="text-sm text-stone-400 mb-4 font-light relative z-10">{subtitle}</p>
+    <div className="mt-6 p-6 rounded-2xl bg-[var(--color-shade-80)] text-[var(--color-tint-80)] relative overflow-hidden shadow-xl">
+      <div className="absolute top-0 right-10 w-64 h-64 bg-white/5 rounded-full -mr-16 -mt-16 blur-3xl" />
+      <h4 className="text-lg font-black mb-2 relative z-10">{title}</h4>
+      <p className="text-sm text-[var(--color-tint-40)] mb-5 font-light relative z-10">{subtitle}</p>
       <a 
         href={href}
-        className="inline-block text-xs flex justify-end tracking-[0.2em] uppercase border border-white/20 px-6 py-2 hover:bg-white hover:text-stone-900 transition-all duration-300 relative z-10"
+        className="inline-block text-xs font-bold tracking-widest uppercase border border-[var(--color-base)]/40 px-8 py-3 rounded-full hover:bg-[var(--color-base)] hover:text-[var(--color-shade-80)] transition-all duration-500 relative z-10"
       >
         {buttonText}
       </a>
@@ -87,290 +56,170 @@ function CTABanner({ title, subtitle, buttonText, href, fromColor, toColor }: { 
   );
 }
 
-// Stat Card Component
-
-// Main Header Component
-export  function HeaderNuts({ locale = 'fa', dict = mockDict }: { locale?: Locale; dict?: Dictionary }) {
+export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-const lastScrollY = useRef(0);
+  const lastScrollY = useRef(0);
 
-useEffect(() => {
-  lastScrollY.current = window.scrollY;
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const delta = 10;
+  const headerClasses = `fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
+    ${isScrolled 
+      ? 'top-2 w-[95%] max-w-5xl rounded-full bg-[var(--color-shade-80)]/80 backdrop-blur-2xl py-2 shadow-2xl border border-white/10' 
+      : 'top-0 w-full max-w-full bg-[var(--color-shade-80)]/10 backdrop-blur-md pt-3 border-b border-[var(--color-base)]/20 shadow-sm'
+    }`;
 
-    if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-      setIsScrolled(true);
-    }
+  // تم رنگی داینامیک متن‌ها
+  const navTextColor = isScrolled ? 'text-white' : 'text-[var(--color-shade-80)]';
 
-    if (currentScrollY < lastScrollY.current - delta) {
-      setIsScrolled(false);
-    }
-
-    lastScrollY.current = currentScrollY;
-  };
-
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []);
-
-
-
-
-const headerClasses = `fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
-  ${isScrolled 
-    ? 'top-2 w-[90%] max-w-4xl rounded-full bg-black/50 backdrop-blur-2xl  py-1 shadow-2xl' 
-    : 'top-0 w-full  max-w-full  bg-black/40 backdrop-blur-sm  shadow-2xl'
-  }`;
-
-// در قسمت Logo استایل را کمی مینیمال‌تر کنید:
-<Link href="/" className="group flex items-center gap-3">
-  <div className="w-10 h-10 rounded-xl rotate-45 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
-    <span className=" font-bold -rotate-45 group-hover:-rotate-90 transition-transform">AS</span>
-  </div>
-  <span className="text-white text-xl font-bold tracking-tight">Ajil<span className="text-emerald-500">Saraye</span></span>
-</Link>
-  
-
+  const aboutUsLinks = [
+  { title: 'داستان ما', icon: Info, href: '/about/story', desc: 'تاریخچه برند' },
+  { title: 'اعضای تیم', icon: User, href: '/about/team', desc: 'متخصصین حرفه‌ای' },
+  { title: 'فرصت‌های شغلی', icon: Heart, href: '/about/careers', desc: 'همکاری با ما' },
+];
   return (
-    
-    <header className={headerClasses }>
-      
-      <div className="w-full mx-auto px-6">
-   
-  
-
-        {/* Main Navigation Row */}
-        <div className={`flex items-center justify-between ${isScrolled ? 'py-0' : 'pt-4 '} gap-4`}>
+    <header className={headerClasses} style={colors as any} dir="rtl">
+      <div className="w-full mx-auto px-8">
+        {/* Row 1: Logo, Search, Actions */}
+        <div className="flex items-center justify-between gap-6">
           
-          {/* Logo */}
-         <Link href="/" className="flex items-center gap-4 group">
-  {/* Emblem - نشان مونوگرام */}
-  <div className={`relative flex items-center justify-center transition-all duration-700 m-1 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-12 h-12'}`}>
-    {/* Border Frame: یک قاب بسیار ظریف که با هاور می‌چرخد */}
-    <div className="absolute inset-0 border border-orange-300 rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
-    
-    {/* Background Square: تخت و با وقار */}
-    <div className="absolute inset-[2px]  bg-stone-900 shadow-2xl transition-colors duration-500 group-hover:bg-stone-800" />
-    
-    {/* Initials: تایپوگرافی سریف سفید */}
-    <span className={`relative font-serif text-white transition-all duration-500 ${isScrolled ? 'text-sm' : 'text-xl'} tracking-tighter`}>
-      AS
-    </span>
-  </div>
+          {/* Logo Section */}
+          <Link href="/" className="flex items-center gap-4 group">
+            <div className={`relative flex items-center justify-center transition-all mt-1 duration-700 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-14 h-14'}`}>
+              <div className="absolute inset-0 border border-[var(--color-base)] rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
+              <div className="absolute inset-[2px] bg-[var(--color-shade-80)] shadow-2xl transition-colors" />
+              <span className={`relative font-serif text-white transition-all duration-500 ${isScrolled ? 'text-xs' : 'text-xl'} tracking-tighter`}>AS</span>
+            </div>
 
-  {/* Text Label - نام برند */}
-  <div className="flex flex-col ">
-    <div className={`flex items-baseline transition-all duration-500 ${isScrolled ? 'scale-80 origin-right' : 'scale-100'}`}>
-      <span className="font-serif text-2xl  tracking-[0.2em] text-orange-300">
-        Ajil<span className=" font-light text-stone-100  ml-1">Saraye</span>
-      </span>
-    </div>
-    
-    <div className="flex items-center gap-2 overflow-hidden">
-      <motion.div 
-        initial={{ x: 20, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        className="flex items-center gap-1"
-      >
-        <MapPin className="w-4 h-4 text-orange-300
-        300" />
-        <span className="text-[16px] tracking-[0.6em] uppercase font-medium text-stone-200">
-          Babol 
-        </span>
-      </motion.div>
-    </div>
-  </div>
-</Link>
+            <div className="flex flex-col">
+              <span className={`font-serif  leading-none transition-all duration-500 ${isScrolled ? 'text-lg' : 'text-2xl'} font-black ${isScrolled ? 'text-[var(--color-base)]' : 'text-[var(--color-base)] tracking-[0.2em]'}`}>
+                Ajil<span className={`${isScrolled ? 'text-white' : 'text-[var(--color-shade-20)]'} font-light ml-1`}>Saraye</span>
+              </span>
+              <div className="flex items-center gap-1 overflow-hidden">
+                 <MapPin className={`w-3 h-3 ${isScrolled ? 'text-[var(--color-tint-40)]' : 'text-[var(--color-base)]'}`} />
+                 <span className={`text-[14px] tracking-[1.3em] uppercase font-bold ${isScrolled ? 'text-white/50' : 'text-[var(--color-shade-40)]'}`}>Babol</span>
+              </div>
+            </div>
+          </Link>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden lg:block flex-1 max-w-2xl">
+          {/* Search Bar */}
+          <div className="hidden lg:block flex-1 max-w-xl">
             <div className="relative group">
               <input
-                placeholder={dict.header.searchPlaceholder}
-                className={`w-full rounded-sm px-6 pr-14 border-b outline-none    transition-all duration-300 text-orange-100 font-light ${
-                  isScrolled ? 'py-2.5' : 'py-2.5'
-                }`}
+                placeholder="جستجوی طعم‌های خاص..."
+                className={`w-full rounded-full px-10 py-3 outline-none transition-all duration-300 border 
+                 'bg-white/10 border-white/10 text-(--color-base) 
+                 focus:border-[var(--color-base)]`}
               />
-              <div className="absolute right-5 top-1/2 -translate-y-1/2">
-                <Search className="w-4 h-4 text-stone-300 group-focus-within:text-orange-300 transition-colors" />
-              </div>
+              <Search className={`absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 ${isScrolled ? 'text-white/40' : 'text-[var(--color-shade-40)]'}`} />
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Actions */}
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:block"><LanguageSwitcher currentLocale={locale} /></div>
             
-                       <LanguageSwitcher currentLocale={locale} />
-           
+            <Link href="/cart" className={`group relative flex items-center gap-2 px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg ${
+              isScrolled ? 'bg-[var(--color-base)] text-[var(--color-shade-80)]' : 'bg-[var(--color-shade-80)] text-white'
+            }`}>
+              <ShoppingCart className="w-4 h-4 transition-transform group-hover:-rotate-12" />
+              <span className="text-sm font-black tracking-tight">سبد خرید</span>
+            </Link>
 
-            {/* Cart Button */}
-          <a
-            href="/cart"
-            className="group relative px-6 py-2.5 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105"
-          >
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-300/10 via-white-300/10 to-amber-300/10 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-orange-500/50" />
-            
-            {/* Shine effect */}
-           
-            
-            {/* Content */}
-            <div className="relative z-10 flex items-center justify-center gap-2">
-              <ShoppingCart className="w-4 h-4 text-white transition-transform group-hover:rotate-12" />
-              <span className="text-sm font-medium text-white tracking-wide">
-                {dict.header.cart}
-              </span>
-            </div>
-          </a>
-
-            {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden p-2.5 rounded-sm border border-stone-200/50 hover:bg-stone-50 transition-colors"
+              className={`md:hidden p-2 rounded-full border transition-colors ${isScrolled ? 'border-white/20 text-white' : 'border-[var(--color-shade-20)] text-[var(--color-shade-80)]'}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-stone-700" /> : <Menu className="w-5 h-5 text-stone-700" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
-        
-      </div>
 
-      <div className=" max-sm:hidden flex  mx-auto  ">
-       
-        {!isScrolled &&<div className="max-w-7xl mx-auto  ">
-          
-          <nav className="flex items-center justify-center gap-16">
-
-            {/* Products Mega Menu */}
-            <MegaMenuItem  title={dict.product.category} width="large">
-              <div className="grid grid-cols-3 gap-3 mb-6">
-                {products.map((item, i) => (
-                  <NavCardItem key={i} {...item} Icon={item.icon} color="amber" />
+        {/* Row 2: Navigation Mega Menus (Desktop Only) */}
+        {!isScrolled && (
+          <nav className="hidden md:flex items-center justify-center gap-10 mt-2 ">
+            
+            <MegaMenuItem title="محصولات" width="large">
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                {products.map((item: any, i: number) => (
+                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} />
                 ))}
               </div>
-              <CTABanner
-                title="پک‌های هدیه لوکس"
-                subtitle="برای مناسبت‌ها و هدیه‌های خاطره‌ساز"
-                buttonText="خرید پک هدیه"
-                href="/gifts"
-                fromColor="from-amber-500"
-                toColor="to-orange-500"
-              />
+              <CTABanner title="پک‌های هدیه لوکس" subtitle="برای مناسبت‌ها و هدیه‌های خاطره‌ساز" buttonText="خرید پک هدیه" href="/gifts" />
             </MegaMenuItem>
 
-            {/* Resources/Support Mega Menu */}
-            <MegaMenuItem title={dict.header.support} width="medium">
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                {resources.map((r, i) => (
-                  <NavCardItem key={i} title={r.title} desc={r.desc} href={r.href} Icon={r.icon} color="rose" />
-                ))}
-              </div>
-              <CTABanner
-                title="راهنمای انتخاب مغزها"
-                subtitle="طعم، بافت و کاربردها را حرفه‌ای بشناس"
-                buttonText="مطالعه راهنما"
-                href="/guides/buying-nuts"
-                fromColor="from-rose-500"
-                toColor="to-pink-500"
-              />
-            </MegaMenuItem>
-
-            {/* Customer Service Mega Menu */}
-            <MegaMenuItem title={dict.footer.customerService} width="medium">
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                {integrations.map((item, i) => (
-                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} color="blue" />
-                ))}
-              </div>
-             
-            </MegaMenuItem>
-
-            {/* About Us Mega Menu */}
-            <MegaMenuItem title="درباره ما" width="medium">
-              <div className="grid grid-cols-3 gap-3">
-                {aboutUsLinks.map((item, i) => (
-                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} color="teal" />
+            <MegaMenuItem title="راهنما و پشتیبانی" width="medium">
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                {resources.map((r: any, i: number) => (
+                  <NavCardItem key={i} title={r.title} desc={r.desc} href={r.href} Icon={r.icon} />
                 ))}
               </div>
             </MegaMenuItem>
 
-            {/* Auth Mega Menu */}
-            <MegaMenuItem title="ورود / ثبت نام" width="small">
-              <div className="space-y-3">
-                {authLinks.map((item, i) => (
-                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} color="indigo" />
+            <MegaMenuItem title="خدمات ما" width="medium">
+              <div className="grid grid-cols-2 gap-4">
+                {integrations.map((item: any, i: number) => (
+                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} />
                 ))}
               </div>
             </MegaMenuItem>
 
+            <MegaMenuItem title="درباره ما" width="small">
+              <div className="flex flex-col gap-2">
+                {aboutUsLinks.map((item: any, i: number) => (
+                  <NavCardItem key={i} title={item.title} desc={item.desc} href={item.href} Icon={item.icon} />
+                ))}
+              </div>
+            </MegaMenuItem>
+
+            <Link href="/auth/login" className="flex items-center gap-2 text-[var(--color-shade-60)] hover:text-[var(--color-shade-80)] font-bold transition-colors">
+              <User className="w-4 h-4" />
+              <span>ورود / ثبت‌نام</span>
+            </Link>
           </nav>
-        </div>}
-    
+        )}
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-stone-200 bg-white"
+            className="md:hidden fixed inset-0 bg-[var(--color-tint-80)] z-[110] p-6 overflow-y-auto"
           >
-            <div className="px-6 py-8 space-y-6 max-w-7xl mx-auto">
-                          
-              {/* Mobile Search */}
-              <div className="relative">
-                <input
-                  placeholder={dict.header.searchPlaceholder}
-                  className="w-full rounded-sm px-4 pr-12 py-3 bg-stone-50 border border-stone-200 outline-none focus:ring-1 focus:ring-stone-400 text-stone-900 font-light"
-                />
-                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-              </div>
-
-              {/* Mobile Menu Sections */}
+            <div className="flex justify-between items-center mb-10">
+              <div className="font-serif text-2xl font-black text-[var(--color-shade-80)] uppercase tracking-tighter">Menu</div>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 bg-[var(--color-shade-80)] text-white rounded-full">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <div className="space-y-10">
               <div>
-                <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4 font-light">محصولات</h3>
-                <div className="space-y-3">
-                  {products.slice(0, 4).map((item, i) => (
-                    <a key={i} href={item.href} className="block text-sm text-stone-700 hover:text-stone-900 font-light">
-                      {item.title}
-                    </a>
+                <h3 className="text-[var(--color-shade-40)] text-xs font-black uppercase tracking-widest mb-6 border-b border-[var(--color-tint-40)] pb-2">محصولات برتر</h3>
+                <div className="grid grid-cols-1 gap-4">
+                  {products.slice(0, 5).map((p: any, i: number) => (
+                    <a key={i} href={p.href} className="text-2xl font-black text-[var(--color-shade-80)]">{p.title}</a>
                   ))}
                 </div>
               </div>
-
-              <div className="h-px bg-stone-200" />
-
-              <div>
-                <h3 className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4 font-light">خدمات</h3>
-                <div className="space-y-3">
-                  {integrations.slice(0, 3).map((item, i) => (
-                    <a key={i} href={item.href} className="block text-sm text-stone-700 hover:text-stone-900 font-light">
-                      {item.title}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <div className="h-px bg-stone-200" />
-
-              {/* Mobile Cart Button */}
-              <a 
-                href="/cart" 
-                className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm tracking-wider uppercase font-light rounded-sm"
-              >
-                <ShoppingCart className="w-4 h-4" />
-                {dict.header.cart}
-              </a>
+              <Link href="/cart" className="flex items-center justify-center gap-3 w-full py-5 bg-[var(--color-shade-80)] text-white rounded-[20px] font-black text-xl">
+                 <ShoppingBag /> مشاهده سبد خرید
+              </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-          
     </header>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef, useEffect, ReactNode, FC } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ChevronDown } from 'lucide-react';
@@ -12,28 +11,36 @@ interface MegaMenuItemProps {
     width: 'small' | 'medium' | 'large'; 
 }
 
+// نگاشت عرض‌ها
 const widthMap = {
-    small: 'w-[300px]',
-    medium: 'w-[630px]',
-    large: 'w-[750px]',
+    small: 'w-[320px]',
+    medium: 'w-[650px]',
+    large: 'w-[850px]',
+};
+
+// متغیرهای رنگی شما (برای اطمینان از اعمال در استایل‌های داخلی)
+const colors = {
+  '--color-base': '#e2c6aa',
+  '--color-shade-80': '#2d2822',
+  '--color-tint-80': '#f9f4ee',
 };
 
 const megaVariants: Variants = {
-    hidden: { opacity: 0, y: 12, scale: 0.96, pointerEvents: 'none' as const },
+    hidden: { opacity: 0, y: 15, scale: 0.98, pointerEvents: 'none' as const },
     visible: {
         opacity: 1,
         y: 0,
         scale: 1,
         pointerEvents: 'auto' as const,
         transition: {
-            duration: 0.3,
-            ease: [0.16, 1, 0.3, 1],
+            duration: 0.4,
+            ease: [0.23, 1, 0.32, 1], // لوکس‌ترین حالت Ease (Power4 Out)
         },
     },
     exit: {
         opacity: 0,
-        y: 8,
-        scale: 0.98,
+        y: 10,
+        scale: 0.99,
         transition: { duration: 0.2 },
     },
 };
@@ -48,16 +55,17 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
 
     useEffect(() => {
         if (isOpen && megaRef.current) {
+            // انیمیشن GSAP برای ورود نرم المان‌های داخلی
             gsap.fromTo(
-                megaRef.current.children,
-                { opacity: 0, y: 20, scale: 0.95 },
+                megaRef.current.querySelectorAll('.mega-content-item'),
+                { opacity: 0, y: 15 },
                 {
                     opacity: 1,
                     y: 0,
-                    scale: 1,
-                    duration: 0.4,
-                    stagger: 0.05,
-                    ease: 'power3.out',
+                    duration: 0.5,
+                    stagger: 0.04,
+                    ease: 'power2.out',
+                    delay: 0.1
                 }
             );
         }
@@ -65,13 +73,20 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
 
     return (
         <div
-            className="relative "
+            className="relative"
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
+            style={colors as any}
         >
-            <button className="flex items-center gap-2 px-4 py-4 hover:text-amber-600 transition-colors group">
-                <span className="text-[12.5px] text-stone-300 ">{title}</span>
-                <ChevronDown className={`w-4 h-4 text-orange-300 transition-transform ${isOpen ? 'rotate-180 translate-y-0.5' : ''}`} />
+            <button className="flex items-center gap-2 px-2 py-4 transition-all duration-300 group">
+                <span className={`text-[13px] font-bold tracking-widest uppercase transition-colors duration-300 ${
+                    isOpen ? 'text-[var(--color-base)]' : 'text-[var(--color-shade-40)] group-hover:text-[var(--color-shade-80)]'
+                }`}>
+                    {title}
+                </span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-500 ${
+                    isOpen ? 'rotate-180 text-[var(--color-base)]' : 'text-[var(--color-shade-20)]'
+                }`} />
             </button>
 
             <AnimatePresence>
@@ -81,14 +96,22 @@ export const MegaMenuItem: FC<MegaMenuItemProps> = ({
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        variants={megaVariants} // استفاده مستقیم از variants
-                        className={`absolute left-1/2 -translate-x-1/2 mt-0 ${widthMap[width]}  rounded-xl bg-white backdrop-blur-xl shadow-2xl border border-gray-300 p-8 overflow-hidden`}
+                        variants={megaVariants}
+                        className={`absolute left-1/2 -translate-x-1/2 mt-2 ${widthMap[width]} 
+                            bg-[var(--color-tint-80)]/95 backdrop-blur-2xl rounded-[24px] 
+                            shadow-[0_25px_50px_-12px_rgba(45,40,34,0.15)] 
+                            border border-[var(--color-base)]/20 p-8 overflow-hidden`}
                     >
-                        {/* بک‌گراند بلوری دینامیک برای زیبایی */}
-                        <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-30`}></div>
+                        {/* المان دکوراتیو داخلی برای حس لوکس بودن */}
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--color-base)] to-transparent opacity-50" />
                         
-                        {/* محتوای واقعی دراپ‌دان */}
-                        <div className="relative z-10">{children}</div>
+                        {/* بک‌گراند بلوری دکوراتیو (Tint 20) */}
+                        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-[var(--color-tint-20)] rounded-full blur-[100px] opacity-40 pointer-events-none" />
+                        
+                        {/* کانتینر محتوا */}
+                        <div className="relative z-10 mega-content-item">
+                            {children}
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

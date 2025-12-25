@@ -194,21 +194,10 @@ export function ElegantCategories() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-linear-to-b from-neutral-50 via-white to-neutral-50 py-50 overflow-hidden"
+      className="relative bg-gradient-to-b from-[#f9f4ee] to-[#f6eee6]  py-50 overflow-hidden"
       dir="rtl"
     >
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute -top-32 -right-32 w-96 h-96 bg-amber-100/30 rounded-full blur-3xl"
-          animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute -bottom-32 -left-32 w-96 h-96 bg-rose-100/30 rounded-full blur-3xl"
-          animate={{ scale: [1.3, 1, 1.3], opacity: [0.4, 0.6, 0.4] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </div>
+
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-10">
@@ -235,7 +224,7 @@ export function ElegantCategories() {
           <motion.button
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.96 }}
-            className="px-12 py-5 bg-gray-900 text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-black/30 transition-all duration-300 inline-flex items-center gap-3"
+            className="px-12 py-5 bg-[#b59e88] text-white rounded-full font-bold text-lg shadow-2xl hover:shadow-black/30 transition-all duration-300 inline-flex items-center gap-3"
           >
             مشاهده همه محصولات
             <motion.span
