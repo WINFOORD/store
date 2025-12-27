@@ -2,6 +2,7 @@
 
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import OptimizedImage from '../optimizeImage';
 
 const slides = [
     {
@@ -57,20 +58,21 @@ function CategoryCard({ cat, index }: { cat: typeof slides[0]; index: number }) 
       onMouseLeave={resetMouse}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.4 }}
-      className="relative group cursor-pointer aspect-[9/10] overflow-hidden rounded-3xl shadow-xl shadow-white/10 transition-shadow duration-700"
+      className="relative group cursor-pointer h-[52vh] w-full aspect-[9/10]  overflow-hidden rounded-3xl shadow-xl shadow-white/10 transition-shadow duration-700"
       style={{ perspective: '2000px' }}
     >
       <motion.div
         ref={imageRef}
         style={{ x: mouseX, y: mouseY }}
-        className="absolute inset-0 scale-110"
+        className="absolute inset-0  scale-110 "
       >
-        <img
+        <OptimizedImage
+        fill
           src={cat.img}
           alt={cat.title}
-          className="w-full h-full object-cover"
+          className="  object-cover   "
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70  via-black/30 to-transparent" />
+        <div className="absolute  inset-0 bg-gradient-to-t from-black/50  via-black/10 to-transparent" />
       </motion.div>
       <div className="absolute inset-0 p-8 flex flex-col  justify-end items-center text-center text-white">
         <motion.span
@@ -136,17 +138,17 @@ export function CategoryCarousel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-            className="relative w-full max-w-md"
+            className="relative w-full "
           >
             <CategoryCard cat={slides[index]} index={index} />
           </motion.div>
 
-          <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
+          <div className="absolute -bottom-10 left-1/2  -translate-x-1/2 flex gap-4">
             {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setIndex(i)}
-                className="group flex items-center gap-2"
+                className="group flex items-center gap-2 "
               >
                 <div
                   className={`h-px transition-all duration-500 ${

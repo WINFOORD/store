@@ -8,23 +8,13 @@ import {
   Search, Menu, Star, Clock, MapPin, ArrowLeft, Gem,
   Badge
 } from 'lucide-react';
+import {colors} from '../colors';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// اعمال دقیق رنگ‌های ارسالی شما
-const colors = {
-  '--color-base': '#e2c6aa',
-  '--color-shade-20': '#b59e88',
-  '--color-shade-40': '#887766',
-  '--color-shade-60': '#5a4f44',
-  '--color-shade-80': '#2d2822',
-  '--color-tint-20': '#e8d1bb',
-  '--color-tint-40': '#eeddcc',
-  '--color-tint-60': '#f3e8dd',
-  '--color-tint-80': '#f9f4ee',
-};
+
 
 // --- دیتای محصولات (گسترش یافته) ---
 const PRODUCTS = {
@@ -99,7 +89,7 @@ export default function UltimateLuxuryShop() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--color-tint-80)] overflow-x-hidden" dir="rtl" style={colors as any}>
+    <div className="h-screen bg-[var(--color-tint-80)] overflow-hidden" dir="rtl" style={colors as any}>
       
  
 
@@ -107,7 +97,7 @@ export default function UltimateLuxuryShop() {
 
 
 
-    <section className="py-24 bg-[#eeddcc]/30 px-6">
+    <section className="py-24 bg-[var(--color-tint-40)] ">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
           <div className="lg:col-span-1 reveal">
             <Badge>شکلات‌های دست‌ساز</Badge>
@@ -127,7 +117,7 @@ export default function UltimateLuxuryShop() {
         </div>
       </section>
       {/* 3. آجیل و خشکبار (Horizontal Scroll) */}
-      <section className="py-24 reveal-section">
+      <section className="py-24 reveal-section bg-[var(--color-tint-60)]">
         <div className="px-6 md:px-20 flex items-end justify-between mb-12">
           <div>
             <h2 className="text-5xl font-black text-[var(--color-shade-80)] mb-4 uppercase">The Nuts</h2>

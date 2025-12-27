@@ -6,9 +6,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Coffee, Cookie, Apple, Milk, Candy, IceCream } from 'lucide-react';
 import OptimizedImage from '../../ui/optimizeImage';
-
+import {colors} from '../../colors';
 gsap.registerPlugin(ScrollTrigger);
-
+ 
 const categories = [
   { id: 1, title: 'آجیل و مغزیجات', en: 'Artisan Nuts', icon: Coffee, img: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80' },
   { id: 2, title: 'میوه خشک', en: 'Dried Harmony', icon: Apple, img: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800&q=80' },
@@ -193,19 +193,23 @@ export function ElegantCategories() {
 
   return (
     <section
-      ref={sectionRef}
-      className="relative bg-gradient-to-b from-[#f9f4ee] to-[#f6eee6]  py-50 overflow-hidden"
-      dir="rtl"
+    style={colors as any}
+    ref={sectionRef}
+    className="relative  bg-transparent py-20 overflow-hidden  "
+    dir="rtl"
     >
 
+ <div className=' -mt-20'>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F9F4EE" fill-opacity="1" d="M0,96L80,101.3C160,107,320,117,480,122.7C640,128,800,128,960,122.7C1120,117,1280,107,1360,101.3L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg>
+          </div>
+        <div className="text-center   -mt-50">
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-shade-80)] via-[var(--color-shade-20)]/50 to-[var(--color-shade-80)/80] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-10">
-          <h2 className="section-title text-5xl md:text-7xl font-black text-gray-900 tracking-tight">
+          <h2 className="section-title text-7xl md:text-8xl bac font-black text-[var(--color-tint-80)] tracking-tight">
             کالکشن برتر
           </h2>
           <motion.p
-            className="section-subtitle mt-6 text-xl text-gray-600 max-w-2xl mx-auto"
+            className="section-subtitle my-6 text-xl text-[var(--color-tint-80)] max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -213,14 +217,18 @@ export function ElegantCategories() {
             بهترین انتخاب برای هر سلیقه
           </motion.p>
         </div>
+         <div className='rotate-180 -mt-60'>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F9F4EE" fill-opacity="1" d="M0,96L80,101.3C160,107,320,117,480,122.7C640,128,800,128,960,122.7C1120,117,1280,107,1360,101.3L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg>
+          </div>
+      <div className="mx-auto px-6 relative z-10 bg-gradient-to-t from-[var(--color-tint-80)] via-[var(--color-tint-60)] to-[var(--color-tint-80)] h-[110vh]">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 scale-90">
+        <div className="grid grid-cols-1 max-w-7xl mx-auto md:grid-cols-2 lg:grid-cols-3 gap-10 scale-90 ">
           {categories.map((cat, index) => (
             <Card key={cat.id} cat={cat} index={index} />
           ))}
         </div>
 
-        <div className="text-center mt-20">
+        <div className="text-center my-20">
           <motion.button
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.96 }}

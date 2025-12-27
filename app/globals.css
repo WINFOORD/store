@@ -20,7 +20,7 @@ body {
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background-image: url('/images/bg-4.webp');
+                    background-image: url('/images/bg-3.webp');
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: cover;
@@ -35,18 +35,7 @@ body {
   direction: rtl;
   text-align: right;
 }
- body::after {
-                    filter: grayscale(40%);
 
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
-                    z-index: 1;
-                }
 
 /* مخفی کردن اسکرول‌بار */
 ::-webkit-scrollbar {

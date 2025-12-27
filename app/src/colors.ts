@@ -8,4 +8,4 @@ export const colors = {
   '--color-tint-40': '#eeddcc',
   '--color-tint-60': '#f3e8dd',
   '--color-tint-80': '#f9f4ee',
-};
+}; 

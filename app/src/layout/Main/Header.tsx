@@ -7,26 +7,14 @@ import Link from 'next/link';
 import LanguageSwitcher from '../../ui/SwitchLang';
 import { MegaMenuItem } from '../../ui/header/MegaMenuItem';
 import { integrations, products, resources } from '../../lib/data';
-
-// اعمال دقیق پالت رنگی ارسالی شما
-const colors = {
-  '--color-base': '#e2c6aa',
-  '--color-shade-20': '#b59e88',
-  '--color-shade-40': '#887766',
-  '--color-shade-60': '#5a4f44',
-  '--color-shade-80': '#2d2822',
-  '--color-tint-20': '#e8d1bb',
-  '--color-tint-40': '#eeddcc',
-  '--color-tint-60': '#f3e8dd',
-  '--color-tint-80': '#f9f4ee',
-};
+import { colors } from '../../colors';
 
 // --- Nav Card Component (Updated Colors) ---
 function NavCardItem({ title, desc, href, Icon }: { title: string; desc: string; href: string; Icon: any }) {
   return (
     <a 
       href={href}
-      className="group block p-4 border-b border-[var(--color-tint-40)] hover:bg-[var(--color-tint-80)] rounded-xl transition-all duration-300 hover:shadow-lg"
+      className="group block p-4  border-b border-[var(--color-tint-40)] hover:bg-[var(--color-tint-80)] rounded-xl transition-all duration-300 hover:shadow-lg"
     >
       <div className="flex items-start gap-3">
         <Icon className="w-5 h-5 text-[var(--color-shade-20)] mt-1 group-hover:text-[var(--color-shade-80)] transition-colors" />
@@ -73,12 +61,10 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
 
   const headerClasses = `fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
     ${isScrolled 
-      ? 'top-2 w-[95%] max-w-5xl rounded-full bg-[var(--color-shade-80)]/80 backdrop-blur-2xl py-2 shadow-2xl border border-white/10' 
-      : 'top-0 w-full max-w-full bg-[var(--color-shade-80)]/10 backdrop-blur-md pt-3 border-b border-[var(--color-base)]/20 shadow-sm'
+      ? 'top-2 w-[95%] max-w-5xl rounded-full bg-[var(--color-shade-40)]/60 backdrop-blur-2xl py-2  shadow-2xl  ' 
+      : 'top-0 w-full max-w-7xl  backdrop-blur-xl '
     }`;
 
-  // تم رنگی داینامیک متن‌ها
-  const navTextColor = isScrolled ? 'text-white' : 'text-[var(--color-shade-80)]';
 
   const aboutUsLinks = [
   { title: 'داستان ما', icon: Info, href: '/about/story', desc: 'تاریخچه برند' },
@@ -89,23 +75,23 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
     <header className={headerClasses} style={colors as any} dir="rtl">
       <div className="w-full mx-auto px-8">
         {/* Row 1: Logo, Search, Actions */}
-        <div className="flex items-center justify-between gap-6">
+        <div className="flex items-center justify-between gap-6 mt-4">
           
           {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-4 group">
-            <div className={`relative flex items-center justify-center transition-all mt-1 duration-700 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-14 h-14'}`}>
-              <div className="absolute inset-0 border border-[var(--color-base)] rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
-              <div className="absolute inset-[2px] bg-[var(--color-shade-80)] shadow-2xl transition-colors" />
+          <Link href="/" className="flex items-center gap-4  group">
+            <div className={`relative flex items-center justify-center transition-all mt-1 duration-700 ease-in-out ${isScrolled ? 'w-10 h-10' : 'w-10 h-10'}`}>
+              <div className="absolute inset-0 border border-[var(--color-shade-20)] rotate-45 group-hover:rotate-90 transition-transform duration-1000" />
+              <div className="absolute inset-[2px] bg-[var(--color-shade-60)] shadow-2xl transition-colors" />
               <span className={`relative font-serif text-white transition-all duration-500 ${isScrolled ? 'text-xs' : 'text-xl'} tracking-tighter`}>AS</span>
             </div>
 
             <div className="flex flex-col">
-              <span className={`font-serif  leading-none transition-all duration-500 ${isScrolled ? 'text-lg' : 'text-2xl'} font-black ${isScrolled ? 'text-[var(--color-base)]' : 'text-[var(--color-base)] tracking-[0.2em]'}`}>
+              <span className={`font-serif  leading-none transition-all duration-500 ${isScrolled ? 'text-lg' : 'text-xl'} font-black ${isScrolled ? 'text-[var(--color-shade-40)]' : 'text-[var(--color-shade-40)] tracking-[0.2em]'}`}>
                 Ajil<span className={`${isScrolled ? 'text-white' : 'text-[var(--color-shade-20)]'} font-light ml-1`}>Saraye</span>
               </span>
               <div className="flex items-center gap-1 overflow-hidden">
-                 <MapPin className={`w-3 h-3 ${isScrolled ? 'text-[var(--color-tint-40)]' : 'text-[var(--color-base)]'}`} />
-                 <span className={`text-[14px] tracking-[1.3em] uppercase font-bold ${isScrolled ? 'text-white/50' : 'text-[var(--color-shade-40)]'}`}>Babol</span>
+                 <MapPin className={`w-3 h-3 ${isScrolled ? 'text-[var(--color-shade-40)]' : 'text-[var(--color-shade-40)]'}`} />
+                 <span className={`text-[14px] tracking-[1em] uppercase font-bold ${isScrolled ? 'text-white/50' : 'text-[var(--color-shade-40)]'}`}>Babol</span>
               </div>
             </div>
           </Link>
@@ -116,7 +102,7 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
               <input
                 placeholder="جستجوی طعم‌های خاص..."
                 className={`w-full rounded-full px-10 py-3 outline-none transition-all duration-300 border 
-                 'bg-white/10 border-white/10 text-(--color-base) 
+                 'bg-white/10 border-[var(--color-tint-20)] text-[var(--color-shade-60)] 
                  focus:border-[var(--color-base)]`}
               />
               <Search className={`absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 ${isScrolled ? 'text-white/40' : 'text-[var(--color-shade-40)]'}`} />
@@ -145,7 +131,7 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
 
         {/* Row 2: Navigation Mega Menus (Desktop Only) */}
         {!isScrolled && (
-          <nav className="hidden md:flex items-center justify-center gap-10 mt-2 ">
+          <nav className="hidden md:flex  items-center justify-center gap-40  ">
             
             <MegaMenuItem title="محصولات" width="large">
               <div className="grid grid-cols-3 gap-4 mb-6">
@@ -180,10 +166,7 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
               </div>
             </MegaMenuItem>
 
-            <Link href="/auth/login" className="flex items-center gap-2 text-[var(--color-shade-60)] hover:text-[var(--color-shade-80)] font-bold transition-colors">
-              <User className="w-4 h-4" />
-              <span>ورود / ثبت‌نام</span>
-            </Link>
+          
           </nav>
         )}
       </div>
