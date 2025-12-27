@@ -1,7 +1,7 @@
 
 import { Locale } from "../src/i18n/config";
 import { getDictionary } from "../src/i18n/Dictionary";
-import ElegantCategories from "../src/layout/Main/categories";
+import { ElegantCategories } from "../src/layout/Main/categories";
 import { Footers } from "../src/layout/Main/Footer";
 import { HeaderNuts } from "../src/layout/Main/Header";
 import { HomeMain } from "../src/layout/Main/templateMain";

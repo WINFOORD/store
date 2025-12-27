@@ -1,206 +1,281 @@
 "use client"
-import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useState, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { 
-  Plus, Heart, ChevronLeft, ChevronRight, ShoppingBag, 
-  Search, Menu, Star, Clock, MapPin, ArrowLeft, Gem,
-  Badge
+  Plus, Heart, ArrowLeft, Star, Clock, MapPin, ChevronRight, Sparkles, Award, ShoppingBag,
+  ChevronDown,
+  Truck,
+  Briefcase
 } from 'lucide-react';
-import {colors} from '../colors';
+import { colors } from '../colors';
+import OptimizedImage from './optimizeImage';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-
-
-// --- دیتای محصولات (گسترش یافته) ---
-const PRODUCTS = {
-  nuts: [
-    { id: 1, title: "پسته اکبری زعفرانی", price: "۸۹۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1531300185372-b7cbe2eddf0b?w=600" },
-    { id: 2, title: "بادام کاغذی شور", price: "۴۵۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1508747703725-719777637510?w=600" },
-    { id: 3, title: "فندق برشته ممتاز", price: "۵۲۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=600" },
-  ],
-  chocolates: [
-    { id: 4, title: "ترافل دست‌ساز فرانسوی", price: "۷۸۰,۰۰۰", weight: "باکس ۱۶ عددی", img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=600" },
-    { id: 5, title: "شکلات تلخ ۸۵٪ ارگانیک", price: "۳۲۰,۰۰۰", weight: "۲۰۰ گرم", img: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=600" },
-  ],
-  pastries: [
-    { id: 6, title: "باقلوا استانبولی وی‌آی‌پی", price: "۶۵۰,۰۰۰", weight: "۱ کیلوگرم", img: "https://images.unsplash.com/photo-1519676867240-f031ee04a703?w=600" },
-    { id: 7, title: "سوهان عسلی کره‌ای", price: "۲۸۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1590080875515-8a03b334752a?w=600" },
-  ],
-  giftPacks: [
-    { id: 8, title: "پک هدیه «فیروزه»", price: "۳,۴۰۰,۰۰۰", weight: "ترکیب آجیل و زعفران", img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600" },
-    { id: 9, title: "باکس لوکس یلدا", price: "۱,۹۵۰,۰۰۰", weight: "بسته‌بندی چوبی", img: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=600" },
-  ]
-
-  };
-
-
-
-// --- کامپوننت کارت محصول لوکس ---
-function ProductCard({ p }: { p: any }) {
+// --- Section 1: Hero-style Fresh Nuts ---
+function FreshNutsSection() {
+  const sectionRef = useRef(null);
   return (
-    <motion.div 
-      whileHover={{ y: -12 }}
-      className="flex-shrink-0 w-[300px] group bg-[var(--color-tint-80)] rounded-[40px] p-4 border border-[var(--color-tint-40)] shadow-sm hover:shadow-2xl transition-all duration-500"
-    >
-      <div className="relative h-[320px] rounded-[32px] overflow-hidden mb-6">
-        <img src={p.img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={p.title} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-shade-80)]/40 to-transparent" />
-        <button className="absolute top-4 left-4 w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-[var(--color-shade-80)] transition-all">
-          <Heart className="w-5 h-5" />
-        </button>
+    <section ref={sectionRef} className="py-40 bg-[var(--color-tint-60)] relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
+        <h2 className="text-[25vw] font-black uppercase tracking-tighter">Premium</h2>
       </div>
-      <div className="px-2 text-right">
-        <h3 className="text-[var(--color-shade-80)] font-black text-xl mb-1">{p.title}</h3>
-        <p className="text-[var(--color-shade-40)] text-sm mb-4">{p.weight}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-black text-[var(--color-shade-60)]">{p.price} <small className="text-xs">تومان</small></span>
-          <button className="bg-[var(--color-shade-80)] text-white w-12 h-12 rounded-2xl flex items-center justify-center hover:bg-[var(--color-shade-60)] transition-colors">
-            <Plus className="w-6 h-6" />
-          </button>
+
+      <div className="mx-auto px-4 md:px-20 lg:px-60 relative z-10">
+        <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="max-w-xl">
+            <motion.span 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="text-[var(--color-shade-60)] font-medium tracking-[0.2em] uppercase text-sm mb-4 block"
+            >
+               popular 
+            </motion.span>
+            <h2 className="text-6xl flex md:text-6xl font-light text-[var(--color-shade-60)] leading-tight">
+              پرفروش <br /> <span className="font-serif text-[var(--color-shade-20)]">ترین ها</span>
+            </h2>
+          </div>
+          <p className="text-[var(--color-shade-60)] max-w-xs text-lg border-r-2 border-[var(--color-shade-20)] pr-6">
+            تجربه‌ای فراتر از طعم، ادای احترامی به اصالت و کیفیت محصولات مزارع برتر.
+          </p>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-5 w-full gap-8">
+          {PRODUCTS.freshNuts.slice(0, 5).map((product, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="group"
+            >
+              <div className="relative aspect-[3/5] overflow-hidden bg-[#D9D9D9] rounded-2xl shadow-2xl">
+                <motion.img
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
+                  src={product.img}
+                  className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-4 left-0 w-full p-8 mb-4 translate-y-8 group-hover:translate-y-0 transition-transform duration-500 text-right">
+                    <p className="text-[var(--color-tint-40)] text-sm">{product.weight}</p>
+                    <h3 className="text-xl font-light text-white">{product.title}</h3>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </motion.div>
+    </section>
   );
 }
 
-export default function UltimateLuxuryShop() {
-  const container = useRef(null);
-
-  useEffect(() => {
-    // انیمیشن‌های ظهور بخش‌ها
-    const sections = gsap.utils.toArray('.reveal-section');
-    sections.forEach((section: any) => {
-      gsap.from(section, {
-        scrollTrigger: {
-          trigger: section,
-          start: "top 85%",
-        },
-        y: 60,
-        opacity: 0,
-        duration: 1.5,
-        ease: "power4.out"
-      });
-    });
-  }, []);
-
+// --- Section 3: High-End Chocolate Feature ---
+function ChocolatesSection() {
   return (
-    <div className="h-screen bg-[var(--color-tint-80)] overflow-hidden" dir="rtl" style={colors as any}>
-      
- 
-
-      {/* 2. Hero Section (Ultra High End) */}
-
-
-
-    <section className="py-24 bg-[var(--color-tint-40)] ">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-          <div className="lg:col-span-1 reveal">
-            <Badge>شکلات‌های دست‌ساز</Badge>
-            <h2 className="text-5xl font-black text-[#2d2822] mt-4 mb-6 leading-tight">شیرینیِ <br /> لحظات خاص</h2>
-            <p className="text-[#5a4f44] mb-8 leading-loose">ما با ترکیب کاکائوی اصیل بلژیکی و مغزهای تازه، طعمی را خلق کرده‌ایم که در هیچ جای دیگری تجربه نخواهید کرد.</p>
-            <button className="flex items-center gap-3 text-[#2d2822] font-black group">
-              مشاهده همه شکلات‌ها
-              <div className="w-12 h-px bg-[#2d2822] group-hover:w-20 transition-all" />
-            </button>
+    <section className="py-40 bg-[var(--color-tint-60)] px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+          <div className="order-2 lg:order-1 relative">
+            <div className="absolute -top-10 -right-10 w-64 h-64 bg-[var(--color-tint-80)] rounded-full -z-10" />
+            <motion.div 
+              initial={{ clipPath: 'inset(100% 0 0 0)' }}
+              whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
+              transition={{ duration: 1.5, ease: [0.77, 0, 0.175, 1] }}
+              className="relative aspect-[3/3] overflow-hidden rounded-sm"
+            >
+              <OptimizedImage fill alt='image' src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=800" className="w-full h-full object-cover" />
+            </motion.div>
+            <motion.div whileHover={{ y: -10 }} className="absolute bottom-10 -left-10 bg-white p-8 shadow-2xl max-w-xs border-t-4 border-[var(--color-shade-20)]">
+              <h4 className="font-bold text-xl mb-2 text-[var(--color-shade-60)]">فراتر از یک طعم</h4>
+              <p className="text-sm text-gray-500 leading-relaxed font-light">هر ترافل ما حاصل ۴۸ ساعت فرآیند هنرمندانه و ترکیب کاکائوی خالص است.</p>
+            </motion.div>
           </div>
-          <div className="lg:col-span-2 flex gap-8 overflow-x-auto pb-6 scrollbar-hide">
-                           {PRODUCTS.nuts.map(p => <ProductCard key={p.id} p={p} />)}
-
-                 {PRODUCTS.nuts.map(p => <ProductCard key={p.id} p={p} />)}
-
-          </div>
-        </div>
-      </section>
-      {/* 3. آجیل و خشکبار (Horizontal Scroll) */}
-      <section className="py-24 reveal-section bg-[var(--color-tint-60)]">
-        <div className="px-6 md:px-20 flex items-end justify-between mb-12">
-          <div>
-            <h2 className="text-5xl font-black text-[var(--color-shade-80)] mb-4 uppercase">The Nuts</h2>
-            <div className="w-24 h-2 bg-[var(--color-base)] rounded-full" />
-          </div>
-          <button className="text-[var(--color-shade-40)] font-bold flex items-center gap-2 hover:text-[var(--color-shade-80)] transition-colors">
-            مشاهده همه <ArrowLeft className="w-5 h-5" />
-          </button>
-        </div>
-        <div className="flex gap-10 overflow-x-auto px-6 md:px-20 pb-10 scrollbar-hide">
-          {PRODUCTS.nuts.map(p => <ProductCard key={p.id} p={p} />)}
-          {PRODUCTS.nuts.map(p => <ProductCard key={p.id + 10} p={p} />)} {/* تکرار برای پر شدن اسکرول */}
-        </div>
-      </section>
-
-      {/* 4. بخش ویژه شکلات (Luxury Chocolate Bar) */}
-      <section className="py-24 bg-[var(--color-shade-80)] text-[var(--color-tint-80)] reveal-section relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-full h-full opacity-10 pointer-events-none">
-          <img src="https://www.transparenttextures.com/patterns/carbon-fibre.png" alt="pattern" />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              <img src={PRODUCTS.chocolates[0].img} className="rounded-3xl h-80 w-full object-cover shadow-2xl" />
-              <img src={PRODUCTS.chocolates[1].img} className="rounded-3xl h-80 w-full object-cover shadow-2xl mt-12" />
-            </div>
-          </div>
-          <div>
-            <span className="text-[var(--color-base)] font-bold tracking-widest uppercase">The Chocolate Lounge</span>
-            <h2 className="text-6xl font-black mt-4 mb-8">شکلات‌هایی برای <br /> لحظات ناب</h2>
-            <p className="text-xl text-[var(--color-tint-40)] mb-10 leading-relaxed">
-              ترکیب کاکائوی ۷۰٪ دست‌چین شده با مغزهای برشته شده در دمای ملایم. لذتی که تکرار نخواهد شد.
+          <div className="order-1 lg:order-2 text-right">
+            <h2 className="text-6xl font-extralight mb-8 text-[var(--color-shade-60)]">
+              شکلات‌های <br /> <span className="font-serif italic tracking-tight">Artisanal</span>
+            </h2>
+            <p className="text-lg text-gray-600 mb-12 leading-relaxed font-light">
+              ما در خلق هر قطعه شکلات، تعادلی ظریف میان تلخی کاکائو و شیرینی خاطرات برقرار کرده‌ایم. مجموعه‌ای برای کسانی که به جزئیات اهمیت می‌دهند.
             </p>
-            <div className="flex gap-6">
-              {PRODUCTS.chocolates.map(p => (
-                <div key={p.id} className="bg-white/10 backdrop-blur-md p-6 rounded-[30px] border border-white/10">
-                  <h4 className="font-bold text-lg mb-2">{p.title}</h4>
-                  <p className="text-[var(--color-base)] font-black">{p.price} تومان</p>
+            <div className="space-y-8 mb-12">
+              {['دست‌ساز و ارگانیک', 'بسته‌بندی زیست‌تخریب‌پذیر', 'ارسال در بسته‌بندی خنک'].map((text, i) => (
+                <div key={i} className="flex items-center gap-4 group justify-start">
+                  <div className="w-2 h-2 rounded-full bg-[var(--color-shade-20)] group-hover:w-8 transition-all duration-300" />
+                  <span className="text-sm uppercase tracking-widest text-[var(--color-shade-60)]">{text}</span>
                 </div>
               ))}
             </div>
+            <button className="px-12 py-5 bg-[var(--color-shade-60)] text-white hover:bg-[var(--color-shade-20)] transition-colors duration-500 text-sm tracking-[0.3em] uppercase">کاوش کلکسیون</button>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* 5. شیرینی و پک‌های هدیه (Grid Layout) */}
-      <section className="py-24 px-6 md:px-20 reveal-section">
-        <h2 className="text-5xl font-black text-[var(--color-shade-80)] text-center mb-20 uppercase tracking-tighter">Gifts & Sweets</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[...PRODUCTS.pastries, ...PRODUCTS.giftPacks].map(p => (
-             <ProductCard key={p.id} p={p} />
+// --- ۲. بخش خدمات تجاری (Business) ---
+function BusinessServices() {
+  return (
+    <section className="py-32 bg-[var(--color-tint-80)] px-6">
+      <div className="max-w-7xl mx-auto">
+        <header className="mb-20 text-center">
+          <span className="text-[var(--color-shade-20)] tracking-[0.4em] uppercase text-[10px] font-black">Partnerships</span>
+          <h2 className="text-4xl font-extralight mt-4">خدمات تجاری <span className="font-serif  text-[var(--color-shade-20)]">آجیل سرای بابل</span></h2>
+        </header>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <motion.div whileHover={{ y: -8 }} className="p-12 bg-[var(--color-tint-10)] shadow-xl border border-[var(--color-tint-40)] rounded-2xl group relative overflow-hidden text-right">
+            <Briefcase className="w-12 h-12 text-[var(--color-shade-20)] mb-8 opacity-40" />
+            <h3 className="text-2xl font-light mb-4 text-[var(--color-shade-60)]">سفارش سازمانی VIP</h3>
+            <p className="text-sm text-[var(--color-shade-60)]/70 leading-loose mb-10 font-light">طراحی و شخصی‌سازی پک‌های هدیه با لوگوی مجموعه شما. انتخابی برازنده برای قدردانی از شرکای تجاری.</p>
+            <button className="text-[10px] uppercase tracking-[0.2em] font-bold border-b border-[var(--color-shade-20)] pb-1 hover:text-[var(--color-shade-20)] transition-colors">ثبت درخواست مشاوره</button>
+          </motion.div>
+          <motion.div whileHover={{ y: -8 }} className="p-12 bg-[var(--color-tint-10)] rounded-2xl shadow-xl group relative overflow-hidden text-right">
+            <Truck className="w-12 h-12 text-[var(--color-shade-20)] mb-8 opacity-40" />
+            <h3 className="text-2xl font-light mb-4 ">خرید عمده و تأمین</h3>
+            <p className="text-sm  leading-loose mb-10 font-light">تأمین مستقیم انواع مغزها برای هتل‌ها و رستوران‌های تراز اول با تضمین تازگی و قیمت رقابتی مزارع.</p>
+            <button className="text-[10px] uppercase tracking-[0.2em] font-bold border-b border-[var(--color-shade-20)] pb-1 hover:text-[var(--color-shade-20)] transition-colors ">دریافت لیست قیمت</button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// --- ۳. بخش سوالات متداول (FAQ) ---
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const faqs = [
+    { q: "آیا محصولات شما دارای تضمین تازگی هستند؟", a: "بله، تمامی محصولات ما به صورت هفتگی برشته‌کاری می‌شوند و در بسته‌بندی‌های ایزوله برای حفظ عطر و طعم نگهداری می‌گردند." },
+    { q: "شرایط ارسال به شهرستان چگونه است؟", a: "ارسال برای تهران از طریق پیک اختصاصی (۳ ساعته) و برای تمام ایران از طریق پست پیشتاز در بسته‌بندی‌های مقاوم انجام می‌شود." },
+    { q: "امکان شخصی‌سازی باکس‌های هدیه وجود دارد؟", a: "بله، در بخش سفارش سازمانی می‌توانید نوع محصول، چیدمان و حتی حک لوگو روی جعبه را انتخاب کنید." },
+  ];
+
+  return (
+    <section className="py-40 bg-[var(--color-tint-10)] px-6">
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-3xl font-extralight text-center mb-16 text-[var(--color-shade-60)]">سوالات <span className="font-serif italic text-[var(--color-shade-20)]">متداول</span></h2>
+        <div className="space-y-4">
+          {faqs.map((faq, i) => (
+            <div key={i} className="border-b border-[var(--color-tint-40)]">
+              <button onClick={() => setOpenIndex(openIndex === i ? null : i)} className="w-full py-6 flex justify-between items-center text-right">
+                <span className="text-md font-medium text-[var(--color-shade-60)]">{faq.q}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform text-[var(--color-shade-20)] ${openIndex === i ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {openIndex === i && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                    <p className="pb-6 text-md text-[var(--color-shade-60)]/70 font-light leading-relaxed">{faq.a}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* 6. اعتماد و ارزش‌ها (Clean & Professional) */}
-      <section className="py-20 border-y border-[var(--color-tint-40)] bg-[var(--color-tint-60)]/30 reveal-section">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-between gap-12">
-          <div className="flex items-center gap-4">
-            <Clock className="w-10 h-10 text-[var(--color-shade-40)]" />
-            <div>
-              <h4 className="font-black text-[var(--color-shade-80)]">تحویل اکسپرس</h4>
-              <p className="text-sm text-[var(--color-shade-40)]">ارسال زیر ۳ ساعت در تهران</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <MapPin className="w-10 h-10 text-[var(--color-shade-40)]" />
-            <div>
-              <h4 className="font-black text-[var(--color-shade-80)]">مبدا مستقیم</h4>
-              <p className="text-sm text-[var(--color-shade-40)]">خرید مستقیم از کشاورز</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Star className="w-10 h-10 text-[var(--color-shade-40)]" />
-            <div>
-              <h4 className="font-black text-[var(--color-shade-80)]">ضمانت بازگشت</h4>
-              <p className="text-sm text-[var(--color-shade-40)]">بدون قید و شرط</p>
-            </div>
-          </div>
-        </div>
-      </section>
+// --- Main Layout ---
+export default function UltimateLuxuryShop() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
-    
+  return (
+    <div className="min-h-screen bg-white" dir="rtl" style={colors as any}>
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1.5 mt-0.5 rounded-full bg-[var(--color-shade-60)]/70 z-[999] origin-right shadow-lg" 
+        style={{ scaleX }} 
+      />
+      
+      <main>
+        <FreshNutsSection />
+        
+        <ProductSection
+            title="شکلات‌های وارداتی"
+            subtitle="برندهای معتبر جهانی از سوئیس، بلژیک و ایتالیا. اصالت و کیفیت تضمین شده با واردات مستقیم."
+            products={PRODUCTS.freshNuts}
+            features={[
+            "واردات مستقیم از کشور مبدا",
+            "گارانتی اصالت ۱۰۰٪",
+            "نگهداری در سردخانه استاندارد"
+            ]}
+            reverse={true}
+        />
+        
+        <ChocolatesSection />
+        <BusinessServices />
+        <FAQSection />
+      </main>
+
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:italic,wght@400;700&display=swap');
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        body { background-color: #FBF9F6; color: #1A1A1A; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+      `}</style>
     </div>
   );
 }
+
+function ProductSection({ title, subtitle, products, features, reverse = false }: any) {
+  return (
+    <section className={`py-32 ${!reverse ? 'bg-white' : 'bg-[var(--color-tint-80)]'} relative overflow-hidden px-6 border-y border-[var(--color-tint-40)]/30`}>
+      <div className="max-w-7xl mx-auto">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-20 items-center ${reverse ? 'lg:flex-row-reverse text-right' : 'text-right'}`}>
+          <motion.div initial={{ opacity: 0, x: reverse ? 50 : -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+            <h2 className="text-5xl md:text-6xl font-extralight text-[var(--color-shade-60)] mb-6">
+              {title}
+            </h2>
+            <p className="text-lg text-[var(--color-shade-60)]/70 mb-12 leading-relaxed font-light">{subtitle}</p>
+            <div className="space-y-6 mb-10">
+              {features.map((feature: any, i: number) => (
+                <div key={i} className="flex items-center gap-4 justify-start">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-shade-20)] flex-shrink-0" />
+                  <p className="text-[var(--color-shade-60)] font-light text-sm tracking-wide uppercase">{feature}</p>
+                </div>
+              ))}
+            </div>
+            <button className="px-10 py-4 bg-[var(--color-shade-60)] text-white hover:bg-[var(--color-shade-20)] transition-all flex items-center gap-3 mr-0 ml-auto rounded-2xl text-sm tracking-[0.3em] uppercase">
+              مشاهده محصولات
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          </motion.div>
+
+          <div className="grid grid-cols-2 gap-6">
+              <div className="col-span-2 relative h-[400px] rounded-3xl overflow-hidden group">
+                <OptimizedImage alt='product' fill src={products[0].img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-6 right-6 text-white text-right">
+                  <h3 className="text-2xl font-light">{products[0].title}</h3>
+                  <span className="text-sm font-bold text-[var(--color-shade-20)]">{products[0].price} تومان</span>
+                </div>
+              </div>
+              {products.slice(1, 3).map((product: any) => (
+                <div key={product.id} className="relative h-[240px] rounded-2xl overflow-hidden group">
+                  <OptimizedImage alt='product' fill src={product.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute bottom-4 right-4 text-white text-right">
+                    <h4 className="font-light text-sm">{product.title}</h4>
+                    <span className="text-xs font-bold text-[var(--color-shade-20)]">{product.price}</span>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const PRODUCTS = {
+    freshNuts: [
+      { id: 1, title: "پسته اکبری زعفرانی", price: "۸۹۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1531300185372-b7cbe2eddf0b?w=600" },
+      { id: 2, title: "بادام کاغذی شور", price: "۴۵۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1508747703725-719777637510?w=600" },
+      { id: 3, title: "فندق برشته ممتاز", price: "۵۲۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=600" },
+      { id: 4, title: "پسته اکبری زعفرانی", price: "۸۹۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1531300185372-b7cbe2eddf0b?w=600" },
+      { id: 5, title: "بادام کاغذی شور", price: "۴۵۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1508747703725-719777637510?w=600" }
+    ],
+};

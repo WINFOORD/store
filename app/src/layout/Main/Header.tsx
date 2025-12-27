@@ -61,8 +61,8 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
 
   const headerClasses = `fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
     ${isScrolled 
-      ? 'top-2 w-[95%] max-w-5xl rounded-full bg-[var(--color-shade-40)]/60 backdrop-blur-2xl py-2  shadow-2xl  ' 
-      : 'top-0 w-full max-w-7xl  backdrop-blur-xl '
+      ? 'top-3 w-[95%] max-w-5xl rounded-full bg-[var(--color-shade-40)]/60 backdrop-blur-2xl py-2  shadow-2xl  ' 
+      : 'top-0 w-full max-w-7xl  backdrop-blur-xl  pt-2'
     }`;
 
 
@@ -75,7 +75,7 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
     <header className={headerClasses} style={colors as any} dir="rtl">
       <div className="w-full mx-auto px-8">
         {/* Row 1: Logo, Search, Actions */}
-        <div className="flex items-center justify-between gap-6 mt-4">
+        <div className="flex items-center justify-between gap-6 ">
           
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-4  group">
@@ -113,8 +113,8 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
           <div className="flex items-center gap-3">
             <div className="hidden sm:block"><LanguageSwitcher currentLocale={locale} /></div>
             
-            <Link href="/cart" className={`group relative flex items-center gap-2 px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg ${
-              isScrolled ? 'bg-[var(--color-base)] text-[var(--color-shade-80)]' : 'bg-[var(--color-shade-80)] text-white'
+            <Link href="/cart" className={`group relative flex items-center gap-2 px-6 py-2.5 rounded-full transition-all duration-300  ${
+              isScrolled ? ' text-white' : ' text-[var(--color-shade-40)]'
             }`}>
               <ShoppingCart className="w-4 h-4 transition-transform group-hover:-rotate-12" />
               <span className="text-sm font-black tracking-tight">سبد خرید</span>
