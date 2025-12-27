@@ -3,17 +3,9 @@
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Coffee, Cookie, Apple, Milk, Candy, IceCream, ArrowRight } from 'lucide-react';
+import { colors } from '../../colors';
 
-const colors = {
-  '--color-base': '#C9B8A8',
-  '--color-shade-80': '#2D2520',
-  '--color-shade-60': '#5A4A40',
-  '--color-shade-40': '#87705F',
-  '--color-tint-20': '#DDD2C8',
-  '--color-tint-40': '#E6DDD5',
-  '--color-tint-60': '#F0E8E1',
-  '--color-tint-80': '#F9F4EE',
-};
+
 
 const categories = [
   { 
@@ -231,7 +223,7 @@ export  function ElegantCategories() {
     <section
       ref={sectionRef}
       style={colors as any}
-      className="relative min-h-screen bg-[var(--color-tint-80)] overflow-hidden py-32"
+      className="relative min-h-screen bg-[var(--color-tint-20)] overflow-hidden py-32"
       dir="rtl"
     >
       {/* Animated Background Elements */}
