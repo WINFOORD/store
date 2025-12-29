@@ -223,7 +223,7 @@ export  function ElegantCategories() {
     <section
       ref={sectionRef}
       style={colors as any}
-      className="relative min-h-screen bg-[var(--color-tint-20)] overflow-hidden py-32"
+      className="relative min-h-screen bg-[var(--color-tint-80)] overflow-hidden py-32"
       dir="rtl"
     >
       {/* Animated Background Elements */}

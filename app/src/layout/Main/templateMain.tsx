@@ -141,7 +141,7 @@ export function HomeMain() {
     <section
       ref={containerRef}
       style={colors as any}
-      className="relative h-screen w-full overflow-hidden bg-[var(--color-shade-80)] flex flex-col"
+      className="relative  h-screen w-full max-sm:overflow-auto overflow-hidden bg-[var(--color-shade-80)] flex flex-col"
     >
       {/* بک‌گراند متحرک */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -154,7 +154,7 @@ export function HomeMain() {
       {/* بدنه اصلی */}
       <main className="relative z-10 h-screen flex items-center">
         <div className="w-full mx-auto px-6 md:px-10 ">
-          <div className="hero-shell h-[70vh] mx-32 rounded-[32px]  bg-white/60 border border-white/70 shadow-[0_24px_70px_rgba(0,0,0,0.10)] backdrop-blur-2xl px-6 md:px-10 py-8 md:py-10 flex flex-col lg:flex-row items-stretch gap-10 lg:gap-14">
+          <div className="hero-shell h-[70vh] max-sm:mx-0 mx-32 rounded-[32px]  bg-white/60 border border-white/70 shadow-[0_24px_70px_rgba(0,0,0,0.10)] backdrop-blur-2xl px-6 md:px-10 py-8 md:py-10 flex flex-col lg:flex-row items-stretch gap-10 lg:gap-14">
             {/* ستون متن */}
             <section className="flex-1 flex flex-col justify-between gap-6">
               <div className="flex flex-col gap-6 text-center lg:text-right items-center lg:items-start">
@@ -203,7 +203,7 @@ export function HomeMain() {
                     شروع خرید
                   </button>
 
-                  <button className="hero-btn  px-8 py-4 rounded-full border border-[var(--color-shade-40)]/30 text-[var(--color-shade-60)] text-sm font-medium bg-white/70 hover:bg-white transition-colors">
+                  <button className="hero-btn  max-sm:hidden px-8 py-4 rounded-full border border-[var(--color-shade-40)]/30 text-[var(--color-shade-60)] text-sm font-medium bg-white/70 hover:bg-white transition-colors">
                     مشاهده پکیج‌های ویژه ۱۴۰۳
                   </button>
                 </div>
@@ -219,7 +219,7 @@ export function HomeMain() {
 
             {/* ستون کروژال */}
             <section
-              className="flex-1 flex flex-col gap-5"
+              className="flex-1 flex flex-col gap-5 max-sm:hidden"
               style={{ perspective: '1600px' }}
             >
               <div className="flex items-center justify-between">
