@@ -198,12 +198,12 @@ export function HomeMain() {
 
                 {/* دکمه‌ها */}
                 <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-3 ">
-                  <button className="hero-btn inline-flex items-center gap-2 px-8 py-4 rounded-2xl    bg-[var(--color-shade-60)] text-[var(--color-tint-80)] text-sm font-semibold shadow-[0_10px_26px_rgba(0,0,0,0.1)]  active:scale-[0.97] transition-transform">
+                  <button className="hero-btn inline-flex items-center gap-2 px-8 py-4 rounded-2xl     text-[var(--color-shade-40)] text-sm font-semibold   active:scale-[0.97] transition-transform">
                     <ArrowRight className="w-5 h-5 " />
                     شروع خرید
                   </button>
 
-                  <button className="hero-btn  max-sm:hidden px-8 py-4 rounded-full border border-[var(--color-shade-40)]/30 text-[var(--color-shade-60)] text-sm font-medium bg-white/70 hover:bg-white transition-colors">
+                  <button className="hero-btn  max-sm:hidden px-8 py-4 rounded-full  text-[var(--color-shade-20)] text-sm font-medium bg-white/70 hover:bg-white transition-colors">
                     مشاهده پکیج‌های ویژه ۱۴۰۳
                   </button>
                 </div>
