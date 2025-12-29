@@ -10,6 +10,123 @@ import {
 import { colors } from '../colors';
 import OptimizedImage from './optimizeImage';
 
+
+const dictionary = {
+  common: {
+    home: "صفحه اصلی",
+    products: "فروشگاه محصولات",
+    about: "درباره ما",
+    contact: "تماس با ما",
+    cart: "سبد خرید",
+    search: "جستجو",
+    moreDetails: "مشاهده جزئیات بیشتر",
+    viewAll: "مشاهده همه",
+  },
+  nav: {
+    categories: "دسته‌بندی محصولات",
+    offers: "پیشنهادات و تخفیفات ویژه",
+    bestsellers: "پرفروش‌ترین محصولات",
+    gifting: "پک‌های هدیه و سازمانی",
+    freshnessGuarantee: "تضمین تازگی"
+  },
+  header: {
+    searchPlaceholder: "جستجوی محصول، آجیل، شکلات...",
+  },
+  product: { 
+    addToCart: "افزودن به سبد خرید",
+    inStock: "موجود در انبار",
+    netWeight: "وزن خالص",
+  },
+  hero: {
+    title: "آجیل سرای",
+    subtitle: "بابل",
+    tagline: "تجربه‌ای لوکس از طبیعت ناب ایران",
+    cta: "کاوش محصولات"
+  },
+  sections: {
+    popular: "پرفروش‌ترین‌ها",
+    popularDesc: "تجربه‌ای فراتر از طعم، ادای احترامی به اصالت و کیفیت محصولات مزارع برتر.",
+    chocolates: "شکلات‌های Artisanal",
+    chocolatesDesc: "ما در خلق هر قطعه شکلات، تعادلی ظریف میان تلخی کاکائو و شیرینی خاطرات برقرار کرده‌ایم.",
+    driedFruits: "میوه‌های خشک پریمیوم",
+    driedFruitsDesc: "طبیعت را در هر لقمه احساس کنید. میوه‌های خشک ما با فرآیند freeze-dry حفظ شده‌اند.",
+    organic: "مجموعه ارگانیک",
+    organicDesc: "محصولات کاملاً ارگانیک، از مزارع گواهی‌شده اروپایی با استانداردهای بالای کیفی.",
+    b2b: "میزبانی از برترین مجموعه‌های ایران",
+    b2bDesc: "ما مفتخریم که طعم اصیل محصولاتمان را به میز پذیرایی و هدایای سازمانی بزرگترین نام‌ها آورده‌ایم.",
+    services: "خدمات تجاری آجیل سرای بابل",
+    faq: "سوالات متداول"
+  },
+  features: {
+    handmade: "دست‌ساز و ارگانیک",
+    ecoPack: "بسته‌بندی زیست‌تخریب‌پذیر",
+    coolShip: "ارسال در بسته‌بندی خنک",
+    noAdditive: "بدون افزودنی و شکر",
+    natural: "کاملاً طبیعی",
+    vitaminRich: "غنی از ویتامین",
+    euCertified: "گواهینامه EU Organic",
+    noPesticide: "بدون سموم شیمیایی",
+    sustainable: "حمایت از کشاورزی پایدار"
+  },
+  business: {
+    vipTitle: "سفارش سازمانی VIP",
+    vipDesc: "طراحی و شخصی‌سازی پک‌های هدیه با لوگوی مجموعه شما. انتخابی برازنده برای قدردانی از شرکای تجاری.",
+    vipCta: "ثبت درخواست مشاوره",
+    bulkTitle: "خرید عمده و تأمین",
+    bulkDesc: "تأمین مستقیم انواع مغزها برای هتل‌ها و رستوران‌های تراز اول با تضمین تازگی و قیمت رقابتی مزارع.",
+    bulkCta: "دریافت لیست قیمت"
+  },
+  stats: {
+    companies: "+۱۵۰ سازمان و ارگان",
+    satisfaction: "۹۸٪ رضایت مندی سالانه",
+    support: "۲۴ ساعت پشتیبانی اختصاصی"
+  },
+  footer: {
+    aboutUs: "داستان و ماموریت ما",
+    contactUs: "تماس با تیم پشتیبانی",
+    termsOfService: "شرایط استفاده و فروش",
+    privacyPolicy: "سیاست حفظ حریم خصوصی",
+    shippingReturns: "روش‌های ارسال و بازگشت کالا",
+    followUs: "ما را دنبال کنید",
+    allRightsReserved: "تمامی حقوق مادی و معنوی محفوظ است"
+  }
+};
+
+// محصولات نمونه
+const PRODUCTS = {
+  freshNuts: [
+    { id: 1, title: 'بادام مامایی آمریکایی', weight: '500 گرم', price: '۴۵۰,۰۰۰', img: 'https://images.unsplash.com/photo-1508747703725-719777637510?w=600&q=80' },
+    { id: 2, title: 'گردو چندلر کالیفرنیا', weight: '500 گرم', price: '۳۸۰,۰۰۰', img: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=600&q=80' },
+    { id: 3, title: 'پسته اکبری برشته', weight: '250 گرم', price: '۵۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=600&q=80' },
+    { id: 4, title: 'مغز فندق ترک', weight: '500 گرم', price: '۴۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?w=600&q=80' },
+    { id: 5, title: 'کاجو هندی درجه یک', weight: '500 گرم', price: '۳۹۰,۰۰۰', img: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=600&q=80' }
+  ],
+  dried: [
+    { id: 11, title: 'توت فرنگی خشک', price: '۲۸۰,۰۰۰', img: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=600&q=80' },
+    { id: 12, title: 'انجیر خشک شده', price: '۳۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=600&q=80' },
+    { id: 13, title: 'کیوی خشک', price: '۲۵۰,۰۰۰', img: 'https://images.unsplash.com/photo-1508870828617-c4f29eb6e0fc?w=600&q=80' }
+  ],
+  organic: [
+    { id: 21, title: 'مخلوط ارگانیک پریمیوم', price: '۵۸۰,۰۰۰', img: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=600&q=80' },
+    { id: 22, title: 'بادام ارگانیک', price: '۴۹۰,۰۰۰', img: 'https://images.unsplash.com/photo-1508747703725-719777637510?w=600&q=80' },
+    { id: 23, title: 'گردو ارگانیک', price: '۴۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=600&q=80' }
+  ]
+};
+
+const FAQS = [
+  { q: "آیا محصولات شما دارای تضمین تازگی هستند؟", a: "بله، تمامی محصولات ما به صورت هفتگی برشته‌کاری می‌شوند و در بسته‌بندی‌های ایزوله برای حفظ عطر و طعم نگهداری می‌گردند." },
+  { q: "شرایط ارسال به شهرستان چگونه است؟", a: "ارسال برای تهران از طریق پیک اختصاصی (۳ ساعته) و برای تمام ایران از طریق پست پیشتاز در بسته‌بندی‌های مقاوم انجام می‌شود." },
+  { q: "امکان شخصی‌سازی باکس‌های هدیه وجود دارد؟", a: "بله، در بخش سفارش سازمانی می‌توانید نوع محصول، چیدمان و حتی حک لوگو روی جعبه را انتخاب کنید." },
+];
+
+const PARTNERS = [
+  { id: 1, name: "Luxury Group", logo: "https://cdn.worldvectorlogo.com/logos/chanel-2.svg" },
+  { id: 2, name: "Tech Pioneers", logo: "https://cdn.worldvectorlogo.com/logos/tesla-9.svg" },
+  { id: 3, name: "Global Finance", logo: "https://cdn.worldvectorlogo.com/logos/goldman-sachs-1.svg" },
+  { id: 4, name: "Elite Hotels", logo: "https://cdn.worldvectorlogo.com/logos/ritz-carlton.svg" },
+  { id: 5, name: "Aviation Corp", logo: "https://cdn.worldvectorlogo.com/logos/emirates-3.svg" },
+  { id: 6, name: "Design Studio", logo: "https://cdn.worldvectorlogo.com/logos/hermes-france.svg" },
+];
 // --- Section 1: Hero-style Fresh Nuts ---
 function FreshNutsSection() {
   const sectionRef = useRef(null);
@@ -121,15 +238,6 @@ function ChocolatesSection() {
 
 // --- Trusted Companies Section - Sophisticated & Mature ---
 
-// لوگوهای فیک با استفاده از تصاویر Placeholder که شبیه لوگوهای واقعی هستند
-const PARTNERS = [
-  { id: 1, name: "Luxury Group", logo: "https://cdn.worldvectorlogo.com/logos/chanel-2.svg" },
-  { id: 2, name: "Tech Pioneers", logo: "https://cdn.worldvectorlogo.com/logos/tesla-9.svg" },
-  { id: 3, name: "Global Finance", logo: "https://cdn.worldvectorlogo.com/logos/goldman-sachs-1.svg" },
-  { id: 4, name: "Elite Hotels", logo: "https://cdn.worldvectorlogo.com/logos/ritz-carlton.svg" },
-  { id: 5, name: "Aviation Corp", logo: "https://cdn.worldvectorlogo.com/logos/emirates-3.svg" },
-  { id: 6, name: "Design Studio", logo: "https://cdn.worldvectorlogo.com/logos/hermes-france.svg" },
-];
 
 export function TrustedCompaniesSection() {
   return (
@@ -209,7 +317,7 @@ export function TrustedCompaniesSection() {
 
 function BusinessServices() {
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-[var(--color-tint-60)] px-4 sm:px-6">
+    <section className="py-20 sm:py-28 lg:py-32 bg-[var(--color-tint-0)] px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 sm:mb-16 lg:mb-20 text-center">
           <span className="text-[var(--color-shade-20)] tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[9px] sm:text-[10px] font-black">Partnerships</span>
@@ -308,7 +416,7 @@ export default function UltimateLuxuryShop() {
   return (
     <div className="min-h-screen bg-white" dir="rtl" style={colors as any}>
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 sm:h-1.5 mt-0.5 rounded-full bg-[var(--color-shade-60)]/70 z-[999] origin-right shadow-lg" 
+        className="fixed top-0 left-0 right-0 h-1 sm:h-1 rounded-full bg-[var(--color-shade-40)] z-[999] origin-right shadow-lg" 
         style={{ scaleX }} 
       />
       
@@ -396,12 +504,3 @@ function ProductSection({ title, subtitle, products, features, reverse = false }
   );
 }
 
-const PRODUCTS = {
-    freshNuts: [
-      { id: 1, title: "پسته اکبری زعفرانی", price: "۸۹۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1531300185372-b7cbe2eddf0b?w=600" },
-      { id: 2, title: "بادام کاغذی شور", price: "۴۵۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1508747703725-719777637510?w=600" },
-      { id: 3, title: "فندق برشته ممتاز", price: "۵۲۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=600" },
-      { id: 4, title: "پسته اکبری زعفرانی", price: "۸۹۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1531300185372-b7cbe2eddf0b?w=600" },
-      { id: 5, title: "بادام کاغذی شور", price: "۴۵۰,۰۰۰", weight: "۵۰۰ گرم", img: "https://images.unsplash.com/photo-1508747703725-719777637510?w=600" }
-    ],
-};
