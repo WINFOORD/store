@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import OptimizedImage from '../optimizeImage';
 export const PARTNERS = [
   { id: 1, name: "Apple", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" },

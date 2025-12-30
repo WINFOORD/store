@@ -95,3 +95,88 @@ export const integrations = [
     { title: 'شرایط ارسال', icon: Truck, desc: 'جزئیات زمان و هزینه ارسال', href: '/shipping' },
     { title: 'حساب کاربری', icon: Nut, desc: 'پیگیری سفارش و جزئیات پروفایل', href: '/profile' },
 ];
+export const PRODUCTSection = {
+  freshNuts: [
+    {
+      id: 1,
+      title: 'Organic cocoa and raspberry energy ball 30g',
+      price: 1.50,
+      originalPrice: 80.00,
+      unit: 'per 1 kg',
+      image: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80',
+      bgColor: '#7DD3FC',
+      score: 4.7,
+      reviews: 202,
+      isOrganic: true,
+      note: true,
+      discount: 40,
+      category: 'انرژی بال'
+    },
+    {
+      id: 2,
+      title: 'Freeze-dried strawberry slices 350g',
+      price: 25.00,
+      originalPrice: 71.43,
+      unit: 'per 1 kg',
+      image: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=80',
+      bgColor: '#FCA5A5',
+      score: 4.8,
+      reviews: 2870,
+      isOrganic: false,
+      note: false,
+      discount: 35,
+      category: 'میوه خشک'
+    },
+    {
+      id: 3,
+      title: 'Vegan vanilla flavoured protein powder 1kg',
+      price: 24.00,
+      image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&q=80',
+      bgColor: '#C4B5FD',
+      score: 4.5,
+      reviews: 654,
+      isOrganic: false,
+      note: true,
+      category: 'پروتئین'
+    },
+    {
+      id: 4,
+      title: 'Organic walnut pieces 1kg',
+      price: 13.50,
+      image: 'https://images.unsplash.com/photo-1508747703725-719777637510?w=800&q=80',
+      bgColor: '#FCA5A5',
+      score: 4.7,
+      reviews: 791,
+      isOrganic: true,
+      note: true,
+      category: 'آجیل'
+    }
+  ]
+};
+
+
+
+export const PRODUCTSCard = {
+  freshNuts: [
+    { id: 1, title: 'بادام مامایی آمریکایی', weight: '500 گرم', price: '۴۵۰,۰۰۰', img: 'https://images.unsplash.com/photo-1508747703725-719777637510?w=800&q=85' },
+    { id: 2, title: 'گردو چندلر کالیفرنیا', weight: '500 گرم', price: '۳۸۰,۰۰۰', img: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=800&q=85' },
+    { id: 3, title: 'پسته اکبری برشته', weight: '250 گرم', price: '۵۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=85' },
+    { id: 4, title: 'مغز فندق ترک', weight: '500 گرم', price: '۴۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?w=800&q=85' },
+    { id: 5, title: 'کاجو هندی درجه یک', weight: '500 گرم', price: '۳۹۰,۰۰۰', img: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=800&q=85' }
+  ],
+  dried: [
+    { id: 11, title: 'توت فرنگی خشک', weight: '250 گرم', price: '۲۸۰,۰۰۰', img: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=85' },
+    { id: 12, title: 'انجیر خشک شده', weight: '300 گرم', price: '۳۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800&q=85' },
+    { id: 13, title: 'کیوی خشک', weight: '200 گرم', price: '۲۵۰,۰۰۰', img: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?w=800&q=85' }
+  ],
+  organic: [
+    { id: 21, title: 'مخلوط ارگانیک پریمیوم', weight: '500 گرم', price: '۵۸۰,۰۰۰', img: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=800&q=85' },
+    { id: 22, title: 'بادام ارگانیک', weight: '500 گرم', price: '۴۹۰,۰۰۰', img: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=800&q=85' },
+    { id: 23, title: 'گردو ارگانیک', weight: '500 گرم', price: '۴۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1614961234441-64e415a6a4c7?w=800&q=85' }
+  ],
+  chocolate: [
+    { id: 31, title: 'شکلات تلخ ۸۵٪ کاکائو', weight: '100 گرم', price: '۱۸۰,۰۰۰', img: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=800&q=85' },
+    { id: 32, title: 'ترافل فندقی', weight: '150 گرم', price: '۲۲۰,۰۰۰', img: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=800&q=85' },
+    { id: 33, title: 'شکلات شیری با پسته', weight: '120 گرم', price: '۱۹۵,۰۰۰', img: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=800&q=85' }
+  ]
+};
