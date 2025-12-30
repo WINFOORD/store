@@ -3,66 +3,67 @@ import { useState } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronDown, Truck, Briefcase, Award } from 'lucide-react';
 import { colors } from '../colors';
-import { ProductCard } from './main/Card';
+import { ProductCard } from './Card';
+import { TrustedCompaniesSection } from './main/partnersSection';
 
- const PRODUCT = {
-    freshNuts: [
-      {
-        id: 1,
-        title: 'Organic cocoa and raspberry energy ball 30g',
-        price: 1.50,
-        originalPrice: 80.00,
-        unit: 'per 1 kg',
-        image: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80',
-        bgColor: '#7DD3FC',
-        score: 4.7,
-        reviews: 202,
-        isOrganic: true,
-        note: true,
-        discount: 40,
-        category: 'انرژی بال'
-      },
-      {
-        id: 2,
-        title: 'Freeze-dried strawberry slices 350g',
-        price: 25.00,
-        originalPrice: 71.43,
-        unit: 'per 1 kg',
-        image: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=80',
-        bgColor: '#FCA5A5',
-        score: 4.8,
-        reviews: 2870,
-        isOrganic: false,
-        note: false,
-        discount: 35,
-        category: 'میوه خشک'
-      },
-      {
-        id: 3,
-        title: 'Vegan vanilla flavoured protein powder 1kg',
-        price: 24.00,
-        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&q=80',
-        bgColor: '#C4B5FD',
-        score: 4.5,
-        reviews: 654,
-        isOrganic: false,
-        note: true,
-        category: 'پروتئین'
-      },
-      {
-        id: 4,
-        title: 'Organic walnut pieces 1kg',
-        price: 13.50,
-        image: 'https://images.unsplash.com/photo-1508747703725-719777637510?w=800&q=80',
-        bgColor: '#FCA5A5',
-        score: 4.7,
-        reviews: 791,
-        isOrganic: true,
-        note: true,
-        category: 'آجیل'
-      }
-    ]
-  };
+const PRODUCT = {
+  freshNuts: [
+    {
+      id: 1,
+      title: 'Organic cocoa and raspberry energy ball 30g',
+      price: 1.50,
+      originalPrice: 80.00,
+      unit: 'per 1 kg',
+      image: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80',
+      bgColor: '#7DD3FC',
+      score: 4.7,
+      reviews: 202,
+      isOrganic: true,
+      note: true,
+      discount: 40,
+      category: 'انرژی بال'
+    },
+    {
+      id: 2,
+      title: 'Freeze-dried strawberry slices 350g',
+      price: 25.00,
+      originalPrice: 71.43,
+      unit: 'per 1 kg',
+      image: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=80',
+      bgColor: '#FCA5A5',
+      score: 4.8,
+      reviews: 2870,
+      isOrganic: false,
+      note: false,
+      discount: 35,
+      category: 'میوه خشک'
+    },
+    {
+      id: 3,
+      title: 'Vegan vanilla flavoured protein powder 1kg',
+      price: 24.00,
+      image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&q=80',
+      bgColor: '#C4B5FD',
+      score: 4.5,
+      reviews: 654,
+      isOrganic: false,
+      note: true,
+      category: 'پروتئین'
+    },
+    {
+      id: 4,
+      title: 'Organic walnut pieces 1kg',
+      price: 13.50,
+      image: 'https://images.unsplash.com/photo-1508747703725-719777637510?w=800&q=80',
+      bgColor: '#FCA5A5',
+      score: 4.7,
+      reviews: 791,
+      isOrganic: true,
+      note: true,
+      category: 'آجیل'
+    }
+  ]
+};
 
 
 
@@ -107,7 +108,7 @@ const PARTNERS = [
 ];
 
 function FreshNutsSection() {
-   <style>{`
+  <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -143,188 +144,60 @@ function FreshNutsSection() {
       `}</style>
 
   return (
-  <section className="py-16 bg-gradient-to-br from-[var(--color-tint-10)] to-white" style={colors} dir="rtl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <header className="mb-12 text-center">
-            <span className="text-[var(--color-base)] font-semibold tracking-wider uppercase text-sm mb-2 block">
-              محصولات پرفروش
-            </span>
-            <h2 className="text-4xl font-bold text-[var(--color-shade-80)] mb-3">
-              آجیل و خشکبار تازه
-            </h2>
-            <p className="text-[var(--color-shade-60)] max-w-2xl mx-auto">
-              بهترین کیفیت را با مناسب‌ترین قیمت تجربه کنید
-            </p>
-          </header>
-
-          {/* Products Grid - Usage Example */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
-            {PRODUCT.freshNuts.map((product, i) => (
-              <ProductCard
-                key={product.id}
-                variant="main"
-                index={i}
-                title={product.title}
-                price={product.price}
-                originalPrice={product.originalPrice}
-                unit={product.unit}
-                image={product.image}
-                bgColor={product.bgColor}
-                score={product.score}
-                reviews={product.reviews}
-                isOrganic={product.isOrganic}
-                note={product.note}
-                discount={product.discount}
-                category={product.category}
-              />
-            ))}
-          </div>
-
-          {/* View All Button */}
-          <div className="text-center mt-12">
-            <button className="bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white px-8 py-3.5 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105">
-              مشاهده همه محصولات
-            </button>
-          </div>
-        </div>
-      </section>
-  );
-}
-
-function ChocolatesSection() {
-  return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-[var(--color-tint-10)] px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative order-2 lg:order-1"
-          >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
-              <img 
-                src="https://images.unsplash.com/photo-1548907040-4baa42d10919?w=800&q=85"
-                alt="شکلات ترافل"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            <motion.div 
-              whileHover={{ y: -8 }} 
-              className="hidden lg:block absolute bottom-6 -left-6 bg-white p-6 shadow-xl max-w-xs rounded-xl border-t-4 border-[var(--color-base)]"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Award className="w-5 h-5 text-[var(--color-base)]" />
-                <h4 className="font-bold text-lg text-[var(--color-shade-80)]">کیفیت برتر</h4>
-              </div>
-              <p className="text-sm text-[var(--color-shade-60)] leading-relaxed">
-                تمامی محصولات با گواهی استاندارد اروپایی و بسته‌بندی ایزوله
-              </p>
-            </motion.div>
-          </motion.div>
-          
-          <div className="order-1 lg:order-2 text-right">
-            <span className="text-[var(--color-base)] font-semibold tracking-wider uppercase text-xs sm:text-sm mb-2 block">
-              طعم اصیل
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-[var(--color-shade-80)]">
-              شکلات‌های وارداتی
-            </h2>
-            <p className="text-base sm:text-lg text-[var(--color-shade-60)] mb-6 leading-relaxed">
-              مستقیم از بهترین برندهای سوئیس، بلژیک و ایتالیا. طعمی بی‌نظیر با کیفیتی استثنایی
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-              {PRODUCTS.chocolate.map((item) => (
-                <div key={item.id} className="flex items-center gap-3 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                    <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-sm text-[var(--color-shade-80)] truncate">{item.title}</h4>
-                    <p className="text-xs text-[var(--color-shade-60)]">{item.weight}</p>
-                    <p className="text-sm font-bold text-[var(--color-base)]">{item.price} ت</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button className="bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white px-6 py-3 rounded-lg text-sm sm:text-base font-semibold transition-colors inline-flex items-center gap-2">
-              مشاهده همه شکلات‌ها
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TrustedCompaniesSection() {
-  return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="text-center mb-8 sm:mb-12">
-          <span className="text-[var(--color-base)] font-semibold tracking-wider uppercase text-xs sm:text-sm mb-2 block">
-            شرکای تجاری ما
+    <section className="py-16 bg-gradient-to-br from-[var(--color-tint-10)] to-white" style={colors} dir="rtl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <header className="mb-12 text-center">
+          <span className="text-[var(--color-base)] font-semibold tracking-wider uppercase text-sm mb-2 block">
+            محصولات پرفروش
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--color-shade-80)] mb-3">
-            اعتماد برندهای برتر
+          <h2 className="text-4xl font-bold text-[var(--color-shade-80)] mb-3">
+            آجیل و خشکبار تازه
           </h2>
-          <p className="text-[var(--color-shade-60)] max-w-2xl mx-auto text-sm sm:text-base">
-            بیش از ۱۵۰ سازمان معتبر به کیفیت محصولات ما اعتماد کرده‌اند
+          <p className="text-[var(--color-shade-60)] max-w-2xl mx-auto">
+            بهترین کیفیت را با مناسب‌ترین قیمت تجربه کنید
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-8 items-center mb-12">
-          {PARTNERS.map((partner) => (
-            <motion.div
-              key={partner.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 0.6, scale: 1 }}
-              whileHover={{ opacity: 1, scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="flex justify-center items-center p-3 sm:p-4 bg-[var(--color-tint-10)] rounded-lg hover:bg-white hover:shadow-md transition-all"
-            >
-              <img 
-                src={partner.logo} 
-                alt={partner.name} 
-                className="h-8 sm:h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all"
-              />
-            </motion.div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+          {PRODUCT.freshNuts.map((product, i) => (
+            <ProductCard
+              key={product.id}
+              variant="main"
+              index={i}
+              title={product.title}
+              price={product.price}
+              originalPrice={product.originalPrice}
+              unit={product.unit}
+              image={product.image}
+              bgColor={product.bgColor}
+              score={product.score}
+              reviews={product.reviews}
+              isOrganic={product.isOrganic}
+              note={product.note}
+              discount={product.discount}
+              category={product.category}
+            />
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-t border-[var(--color-tint-40)] pt-8">
-          <div className="text-center p-4 bg-[var(--color-tint-10)] rounded-lg">
-            <h4 className="text-3xl sm:text-4xl font-bold text-[var(--color-base)] mb-2">
-              +۱۵۰
-            </h4>
-            <p className="text-xs sm:text-sm text-[var(--color-shade-60)] font-medium">سازمان و شرکت</p>
-          </div>
-          <div className="text-center p-4 bg-[var(--color-tint-10)] rounded-lg">
-            <h4 className="text-3xl sm:text-4xl font-bold text-[var(--color-base)] mb-2">
-              ۹۸٪
-            </h4>
-            <p className="text-xs sm:text-sm text-[var(--color-shade-60)] font-medium">رضایت مشتریان</p>
-          </div>
-          <div className="text-center p-4 bg-[var(--color-tint-10)] rounded-lg">
-            <h4 className="text-3xl sm:text-4xl font-bold text-[var(--color-base)] mb-2">
-              ۲۴/۷
-            </h4>
-            <p className="text-xs sm:text-sm text-[var(--color-shade-60)] font-medium">پشتیبانی آنلاین</p>
-          </div>
+        {/* View All Button */}
+        <div className="text-center mt-12">
+          <button className="bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white px-8 py-3.5 rounded-xl text-base font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105">
+            مشاهده همه محصولات
+          </button>
         </div>
       </div>
     </section>
   );
 }
 
+
+
+
 function BusinessServices() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-[var(--color-tint-10)] px-4 sm:px-6">
+    <section className="py-12  sm:py-16 lg:py-20 bg-[var(--color-tint-10)] px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <header className="mb-8 sm:mb-12 text-center">
           <span className="text-[var(--color-base)] font-semibold tracking-wider uppercase text-xs sm:text-sm mb-2 block">
@@ -335,8 +208,8 @@ function BusinessServices() {
           </h2>
         </header>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          <motion.div 
-            whileHover={{ y: -5 }} 
+          <motion.div
+            whileHover={{ y: -5 }}
             className="p-6 sm:p-8 bg-white shadow-md hover:shadow-xl border border-[var(--color-tint-40)] rounded-xl group transition-all text-right"
           >
             <div className="flex items-center gap-3 mb-4">
@@ -351,9 +224,9 @@ function BusinessServices() {
               <ChevronRight className="w-4 h-4" />
             </button>
           </motion.div>
-          
-          <motion.div 
-            whileHover={{ y: -5 }} 
+
+          <motion.div
+            whileHover={{ y: -5 }}
             className="p-6 sm:p-8 bg-white shadow-md hover:shadow-xl border border-[var(--color-tint-40)] rounded-xl group transition-all text-right"
           >
             <div className="flex items-center gap-3 mb-4">
@@ -391,8 +264,8 @@ function FAQSection() {
         <div className="space-y-3">
           {FAQS.map((faq, i) => (
             <div key={i} className="border border-[var(--color-tint-40)] rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
-              <button 
-                onClick={() => setOpenIndex(openIndex === i ? null : i)} 
+              <button
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="w-full p-4 sm:p-5 flex justify-between items-center text-right gap-4 hover:bg-[var(--color-tint-10)] transition-colors"
               >
                 <span className="text-sm sm:text-base font-semibold text-[var(--color-shade-80)]">{faq.q}</span>
@@ -400,10 +273,10 @@ function FAQSection() {
               </button>
               <AnimatePresence>
                 {openIndex === i && (
-                  <motion.div 
-                    initial={{ height: 0, opacity: 0 }} 
-                    animate={{ height: 'auto', opacity: 1 }} 
-                    exit={{ height: 0, opacity: 0 }} 
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
                     <p className="px-4 sm:px-5 pb-4 sm:pb-5 text-sm sm:text-base text-[var(--color-shade-60)] leading-relaxed">{faq.a}</p>
@@ -423,9 +296,9 @@ function ProductSection({ title, subtitle, products, features, reverse = false }
     <section className={`py-12 sm:py-16 lg:py-20 ${reverse ? 'bg-[var(--color-tint-10)]' : 'bg-white'} relative overflow-hidden px-4 sm:px-6`}>
       <div className="max-w-7xl mx-auto">
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center ${reverse ? 'lg:flex-row-reverse' : ''}`}>
-          <motion.div 
-            initial={{ opacity: 0, x: reverse ? 50 : -50 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, x: reverse ? 50 : -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className={`text-right ${reverse ? 'lg:order-2' : ''}`}
           >
@@ -488,23 +361,9 @@ export default function AjilSarayShop() {
   return (
     <div className=" bg-linear-to-t from-[var(--color-tint-10)] to-[var(--color-tint-40)]" dir="rtl" style={colors as any}>
 
-      
+
       <main>
         <FreshNutsSection />
-        
-        <ProductSection
-          title="میوه‌های خشک طبیعی"
-          subtitle="میوه‌های خشک شده با فرآیند طبیعی بدون افزودنی. سرشار از ویتامین و مواد مغذی"
-          products={PRODUCTS.dried}
-          features={[
-            "خشک شده به روش طبیعی",
-            "بدون شکر افزودنی",
-            "غنی از ویتامین و آنتی اکسیدان"
-          ]}
-          reverse={false}
-        />
-        
-        <ChocolatesSection />
 
         <ProductSection
           title="محصولات ارگانیک"
@@ -515,9 +374,33 @@ export default function AjilSarayShop() {
             "کشت بدون سموم",
             "حمایت از کشاورزی پایدار"
           ]}
+          reverse={false}
+        />
+        <ProductSection
+          title="میوه‌های خشک طبیعی"
+          subtitle="میوه‌های خشک شده با فرآیند طبیعی بدون افزودنی. سرشار از ویتامین و مواد مغذی"
+          products={PRODUCTS.dried}
+          features={[
+            "خشک شده به روش طبیعی",
+            "بدون شکر افزودنی",
+            "غنی از ویتامین و آنتی اکسیدان"
+          ]}
           reverse={true}
         />
-        
+
+
+        <ProductSection
+          title="محصولات ارگانیک"
+          subtitle="محصولات کاملاً ارگانیک با گواهینامه‌های بین‌المللی. کشت بدون سموم شیمیایی"
+          products={PRODUCTS.organic}
+          features={[
+            "گواهینامه EU Organic",
+            "کشت بدون سموم",
+            "حمایت از کشاورزی پایدار"
+          ]}
+          reverse={false}
+        />
+
         <TrustedCompaniesSection />
         <BusinessServices />
         <FAQSection />

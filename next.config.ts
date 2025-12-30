@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
 productionBrowserSourceMaps: true,
   trailingSlash: false,
   images: {
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com', 'upload.wikimedia.org'],
   },
 };
 

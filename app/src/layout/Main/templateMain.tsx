@@ -3,52 +3,52 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Sparkles, ArrowRight, Coffee, Cookie, Apple, Milk, Candy, IceCream } from 'lucide-react';
-import CategoryCarousel from '../../ui/main/crosual';
+import CategoryCarousel from '../../ui/crosual';
 import { colors } from '../../colors';
 
 
 
 const categories = [
-  { 
-    id: 1, 
-    title: 'آجیل', 
-    en: 'Artisan Nuts', 
-    icon: Coffee, 
+  {
+    id: 1,
+    title: 'آجیل',
+    en: 'Artisan Nuts',
+    icon: Coffee,
     img: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80',
   },
-  { 
-    id: 2, 
-    title: 'میوه خشک', 
-    en: 'Dried Harmony', 
-    icon: Apple, 
+  {
+    id: 2,
+    title: 'میوه خشک',
+    en: 'Dried Harmony',
+    icon: Apple,
     img: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800&q=80',
   },
-  { 
-    id: 3, 
-    title: 'خشکبار', 
-    en: 'Noble Cocoa', 
-    icon: Cookie, 
+  {
+    id: 3,
+    title: 'خشکبار',
+    en: 'Noble Cocoa',
+    icon: Cookie,
     img: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=800&q=80',
   },
-  { 
-    id: 4, 
-    title: 'نوشیدنی', 
-    en: 'Fresh Dairy', 
-    icon: Milk, 
+  {
+    id: 4,
+    title: 'نوشیدنی',
+    en: 'Fresh Dairy',
+    icon: Milk,
     img: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800&q=80',
   },
-  { 
-    id: 5, 
-    title: 'شکلات', 
-    en: 'Delicate Sweets', 
-    icon: Candy, 
+  {
+    id: 5,
+    title: 'شکلات',
+    en: 'Delicate Sweets',
+    icon: Candy,
     img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=800&q=80',
   },
-  { 
-    id: 6, 
-    title: 'سازمانی', 
-    en: 'Creamy Bliss', 
-    icon: IceCream, 
+  {
+    id: 6,
+    title: 'سازمانی',
+    en: 'Creamy Bliss',
+    icon: IceCream,
     img: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=800&q=80',
   }
 ];
@@ -104,7 +104,7 @@ function CategoryCard({ cat, index }: { cat: typeof categories[0]; index: number
 }
 
 
-export  function HomeMain() {
+export function HomeMain() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -142,87 +142,87 @@ export  function HomeMain() {
     >
       <div className="relative z-10 h-full flex flex-col">
         {/* Hero Section - 55% */}
-         <main className="relative z-10 h-[67vh] flex items-end">
-        <div className="w-full mx-auto px-6 md:px-10">
-          <div className="hero-shell h-[55vh] max-sm:mx-0 mx-32 rounded-[32px]  bg-white/90 border border-white/70 shadow-[0_24px_70px_rgba(0,0,0,0.10)] backdrop-blur-2xl px-6 md:px-10 md:py-8 flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
-            {/* ستون متن */}
-            <section className="flex-1  flex-col justify-between gap-6">
-              <div className="flex flex-col gap-6 text-center lg:text-right items-center lg:items-start">
-                {/* بج بالا */}
-                <div className="inline-flex items-center gap-2 rounded-full bg-[var(--color-tint-20)]/80 px-4 py-1.5 border border-[var(--color-tint-40)]/80 backdrop-blur-md">
-                  <Sparkles className="w-4 h-4 text-[var(--color-base)]" />
-                  <span className="text-[var(--color-shade-60)] text-xs tracking-[0.3em] font-semibold">
-                    PREMIUM • ۱۴۰۳
-                  </span>
-                </div>
-
-                {/* تیتر */}
-                <div className="space-y-8">
-                  <p className="hero-title-line text-[11px] tracking-[0.35em] text-[var(--color-shade-40)]">
-                    انتخابی برای سلیقه‌های خاص
-                  </p>
-                  <h1 className="space-y-6">
-                   
-                    <span className="hero-title-line block text-3xl md:text-4xl  text-[var(--color-shade-60)]">
-                      برای طعم‌های اصیل طبیعت
+        <main className="relative z-10 h-[67vh] flex items-end">
+          <div className="w-full mx-auto px-6 md:px-10">
+            <div className="hero-shell h-[55vh] max-sm:mx-0 mx-32 rounded-[32px]  bg-white/90 border border-white/70 shadow-[0_24px_70px_rgba(0,0,0,0.10)] backdrop-blur-2xl px-6 md:px-10 md:py-8 flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
+              {/* ستون متن */}
+              <section className="flex-1  flex-col justify-between gap-6">
+                <div className="flex flex-col gap-6 text-center lg:text-right items-center lg:items-start">
+                  {/* بج بالا */}
+                  <div className="inline-flex items-center gap-2 rounded-full bg-[var(--color-tint-20)]/80 px-4 py-1.5 border border-[var(--color-tint-40)]/80 backdrop-blur-md">
+                    <Sparkles className="w-4 h-4 text-[var(--color-base)]" />
+                    <span className="text-[var(--color-shade-60)] text-xs tracking-[0.3em] font-semibold">
+                      PREMIUM • ۱۴۰۳
                     </span>
-                  </h1>
+                  </div>
+
+                  {/* تیتر */}
+                  <div className="space-y-8">
+                    <p className="hero-title-line text-[11px] tracking-[0.35em] text-[var(--color-shade-40)]">
+                      انتخابی برای سلیقه‌های خاص
+                    </p>
+                    <h1 className="space-y-6">
+
+                      <span className="hero-title-line block text-3xl md:text-4xl  text-[var(--color-shade-60)]">
+                        برای طعم‌های اصیل طبیعت
+                      </span>
+                    </h1>
+                  </div>
+
+                  {/* توضیح */}
+                  <p className="hero-desc text-[var(--color-shade-60)] text-sm md:text-base leading-relaxed max-w-md">
+                    مجموعه‌ای از بهترین خشکبارهای ایران، با کیفیت ممتاز و بسته‌بندی لوکس، انتخابی ویژه برای شما که به دنبال تجربه‌ای متفاوت هستید.
+                  </p>
+
+                  {/* تگ‌ها */}
+                  <div className="flex flex-wrap gap-2 justify-center lg:justify-start mt-2">
+                    <TagChip label="ارسال سریع" />
+                    <TagChip label="بسته‌بندی هدیه" />
+                    <TagChip label="تحویل درب منزل" />
+                    <TagChip label="انتخاب ارگانیک" />
+                  </div>
+
+                  {/* دکمه‌ها */}
+                  <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-3">
+                    <button className="hero-btn inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white text-sm font-semibold shadow-lg hover:shadow-xl active:scale-[0.97] transition-all">
+                      <ArrowRight className="w-5 h-5" />
+                      شروع خرید
+                    </button>
+
+                    <button className="hero-btn max-sm:hidden px-8 py-4 rounded-full text-[var(--color-shade-60)] text-sm font-medium bg-white/90 hover:bg-white border border-[var(--color-tint-40)] transition-colors">
+                      مشاهده پکیج‌های ویژه ۱۴۰۳
+                    </button>
+                  </div>
                 </div>
 
-                {/* توضیح */}
-                <p className="hero-desc text-[var(--color-shade-60)] text-sm md:text-base leading-relaxed max-w-md">
-                  مجموعه‌ای از بهترین خشکبارهای ایران، با کیفیت ممتاز و بسته‌بندی لوکس، انتخابی ویژه برای شما که به دنبال تجربه‌ای متفاوت هستید.
-                </p>
-
-                {/* تگ‌ها */}
-                <div className="flex flex-wrap gap-2 justify-center lg:justify-start mt-2">
-                  <TagChip label="ارسال سریع" />
-                  <TagChip label="بسته‌بندی هدیه" />
-                  <TagChip label="تحویل درب منزل" />
-                  <TagChip label="انتخاب ارگانیک" />
-                </div>
-
-                {/* دکمه‌ها */}
-                <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-3">
-                  <button className="hero-btn inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white text-sm font-semibold shadow-lg hover:shadow-xl active:scale-[0.97] transition-all">
-                    <ArrowRight className="w-5 h-5" />
-                    شروع خرید
-                  </button>
-
-                  <button className="hero-btn max-sm:hidden px-8 py-4 rounded-full text-[var(--color-shade-60)] text-sm font-medium bg-white/90 hover:bg-white border border-[var(--color-tint-40)] transition-colors">
-                    مشاهده پکیج‌های ویژه ۱۴۰۳
-                  </button>
-                </div>
-              </div>
-
-              {/* استت‌ها */}
-              <section className="mt-8 grid grid-cols-3 gap-4 text-center lg:text-right">
-                <StatItem label="رضایت مشتری" value="۹۸٪" />
-                <StatItem label="مدت ارسال" value="۱–۳ روز" />
-                <StatItem label="پکیج فعال" value="۲۴+" />
+                {/* استت‌ها */}
+                <section className="mt-8 grid grid-cols-3 gap-4 text-center lg:text-right">
+                  <StatItem label="رضایت مشتری" value="۹۸٪" />
+                  <StatItem label="مدت ارسال" value="۱–۳ روز" />
+                  <StatItem label="پکیج فعال" value="۲۴+" />
+                </section>
               </section>
-            </section>
 
-            {/* ستون کروژال */}
-            <section
-              className="flex-1 flex flex-col gap-5 max-sm:hidden"
-              style={{ perspective: '1600px' }}
-            >
-              
-              <CategoryCarousel />
-            </section>
+              {/* ستون کروژال */}
+              <section
+                className="flex-1 flex flex-col gap-5 max-sm:hidden"
+                style={{ perspective: '1600px' }}
+              >
+
+                <CategoryCarousel />
+              </section>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
         {/* Categories Section - 40% */}
         <div className="flex-1  md:px-10 pb-8 overflow-y-auto">
           <div className="max-w-[85%] mx-auto">
-           <div className="categories-grid mt-7 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-  {categories.map((cat, index) => (
-    <CategoryCard key={cat.id} cat={cat} index={index} />
-  ))}
-</div>
+            <div className="categories-grid mt-7 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {categories.map((cat, index) => (
+                <CategoryCard key={cat.id} cat={cat} index={index} />
+              ))}
+            </div>
 
           </div>
         </div>

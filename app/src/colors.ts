@@ -1,12 +1,13 @@
 export const colors = {
-  '--color-base': '#8B9D7E',
-  '--color-shade-20': '#6F7E65',
-  '--color-shade-40': '#535E4B',
-  '--color-shade-60': '#3A4235',
-  '--color-shade-80': '#1D211A',
-  '--color-tint-10': '#F5F7F3',
-  '--color-tint-20': '#E8EDE4',
-  '--color-tint-40': '#D4DCC9',
-  '--color-tint-60': '#C0CBAF',
-  '--color-tint-80': '#ACB994',
+  '--color-base': '#7A8F55',      // سبز پسته‌ای اصلی
+  '--color-shade-20': '#627344',  // کمی تیره‌تر
+  '--color-shade-40': '#4B5833',  // تیره‌تر و طبیعی‌تر
+  '--color-shade-60': '#343D22',  // خیلی تیره (سبز جنگلی)
+  '--color-shade-80': '#1C2212',  // نزدیک مشکی سبز
+
+  '--color-tint-10': '#F4F7EE',   // خیلی روشن، پس‌زمینه ملایم
+  '--color-tint-20': '#E6ECD8',   // روشن‌تر
+  '--color-tint-40': '#D2DCBD',   // روشن طبیعی
+  '--color-tint-60': '#BDCCA2',   // نزدیک به سبز پسته‌ای روشن
+  '--color-tint-80': '#A8BB87',   // کمی روشن‌تر از base
 };

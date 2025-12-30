@@ -6,8 +6,8 @@ import { Footers } from "../src/layout/Main/Footer";
 import { HeaderNuts } from "../src/layout/Main/Header";
 import { HomeMain } from "../src/layout/Main/templateMain";
 import { products } from "../src/lib/data";
-import { StickyCartBar } from "../src/ui/main/StickyCartBar";
-import LuxuryShopCards  from "../src/ui/ShopCard";
+import { StickyCartBar } from "../src/ui/StickyCartBar";
+import LuxuryShopCards from "../src/ui/ShopCard";
 
 type Props = {
   params: { locale: Locale };
@@ -22,7 +22,7 @@ export default async function HomePage({ params }: Props) {
 
       <HeaderNuts dict={dict} locale={locale} />
       <HomeMain />
-      <LuxuryShopCards   />
+      <LuxuryShopCards />
       <StickyCartBar totalItems={2} totalPrice={1500} />
       <Footers locale={locale} dict={dict} />
     </>

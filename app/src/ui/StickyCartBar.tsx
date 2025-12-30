@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { ShoppingCart, X, ArrowLeft, Sparkles } from 'lucide-react';
-import { colors } from '../../colors';
+import { colors } from '../colors';
 
 // JSON Content
 const cartContent = {
@@ -18,7 +18,7 @@ const cartContent = {
 
 
 // Lightweight Magnetic Button
-function MagneticButton({ children, className = '', ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) {
+function MagneticButton({ children, className = '', ...props }: { children: React.ReactNode; className?: string;[key: string]: any }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: { currentTarget: { getBoundingClientRect: () => any; }; clientX: number; clientY: number; }) => {
@@ -44,7 +44,7 @@ function MagneticButton({ children, className = '', ...props }: { children: Reac
   );
 }
 
-export  function StickyCartBar({ totalItems = 3, totalPrice = 1250000 }) {
+export function StickyCartBar({ totalItems = 3, totalPrice = 1250000 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -77,7 +77,7 @@ export  function StickyCartBar({ totalItems = 3, totalPrice = 1250000 }) {
           }}
         >
           <div className="relative mb-4 w-[340px] rounded-3xl overflow-hidden shadow-2xl bg-white border border-[var(--color-tint-40)]">
-            
+
             {/* Content */}
             <div className="relative p-6">
               {/* Header */}
@@ -95,7 +95,7 @@ export  function StickyCartBar({ totalItems = 3, totalPrice = 1250000 }) {
                     </p>
                   </div>
                 </div>
-                
+
                 <button
                   onClick={() => setIsExpanded(false)}
                   className="w-8 h-8 rounded-lg bg-[var(--color-tint-20)] hover:bg-[var(--color-tint-40)] flex items-center justify-center transition-colors"
@@ -114,7 +114,7 @@ export  function StickyCartBar({ totalItems = 3, totalPrice = 1250000 }) {
                     {totalItems} {cartContent.stats.itemsUnit}
                   </span>
                 </div>
-                
+
                 <div className="flex items-center justify-between p-3 rounded-xl bg-[var(--color-base)]/10 border border-[var(--color-base)]/30">
                   <span className="text-[var(--color-shade-60)] text-sm font-semibold">
                     {cartContent.stats.totalLabel}
@@ -135,9 +135,9 @@ export  function StickyCartBar({ totalItems = 3, totalPrice = 1250000 }) {
                 <span className="text-white font-bold text-base">
                   {cartContent.cta}
                 </span>
-                <ArrowLeft 
-                  className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" 
-                  strokeWidth={2.5} 
+                <ArrowLeft
+                  className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform"
+                  strokeWidth={2.5}
                 />
               </button>
             </div>
@@ -159,9 +159,9 @@ export  function StickyCartBar({ totalItems = 3, totalPrice = 1250000 }) {
             className="relative w-16 h-16 rounded-full bg-white shadow-2xl hover:shadow-[0_20px_50px_rgba(139,157,126,0.3)] transition-all duration-300 flex items-center justify-center group border-2 border-[var(--color-tint-40)] hover:border-[var(--color-base)]"
           >
             {/* Icon */}
-            <ShoppingCart 
-              className="w-7 h-7 text-[var(--color-base)] group-hover:scale-110 transition-transform" 
-              strokeWidth={2.5} 
+            <ShoppingCart
+              className="w-7 h-7 text-[var(--color-base)] group-hover:scale-110 transition-transform"
+              strokeWidth={2.5}
             />
 
             {/* Badge */}

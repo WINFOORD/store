@@ -2,7 +2,7 @@
 
 import { useState, memo } from 'react';
 import { Heart, ShoppingCart, Info, Star, Zap, TrendingUp } from 'lucide-react';
-import { colors } from '../../colors';
+import { colors } from '../colors';
 
 // JSON Content for i18n
 const cardContent = {
@@ -43,7 +43,7 @@ interface ProductCardProps {
   onAddToCart?: () => void;
 }
 
-export const ProductCard = memo<ProductCardProps>(({ 
+export const ProductCard = memo<ProductCardProps>(({
   title,
   price,
   originalPrice,
@@ -89,7 +89,7 @@ export const ProductCard = memo<ProductCardProps>(({
       >
         {/* Image Container - Smaller */}
         <div className="relative aspect-[4/3] overflow-hidden">
-          <div 
+          <div
             className="absolute inset-0 transition-all duration-500"
             style={{
               backgroundColor: bgColor || 'var(--color-tint-20)',
@@ -97,7 +97,7 @@ export const ProductCard = memo<ProductCardProps>(({
               transform: isHovered ? 'scale(1.1)' : 'scale(1)'
             }}
           />
-          
+
           <img
             src={image}
             alt={title}
@@ -120,7 +120,7 @@ export const ProductCard = memo<ProductCardProps>(({
                   {text.organic}
                 </div>
               )}
-              
+
               {isNew && (
                 <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 shadow-lg">
                   <Zap className="w-3 h-3" />
@@ -137,7 +137,7 @@ export const ProductCard = memo<ProductCardProps>(({
             )}
           </div>
 
-          
+
 
           {/* Category + Cart */}
           <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
@@ -146,8 +146,8 @@ export const ProductCard = memo<ProductCardProps>(({
                 {category}
               </div>
             )}
-            
-            <button 
+
+            <button
               onClick={handleAddToCart}
               className="w-11 h-11 rounded-full bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-110"
               style={{
@@ -214,21 +214,21 @@ export const ProductCard = memo<ProductCardProps>(({
       >
         {/* Image */}
         <div className="relative aspect-square overflow-hidden rounded-3xl m-3">
-          <div 
+          <div
             className="absolute inset-0 transition-all duration-500"
             style={{
               backgroundColor: bgColor || 'var(--color-tint-20)',
               opacity: imageLoaded ? 0.8 : 0.3,
             }}
           />
-          
+
           <img
             src={image}
             alt={title}
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
             className="relative w-full h-full object-cover transition-all duration-700"
-            style={{ 
+            style={{
               transform: isHovered ? 'scale(1.1) rotate(2deg)' : 'scale(1) rotate(0deg)'
             }}
           />
@@ -250,9 +250,9 @@ export const ProductCard = memo<ProductCardProps>(({
             </div>
           )}
 
-         
+
           {/* Cart */}
-          <button 
+          <button
             onClick={handleAddToCart}
             className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white flex items-center justify-center shadow-xl transition-all duration-300"
             style={{
@@ -307,7 +307,7 @@ export const ProductCard = memo<ProductCardProps>(({
       <div className="flex gap-3 p-3">
         {/* Small Image */}
         <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
-          <div 
+          <div
             className="absolute inset-0"
             style={{ backgroundColor: bgColor || 'var(--color-tint-20)' }}
           />
@@ -318,7 +318,7 @@ export const ProductCard = memo<ProductCardProps>(({
             className="relative w-full h-full object-cover transition-transform duration-500"
             style={{ transform: isHovered ? 'scale(1.15)' : 'scale(1)' }}
           />
-          
+
           {isOrganic && (
             <div className="absolute top-1 left-1 bg-green-500 w-5 h-5 rounded-full flex items-center justify-center">
               <div className="w-2 h-2 bg-white rounded-full" />
@@ -342,7 +342,7 @@ export const ProductCard = memo<ProductCardProps>(({
 
           <div className="flex items-center justify-between">
             <div className="text-[var(--color-shade-80)] font-bold text-base">€{price}</div>
-            <button 
+            <button
               onClick={handleAddToCart}
               className="w-8 h-8 rounded-lg bg-[var(--color-base)] hover:bg-[var(--color-shade-20)] text-white flex items-center justify-center transition-all hover:scale-105"
             >

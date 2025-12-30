@@ -2,31 +2,31 @@
 
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import OptimizedImage from '../optimizeImage';
+import OptimizedImage from './optimizeImage';
 
 const slides = [
-    {
-      id: 1,
-      img: '/images/giftpack.webp',
-      title: 'پک هدیه',
-      sub: 'وارداتی',
-      price: 'T 250,000 '
-    },
-    {
-      id: 2,
-      img: '/images/yalda.webp',
-      title: 'پک های شیشه ای',
-      sub: 'ارگانیک',
-      price: 'T 370,000'
-    },
-    {
-      id: 3,
-      img: '/images/yaldaPack.webp',
-      title: 'پک شب یلدا',
-      sub: 'پر فروش ترین این ماه',
-      price: 'T 1,200,000'
-    },
-  ];
+  {
+    id: 1,
+    img: '/images/giftpack.webp',
+    title: 'پک هدیه',
+    sub: 'وارداتی',
+    price: 'T 250,000 '
+  },
+  {
+    id: 2,
+    img: '/images/yalda.webp',
+    title: 'پک های شیشه ای',
+    sub: 'ارگانیک',
+    price: 'T 370,000'
+  },
+  {
+    id: 3,
+    img: '/images/yaldaPack.webp',
+    title: 'پک شب یلدا',
+    sub: 'پر فروش ترین این ماه',
+    price: 'T 1,200,000'
+  },
+];
 function CategoryCard({ cat, index }: { cat: typeof slides[0]; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -67,7 +67,7 @@ function CategoryCard({ cat, index }: { cat: typeof slides[0]; index: number }) 
         className="absolute inset-0  scale-105 transition-transform duration-500 "
       >
         <OptimizedImage
-        fill
+          fill
           src={cat.img}
           alt={cat.title}
           className="  object-cover   "
@@ -126,10 +126,10 @@ export function CategoryCarousel() {
 
   return (
     <section className="" dir="rtl">
-    
+
 
       <div className="  relative z-10">
-   
+
 
         <div className="relative w-full  flex items-center justify-center">
           <motion.div
@@ -151,14 +151,12 @@ export function CategoryCarousel() {
                 className="group flex items-center gap-2 "
               >
                 <div
-                  className={`h-px transition-all duration-500 ${
-                    index === i ? 'w-12 bg-stone-900' : 'w-6 bg-stone-400'
-                  }`}
+                  className={`h-px transition-all duration-500 ${index === i ? 'w-12 bg-stone-900' : 'w-6 bg-stone-400'
+                    }`}
                 />
                 <span
-                  className={`text-[10px] tracking-wider ${
-                    index === i ? 'text-stone-900' : 'text-stone-400'
-                  }`}
+                  className={`text-[10px] tracking-wider ${index === i ? 'text-stone-900' : 'text-stone-400'
+                    }`}
                 >
                   {i + 1}
                 </span>
@@ -167,7 +165,7 @@ export function CategoryCarousel() {
           </div>
         </div>
 
-         
+
       </div>
     </section>
   );
