@@ -58,13 +58,13 @@ function CategoryCard({ cat, index }: { cat: typeof slides[0]; index: number }) 
       onMouseLeave={resetMouse}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.4 }}
-      className="relative group cursor-pointer h-[52vh] w-full aspect-[9/10]  overflow-hidden rounded-3xl shadow-xl shadow-white/10 transition-shadow duration-700"
+      className="relative group cursor-pointer h-[46vh] w-full aspect-[9/5]  overflow-hidden rounded-3xl shadow-xl shadow-white/10 transition-shadow duration-700"
       style={{ perspective: '2000px' }}
     >
       <motion.div
         ref={imageRef}
         style={{ x: mouseX, y: mouseY }}
-        className="absolute inset-0  scale-110 "
+        className="absolute inset-0  scale-105 transition-transform duration-500 "
       >
         <OptimizedImage
         fill

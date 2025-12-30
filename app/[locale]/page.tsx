@@ -22,7 +22,6 @@ export default async function HomePage({ params }: Props) {
 
       <HeaderNuts dict={dict} locale={locale} />
       <HomeMain />
-      <ElegantCategories />
       <LuxuryShopCards   />
       <StickyCartBar totalItems={2} totalPrice={1500} />
       <Footers locale={locale} dict={dict} />

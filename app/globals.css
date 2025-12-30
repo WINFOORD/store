@@ -245,3 +245,20 @@ label, li, td, th {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
+.categories-grid .category-card {
+  transition: all 0.35s ease !important;
+}
+
+/* وقتی روی کل گرید هاور می‌کنی */
+.categories-grid:hover .category-card {
+  transform: scale(0.95) !important;
+  opacity: 0.6 !important;
+}
+
+/* فقط کارت هاور شده */
+.categories-grid .category-card[data-hovered="true"] {
+  transform: scale(1.05) !important;
+
+  opacity: 1 !important;
+  z-index: 10 !important;
+}

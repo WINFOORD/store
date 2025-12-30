@@ -1,13 +1,12 @@
 export const colors = {
-  '--color-base': '#e2c6aa',
-  '--color-shade-20': '#b59e88',
-  '--color-shade-40': '#887766',
-  '--color-shade-60': '#5a4f44',
-  '--color-shade-80': '#2d2822',
-  '--color-tint-10': '#f9f4ee',
-
-  '--color-tint-20': '#e8d1bb',
-  '--color-tint-40': '#eeddcc',
-  '--color-tint-60': '#f3e8dd',
-  '--color-tint-80': '#f9f4ee',
+  '--color-base': '#8B9D7E',
+  '--color-shade-20': '#6F7E65',
+  '--color-shade-40': '#535E4B',
+  '--color-shade-60': '#3A4235',
+  '--color-shade-80': '#1D211A',
+  '--color-tint-10': '#F5F7F3',
+  '--color-tint-20': '#E8EDE4',
+  '--color-tint-40': '#D4DCC9',
+  '--color-tint-60': '#C0CBAF',
+  '--color-tint-80': '#ACB994',
 };

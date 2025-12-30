@@ -230,7 +230,7 @@ export function HeaderNuts({ locale = 'fa', dict = {} }: any) {
 
         {/* Row 2: Navigation Mega Menus (Desktop Only) */}
         {!isScrolled && (
-          <nav className="hidden md:flex items-center justify-center gap-20 lg:gap-40 mt-4">
+          <nav className="hidden md:flex items-center justify-center gap-20 lg:gap-40 ">
             
             <MegaMenuItem title="محصولات" width="large">
               <div className="grid grid-cols-3 gap-4 mb-6">
